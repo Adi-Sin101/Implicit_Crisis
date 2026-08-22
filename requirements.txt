@@ -1,0 +1,6 @@
+# Core pipeline: data loading, candidate pooling, annotation, TF-IDF baseline.
+# Everything except scripts/experiments/run_bert.py runs with only these.
+pandas>=2.0
+numpy>=1.24
+PyYAML>=6.0
+scikit-learn>=1.3

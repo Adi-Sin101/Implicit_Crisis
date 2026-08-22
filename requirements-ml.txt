@@ -1,0 +1,8 @@
+# Additional dependencies for the BERT experiment only
+# (scripts/experiments/run_bert.py). Install on top of requirements.txt.
+#
+# Install the torch build matching your CUDA version; see pytorch.org.
+-r requirements.txt
+torch>=2.0
+transformers>=4.35
+accelerate>=0.24

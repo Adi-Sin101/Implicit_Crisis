@@ -1,0 +1,55 @@
+# Candidate-pool construction and stratified sampling.
+# Strata are SAMPLING BUCKETS ONLY. They never become gold labels.
+
+seed: 42
+
+cleaning:
+  min_words: 5
+  max_words: 400
+  drop_removed_placeholders: true      # [removed], [deleted], nan, empty
+  normalise_whitespace: true
+  strip_urls: false                    # keep text as authored; URLs are masked, not deleted
+  mask_urls: true
+  dedup:
+    exact: true
+    near_duplicate: true
+    minhash_threshold: 0.9
+
+# Lexical routing. Used ONLY to route candidates into strata.
+# The detector never assigns a final label.
+explicit_lexicon:
+  - "suicid"
+  - "kill myself"
+  - "killing myself"
+  - "end my life"
+  - "ending my life"
+  - "take my own life"
+  - "taking my own life"
+  - "end it all"
+  - "kms"
+  - "unalive"
+  - "off myself"
+  - "hang myself"
+  - "overdose on"
+
+# Target counts per stratum for the annotation batch.
+strata:
+  A_likely_explicit:
+    description: "Source label positive/high-risk AND explicit lexicon hit."
+    target_n: 400
+  B_likely_implicit:
+    description: "Source label positive/high-risk or interpersonal-risk flag, NO explicit lexicon hit."
+    target_n: 800
+  C_hard_negative:
+    description: "Explicit lexicon hit but source label negative / non-crisis."
+    target_n: 500
+  D_likely_noncrisis:
+    description: "No explicit lexicon hit and no crisis-oriented source signal (incl. GoEmotions)."
+    target_n: 300
+
+sources:
+  komati:      {enabled: true,  max_sample: 40000}
+  irf:         {enabled: true,  max_sample: null}
+  sdcnl:       {enabled: true,  max_sample: null}
+  cams:        {enabled: true,  max_sample: null}
+  goemotions:  {enabled: true,  max_sample: 8000}

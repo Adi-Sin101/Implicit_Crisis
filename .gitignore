@@ -1,0 +1,75 @@
+# ---------------------------------------------------------------
+# Data
+# ---------------------------------------------------------------
+# External source corpora and derived working data are NOT committed.
+# They are reconstructed locally by following docs/datasets/ + DATASETS.md.
+data/raw/
+data/interim/
+data/processed/
+data/gold/candidates/
+data/gold/annotation/
+data/gold/final/
+
+# ...but keep directory structure, schemas and small metadata trackable.
+!data/**/.gitkeep
+!data/**/README.md
+!data/**/*.schema.json
+!data/**/*.md
+
+# ---------------------------------------------------------------
+# Models / large artefacts
+# ---------------------------------------------------------------
+# Anchored to the repo root so src/models/ (our code) is NOT ignored.
+/models/
+/checkpoints/
+/runs/
+/outputs/
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+*.pkl
+*.joblib
+*.npy
+*.npz
+
+# Experiment outputs (metrics tables are committed explicitly if small)
+experiments/**/predictions/
+experiments/**/checkpoints/
+
+# ---------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# ---------------------------------------------------------------
+# Notebooks
+# ---------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------
+# Editors / OS
+# ---------------------------------------------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------
+# Secrets / logs
+# ---------------------------------------------------------------
+.env
+.env.*
+*.log

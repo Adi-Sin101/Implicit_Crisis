@@ -1,0 +1,40 @@
+# All paths are relative to the project root. No absolute/machine-specific paths.
+project_root: "."
+
+raw:
+  cams_dir:            "data/raw/CAMS"
+  cams_main:           "data/raw/CAMS/dataset (7).csv"
+  cams_added:          "data/raw/CAMS/CAMS/data/added_CAMS_data.csv"
+  cams_intent_train:   "data/raw/CAMS/CAMS/data/IntentSDCNL_Training.csv"
+  cams_intent_test:    "data/raw/CAMS/CAMS/data/IntentSDCNL_Testing.csv"
+
+  irf_dir:             "data/raw/IRF"
+  irf_train:           "data/raw/IRF/train_data.csv"
+  irf_val:             "data/raw/IRF/val_data.csv"
+  irf_test:            "data/raw/IRF/test_data.csv"
+
+  sdcnl_dir:           "data/raw/SDCNL"
+  sdcnl_combined:      "data/raw/SDCNL/data/combined-set.csv"
+  sdcnl_train:         "data/raw/SDCNL/data/training-set.csv"
+  sdcnl_test:          "data/raw/SDCNL/data/testing-set.csv"
+
+  goemotions_dir:      "data/raw/other/goemotions/data"
+  goemotions_train:    "data/raw/other/goemotions/data/train.tsv"
+  goemotions_dev:      "data/raw/other/goemotions/data/dev.tsv"
+  goemotions_test:     "data/raw/other/goemotions/data/test.tsv"
+  goemotions_labels:   "data/raw/other/goemotions/data/emotions.txt"
+
+  komati:              "data/raw/other/Suicide_Detection.csv"
+
+interim:
+  candidate_pool:      "data/interim/candidate_pool/pool.csv"
+  cleaned_pool:        "data/interim/preprocessing/pool_clean.csv"
+
+gold:
+  candidates:          "data/gold/candidates/candidates.csv"
+  annotation_sheets:   "data/gold/annotation"
+  calibration_sheet:   "data/gold/annotation/calibration_150.csv"
+  gold_final:          "data/gold/final/gold.csv"
+  splits_dir:          "data/gold/final"
+
+experiments_dir:       "experiments"
