@@ -1,0 +1,57 @@
+{
+  "model_name": "bert-base-uncased",
+  "tokenizer_name": "bert-base-uncased",
+  "max_length": 256,
+  "learning_rate": 2e-05,
+  "epochs": 3,
+  "batch_size": 16,
+  "gradient_accumulation_steps": 1,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.1,
+  "optimizer": "AdamW",
+  "seed": 42,
+  "device": "cpu",
+  "num_labels": 4,
+  "label_mapping": {
+    "explicit_crisis": 0,
+    "implicit_crisis": 1,
+    "hard_negative": 2,
+    "non_crisis": 3
+  },
+  "padding": "dynamic",
+  "truncation": true,
+  "model_selection_metric": "validation_macro_f1",
+  "effective_batch_size": 16,
+  "steps_per_epoch": 87,
+  "total_optimizer_steps": 261,
+  "scheduler": "linear_with_warmup",
+  "splits_dir": "E:\\4-1\\Lab\\NLP\\NLP project\\Implicit_Crisis\\data\\gold\\splits",
+  "split_sizes": {
+    "train": 1391,
+    "validation": 298,
+    "test": 298
+  },
+  "feature_columns": [
+    "text",
+    "label"
+  ],
+  "excluded_columns": [
+    "confidence",
+    "notes",
+    "source",
+    "stratum",
+    "candidate_reason",
+    "annotation provenance"
+  ],
+  "environment": {
+    "device": "cpu",
+    "cuda_available": false,
+    "gpu_name": null,
+    "python": "3.13.7",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch": "2.14.0+cpu",
+    "transformers": "5.17.0",
+    "scikit_learn": "1.9.0",
+    "numpy": "2.3.5"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "split": "test",
+  "n_examples": 298,
+  "n_incorrect": 90,
+  "test_loss": 0.8316718591939682,
+  "overall": {
+    "accuracy": 0.697986577181208,
+    "macro_precision": 0.6843732421062929,
+    "macro_recall": 0.5478451319631984,
+    "macro_f1": 0.5534219533672041,
+    "weighted_precision": 0.6912584967769246,
+    "weighted_recall": 0.697986577181208,
+    "weighted_f1": 0.6569071927395796,
+    "n": 298
+  },
+  "per_class": {
+    "explicit_crisis": {
+      "precision": 0.7207792207792207,
+      "recall": 0.8951612903225806,
+      "f1": 0.7985611510791367,
+      "support": 124
+    },
+    "implicit_crisis": {
+      "precision": 0.625,
+      "recall": 0.12195121951219512,
+      "f1": 0.20408163265306123,
+      "support": 41
+    },
+    "hard_negative": {
+      "precision": 0.7222222222222222,
+      "recall": 0.35135135135135137,
+      "f1": 0.4727272727272727,
+      "support": 37
+    },
+    "non_crisis": {
+      "precision": 0.6694915254237288,
+      "recall": 0.8229166666666666,
+      "f1": 0.7383177570093458,
+      "support": 96
+    }
+  },
+  "implicit_crisis_analysis": {
+    "slice": "implicit_crisis",
+    "support": 41,
+    "precision": 0.625,
+    "recall": 0.12195121951219512,
+    "f1": 0.20408163265306123,
+    "n_predicted_as_slice": 8,
+    "prediction_breakdown": {
+      "explicit_crisis": 15,
+      "implicit_crisis": 5,
+      "hard_negative": 0,
+      "non_crisis": 21
+    },
+    "prediction_breakdown_rate": {
+      "explicit_crisis": 0.36585365853658536,
+      "implicit_crisis": 0.12195121951219512,
+      "hard_negative": 0.0,
+      "non_crisis": 0.5121951219512195
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "explicit_crisis",
+      "implicit_crisis",
+      "hard_negative",
+      "non_crisis"
+    ],
+    "rows_are_true_labels": true,
+    "matrix": [
+      [
+        111,
+        0,
+        2,
+        11
+      ],
+      [
+        15,
+        5,
+        0,
+        21
+      ],
+      [
+        17,
+        0,
+        13,
+        7
+      ],
+      [
+        11,
+        3,
+        3,
+        79
+      ]
+    ]
+  },
+  "selected_checkpoint": {
+    "epoch": 3,
+    "validation_macro_f1": 0.53945168104207,
+    "path": "E:\\4-1\\Lab\\NLP\\NLP project\\Implicit_Crisis\\models\\bert\\best_model"
+  },
+  "label_mapping": {
+    "explicit_crisis": 0,
+    "implicit_crisis": 1,
+    "hard_negative": 2,
+    "non_crisis": 3
+  },
+  "training_seconds": 6062.641810655594
+}

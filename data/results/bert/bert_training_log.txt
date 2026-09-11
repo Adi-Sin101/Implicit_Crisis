@@ -1,0 +1,103 @@
+[data] validating frozen splits in E:\4-1\Lab\NLP\NLP project\Implicit_Crisis\data\gold\splits
+[data] {'train': 1391, 'validation': 298, 'test': 298}
+[env] {'device': 'cpu', 'cuda_available': False, 'gpu_name': None, 'python': '3.13.7', 'platform': 'Windows-11-10.0.26200-SP0', 'torch': '2.14.0+cpu', 'transformers': '5.17.0', 'scikit_learn': '1.9.0', 'numpy': '2.3.5'}
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+[transformers] BertForSequenceClassification LOAD REPORT from: bert-base-uncased
+Key                                        | Status     | 
+-------------------------------------------+------------+-
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED | 
+cls.predictions.transform.dense.bias       | UNEXPECTED | 
+cls.seq_relationship.bias                  | UNEXPECTED | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED | 
+cls.seq_relationship.weight                | UNEXPECTED | 
+cls.predictions.transform.dense.weight     | UNEXPECTED | 
+cls.predictions.bias                       | UNEXPECTED | 
+classifier.weight                          | MISSING    | 
+classifier.bias                            | MISSING    | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[train] 3 epochs x 87 batches (bs=16, accum=1) on cpu
+E:\4-1\Lab\NLP\NLP project\Implicit_Crisis\scripts\models\train_bert.py:265: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\autograd\generated\python_variable_methods.cpp:821.)
+  running += float(out.loss) * bs
+  epoch 1 step 20/87 loss=1.3648 (425s)
+  epoch 1 step 40/87 loss=1.2998 (848s)
+  epoch 1 step 60/87 loss=1.2595 (1270s)
+  epoch 1 step 80/87 loss=1.2243 (1694s)
+  epoch 1 step 87/87 loss=1.2142 (1842s)
+[epoch 1] train_loss=1.2142 val_loss=1.0869 val_macro_f1=0.4101 val_acc=0.5940
+
+[select] new best checkpoint (epoch 1, val macro F1 0.4101)
+  epoch 2 step 20/87 loss=0.9070 (424s)
+  epoch 2 step 40/87 loss=0.8678 (846s)
+  epoch 2 step 60/87 loss=0.8779 (1308s)
+  epoch 2 step 80/87 loss=0.8830 (1777s)
+  epoch 2 step 87/87 loss=0.8794 (1941s)
+[epoch 2] train_loss=0.8794 val_loss=0.8647 val_macro_f1=0.5171 val_acc=0.7013
+
+[select] new best checkpoint (epoch 2, val macro F1 0.5171)
+  epoch 3 step 20/87 loss=0.7026 (469s)
+  epoch 3 step 40/87 loss=0.6998 (941s)
+  epoch 3 step 60/87 loss=0.7004 (1405s)
+  epoch 3 step 80/87 loss=0.7062 (1846s)
+  epoch 3 step 87/87 loss=0.7013 (1997s)
+[epoch 3] train_loss=0.7013 val_loss=0.8338 val_macro_f1=0.5395 val_acc=0.7047
+
+[select] new best checkpoint (epoch 3, val macro F1 0.5395)
+[test] loading best checkpoint from epoch 3
+
+
+=== TEST ===
+{
+  "accuracy": 0.697986577181208,
+  "macro_precision": 0.6843732421062929,
+  "macro_recall": 0.5478451319631984,
+  "macro_f1": 0.5534219533672041,
+  "weighted_precision": 0.6912584967769246,
+  "weighted_recall": 0.697986577181208,
+  "weighted_f1": 0.6569071927395796,
+  "n": 298
+}
+
+Per class:
+  explicit_crisis  P=0.7208 R=0.8952 F1=0.7986 support=124
+  implicit_crisis  P=0.6250 R=0.1220 F1=0.2041 support=41
+  hard_negative    P=0.7222 R=0.3514 F1=0.4727 support=37
+  non_crisis       P=0.6695 R=0.8229 F1=0.7383 support=96
+
+Confusion matrix (rows = gold):
+                 explicit_crisis  implicit_crisis  hard_negative  non_crisis
+true_label                                                                  
+explicit_crisis              111                0              2          11
+implicit_crisis               15                5              0          21
+hard_negative                 17                0             13           7
+non_crisis                    11                3              3          79
+
+Implicit-crisis analysis:
+{
+  "slice": "implicit_crisis",
+  "support": 41,
+  "precision": 0.625,
+  "recall": 0.12195121951219512,
+  "f1": 0.20408163265306123,
+  "n_predicted_as_slice": 8,
+  "prediction_breakdown": {
+    "explicit_crisis": 15,
+    "implicit_crisis": 5,
+    "hard_negative": 0,
+    "non_crisis": 21
+  },
+  "prediction_breakdown_rate": {
+    "explicit_crisis": 0.36585365853658536,
+    "implicit_crisis": 0.12195121951219512,
+    "hard_negative": 0.0,
+    "non_crisis": 0.5121951219512195
+  }
+}
+
+Errors: 90/298
+Results written to E:\4-1\Lab\NLP\NLP project\Implicit_Crisis\data\results\bert
+Best checkpoint: E:\4-1\Lab\NLP\NLP project\Implicit_Crisis\models\bert\best_model

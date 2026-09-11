@@ -1,0 +1,376 @@
+{
+  "experiment_name": "BERT Baseline v1",
+  "status": "frozen reproducibility reference \u2014 do not modify or overwrite",
+  "description": "First fine-tuning run of bert-base-uncased on the frozen gold splits, four-way classification, trained on CPU. Single configuration, single run, no hyperparameter search.",
+  "run_date": "2026-09-11",
+  "archived_date": "2026-09-12",
+  "dataset": {
+    "gold_file": "data/gold/gold.csv",
+    "records": 1987,
+    "label_counts": {
+      "explicit_crisis": 825,
+      "non_crisis": 642,
+      "implicit_crisis": 271,
+      "hard_negative": 249
+    },
+    "sha256": "8f2fa2d5b09a0d84472536a91360ee773cab5ee0902de8216accf1760be8086c",
+    "annotation_note": "Labels are AI-assisted annotations produced under the project's written guidelines (v2.1), not fully human-validated gold labels. Per data/gold/final_gold_dataset_report.json the dataset is 1,837 AI-assisted main annotations plus 150 calibration records that went through a dual-annotation and adjudication pass. The dataset must not be described as human-validated. See annotation/guidelines/ and data/gold/annotation/.",
+    "provenance_counts": {
+      "main_ai_assisted": 1837,
+      "calibration_adjudicated": 150
+    }
+  },
+  "splits": {
+    "seed": 42,
+    "ratios": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    },
+    "stratified_on": "label",
+    "regenerated_for_this_experiment": false,
+    "files": {
+      "train": {
+        "path": "data/gold/splits/train.csv",
+        "records": 1391,
+        "label_counts": {
+          "explicit_crisis": 577,
+          "non_crisis": 450,
+          "implicit_crisis": 189,
+          "hard_negative": 175
+        },
+        "sha256": "243cef3800fbd996c426d2354ec754b234fdcafd9d393cecd8e59bb0a3d11420"
+      },
+      "validation": {
+        "path": "data/gold/splits/validation.csv",
+        "records": 298,
+        "label_counts": {
+          "explicit_crisis": 124,
+          "non_crisis": 96,
+          "implicit_crisis": 41,
+          "hard_negative": 37
+        },
+        "sha256": "28819cc6b8871acd3e99fb88e086ce11d83025c880d761aebfdd4ff359725602"
+      },
+      "test": {
+        "path": "data/gold/splits/test.csv",
+        "records": 298,
+        "label_counts": {
+          "explicit_crisis": 124,
+          "non_crisis": 96,
+          "implicit_crisis": 41,
+          "hard_negative": 37
+        },
+        "sha256": "6e511bd1e8997673f4a6cd6cf6c29727504f9b49e27fa57044176033fd69afc6"
+      }
+    }
+  },
+  "model": {
+    "model_name": "bert-base-uncased",
+    "tokenizer_name": "bert-base-uncased",
+    "num_labels": 4,
+    "head": "standard sequence-classification head"
+  },
+  "label_mapping": {
+    "explicit_crisis": 0,
+    "implicit_crisis": 1,
+    "hard_negative": 2,
+    "non_crisis": 3
+  },
+  "inputs": {
+    "feature_columns": [
+      "text",
+      "label"
+    ],
+    "excluded_columns": [
+      "confidence",
+      "notes",
+      "source",
+      "stratum",
+      "candidate_reason",
+      "annotation provenance"
+    ],
+    "note": "Only the raw `text` column reaches the tokenizer. No metadata features."
+  },
+  "hyperparameters": {
+    "max_length": 256,
+    "truncation": true,
+    "padding": "dynamic",
+    "learning_rate": 2e-05,
+    "epochs": 3,
+    "batch_size": 16,
+    "gradient_accumulation_steps": 1,
+    "effective_batch_size": 16,
+    "optimizer": "AdamW",
+    "weight_decay": 0.01,
+    "scheduler": "linear_with_warmup",
+    "warmup_ratio": 0.1,
+    "gradient_clipping": 1.0,
+    "seed": 42,
+    "steps_per_epoch": 87,
+    "total_optimizer_steps": 261,
+    "model_selection_metric": "validation_macro_f1"
+  },
+  "hardware": {
+    "device": "cpu",
+    "cuda_available": false,
+    "gpu_name": null,
+    "cpu": "AMD Ryzen 5 5500U",
+    "cpu_cores": 6,
+    "cpu_logical_processors": 12,
+    "ram_gb": 15.4,
+    "platform": "Windows-11-10.0.26200-SP0",
+    "note": "No NVIDIA CUDA GPU available on this machine; CPU-only training."
+  },
+  "software": {
+    "python": "3.13.7",
+    "torch": "2.14.0+cpu",
+    "transformers": "5.17.0",
+    "scikit_learn": "1.9.0",
+    "numpy": "2.3.5"
+  },
+  "training": {
+    "duration_seconds": 6062.641810655594,
+    "duration_human": "approximately 1 hour 41 minutes",
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.2141987815510018,
+        "val_loss": 1.0868793765970524,
+        "val_accuracy": 0.5939597315436241,
+        "val_macro_precision": 0.488047955280965,
+        "val_macro_recall": 0.42653389276373144,
+        "val_macro_f1": 0.41011813045711354,
+        "val_weighted_f1": 0.5279659293423371,
+        "epoch_seconds": 1921.370843410492,
+        "is_best_so_far": true
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.8793994748789488,
+        "val_loss": 0.8647376686934657,
+        "val_accuracy": 0.7013422818791947,
+        "val_macro_precision": 0.536111837929921,
+        "val_macro_recall": 0.5377229548096484,
+        "val_macro_f1": 0.5171093287752284,
+        "val_weighted_f1": 0.6393738150464231,
+        "epoch_seconds": 2035.9132568836212,
+        "is_best_so_far": true
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.7013486713963735,
+        "val_loss": 0.8337569968812417,
+        "val_accuracy": 0.7046979865771812,
+        "val_macro_precision": 0.6333074534161491,
+        "val_macro_recall": 0.5473139100942013,
+        "val_macro_f1": 0.53945168104207,
+        "val_weighted_f1": 0.6543570999056079,
+        "epoch_seconds": 2081.4482519626617,
+        "is_best_so_far": true
+      }
+    ],
+    "best_epoch": 3,
+    "best_validation_macro_f1": 0.53945168104207,
+    "selection_metric": "validation_macro_f1"
+  },
+  "validation_results_at_best_epoch": {
+    "accuracy": 0.7046979865771812,
+    "macro_precision": 0.6333074534161491,
+    "macro_recall": 0.5473139100942013,
+    "macro_f1": 0.53945168104207,
+    "weighted_precision": 0.6678540164241944,
+    "weighted_recall": 0.7046979865771812,
+    "weighted_f1": 0.6543570999056079,
+    "n": 298
+  },
+  "test_results": {
+    "n_examples": 298,
+    "n_incorrect": 90,
+    "test_loss": 0.8316718591939682,
+    "overall": {
+      "accuracy": 0.697986577181208,
+      "macro_precision": 0.6843732421062929,
+      "macro_recall": 0.5478451319631984,
+      "macro_f1": 0.5534219533672041,
+      "weighted_precision": 0.6912584967769246,
+      "weighted_recall": 0.697986577181208,
+      "weighted_f1": 0.6569071927395796,
+      "n": 298
+    },
+    "per_class": {
+      "explicit_crisis": {
+        "precision": 0.7207792207792207,
+        "recall": 0.8951612903225806,
+        "f1": 0.7985611510791367,
+        "support": 124
+      },
+      "implicit_crisis": {
+        "precision": 0.625,
+        "recall": 0.12195121951219512,
+        "f1": 0.20408163265306123,
+        "support": 41
+      },
+      "hard_negative": {
+        "precision": 0.7222222222222222,
+        "recall": 0.35135135135135137,
+        "f1": 0.4727272727272727,
+        "support": 37
+      },
+      "non_crisis": {
+        "precision": 0.6694915254237288,
+        "recall": 0.8229166666666666,
+        "f1": 0.7383177570093458,
+        "support": 96
+      }
+    },
+    "weighted_avg": {
+      "precision": 0.6912584967769246,
+      "recall": 0.697986577181208,
+      "f1": 0.6569071927395796,
+      "support": 298.0
+    },
+    "confusion_matrix": {
+      "labels": [
+        "explicit_crisis",
+        "implicit_crisis",
+        "hard_negative",
+        "non_crisis"
+      ],
+      "rows_are_true_labels": true,
+      "matrix": [
+        [
+          111,
+          0,
+          2,
+          11
+        ],
+        [
+          15,
+          5,
+          0,
+          21
+        ],
+        [
+          17,
+          0,
+          13,
+          7
+        ],
+        [
+          11,
+          3,
+          3,
+          79
+        ]
+      ]
+    }
+  },
+  "implicit_crisis_slice": {
+    "slice": "implicit_crisis",
+    "support": 41,
+    "precision": 0.625,
+    "recall": 0.12195121951219512,
+    "f1": 0.20408163265306123,
+    "n_predicted_as_slice": 8,
+    "prediction_breakdown": {
+      "explicit_crisis": 15,
+      "implicit_crisis": 5,
+      "hard_negative": 0,
+      "non_crisis": 21
+    },
+    "prediction_breakdown_rate": {
+      "explicit_crisis": 0.36585365853658536,
+      "implicit_crisis": 0.12195121951219512,
+      "hard_negative": 0.0,
+      "non_crisis": 0.5121951219512195
+    }
+  },
+  "errors": {
+    "total": 90,
+    "of": 298,
+    "by_confusion_pair": [
+      {
+        "true_label": "implicit_crisis",
+        "predicted_label": "non_crisis",
+        "n": 21
+      },
+      {
+        "true_label": "hard_negative",
+        "predicted_label": "explicit_crisis",
+        "n": 17
+      },
+      {
+        "true_label": "implicit_crisis",
+        "predicted_label": "explicit_crisis",
+        "n": 15
+      },
+      {
+        "true_label": "non_crisis",
+        "predicted_label": "explicit_crisis",
+        "n": 11
+      },
+      {
+        "true_label": "explicit_crisis",
+        "predicted_label": "non_crisis",
+        "n": 11
+      },
+      {
+        "true_label": "hard_negative",
+        "predicted_label": "non_crisis",
+        "n": 7
+      },
+      {
+        "true_label": "non_crisis",
+        "predicted_label": "hard_negative",
+        "n": 3
+      },
+      {
+        "true_label": "non_crisis",
+        "predicted_label": "implicit_crisis",
+        "n": 3
+      },
+      {
+        "true_label": "explicit_crisis",
+        "predicted_label": "hard_negative",
+        "n": 2
+      }
+    ],
+    "mean_confidence_on_errors": 0.5936703871307485,
+    "mean_confidence_on_correct": 0.710649364970525
+  },
+  "artifacts": {
+    "results_dir": "data/results/bert/baseline_v1/",
+    "checkpoint_dir": "models/bert/baseline_v1/best_model/",
+    "documentation": "docs/methodology/bert_baseline_v1.md",
+    "training_script": "scripts/models/train_bert.py",
+    "pipeline_module": "src/models/bert/pipeline.py",
+    "archive_script": "scripts/models/archive_bert_baseline_v1.py",
+    "result_file_sha256": {
+      "bert_config.json": "64e1e16e8f22639b14b28bd73468e5a0726eac212de851c1226df7a910d907f6",
+      "bert_training_history.json": "3d1f29ec1c053962ba6f5efde3db859f0df1595621e496a2f047de4100a87902",
+      "bert_test_metrics.json": "e67a0cc4b443c0f30c839e9d9961e9a66b2e7568aeb6299f023f7b683abbcf94",
+      "bert_classification_report.json": "b29d58114b198cff11dbc3b0b1a0a8fcea66a63ddafc9882fff5e46d6a88d5e7",
+      "bert_confusion_matrix.csv": "6704e1c06b913a5ea3897b651fc649b1a94a6357c549f63fe13e4e35ba80cfb1",
+      "bert_test_predictions.csv": "ef6f4b9b4fddb8c0a877f0c27b174cda85d08f78490790ef3aeea4ded273c400",
+      "bert_errors.csv": "0c5104a7dd82b9cb01ea21989cbd88dddb352c054034f742890baea11d3a4636",
+      "bert_training_log.txt": "0c43ec27d605c22fbc72e4c6c1bab457d9a121f12ddc9ef00933e9428ffd28db"
+    },
+    "checkpoint_file_sha256": {
+      "config.json": "02d8a8bf53b45a8738942dbebb68948f01aa91c70413bfe5bebe014a63a1cf46",
+      "model.safetensors": "b413049994f44ccd44cfa239b9ba1adfc8be49c02014773d721a2d40e5f81cc1",
+      "selection.json": "90b4c4f8cb42e85417624930adefdbeedb3fc15c5e2a3b2a1b6078d21bac023a",
+      "tokenizer.json": "8b79639ec74b46604e730f505186eaafb1006d2fd00f2c4930d168bb7f894680",
+      "tokenizer_config.json": "71cd48543bec670f50e0c9c3556df16b1f58ea720ead6a1b4675f08870c60b17"
+    }
+  },
+  "limitations": [
+    "CPU-only training; no CUDA GPU was available.",
+    "Three epochs only. Validation macro F1 was still rising at epoch 3, so the model is under-trained rather than converged.",
+    "No hyperparameter search, class weighting, resampling, augmentation or threshold tuning was performed.",
+    "implicit_crisis recall is 0.1220 (5 of 41): the baseline largely fails on the project's primary research slice.",
+    "46% of hard negatives (17 of 37) are predicted explicit_crisis, indicating reliance on surface crisis vocabulary.",
+    "Single run with a single seed; no variance estimate.",
+    "Small gold dataset (1,987 records) with AI-assisted annotation."
+  ]
+}
