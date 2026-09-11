@@ -1,6 +1,6 @@
 """Validate an annotated file and (optionally) write the gold splits.
 
-    python scripts/annotation/validate_gold_dataset.py --input data/gold/final/gold.csv
+    python scripts/annotation/validate_gold_dataset.py --input data/gold/gold.csv
     python scripts/annotation/validate_gold_dataset.py --input ... --split
 
 Checks label vocabulary, blank labels, duplicate ids and class coverage, then
@@ -57,7 +57,7 @@ def main() -> int:
         key = read_table(key_path)
         if "stratum" in key.columns:
             merged = gold.merge(key[["id", "stratum"]], on="id", how="left")
-            print("\nGold label x sampling stratum (routing diagnostic only):")
+            print("\nAnnotation label x sampling stratum (routing diagnostic only):")
             print(pd.crosstab(merged["stratum"], merged["label"]).to_string())
 
     if args.split:

@@ -25,16 +25,25 @@ raw:
   goemotions_labels:   "data/raw/other/goemotions/data/emotions.txt"
 
   komati:              "data/raw/other/Suicide_Detection.csv"
+  suicide_reddit_dataset: "data/raw/Suicide Reddit Dataset/data.rar"
 
 interim:
   candidate_pool:      "data/interim/candidate_pool/pool.csv"
   cleaned_pool:        "data/interim/preprocessing/pool_clean.csv"
+  suicide_reddit_hard_negative_candidates: "data/interim/candidates/suicide_reddit_hard_negative_candidates.csv"
+  suicide_reddit_hard_negative_report: "data/interim/candidates/suicide_reddit_hard_negative_extraction_report.json"
+  suicide_reddit_hard_negative_qc: "data/interim/candidates/suicide_reddit_hard_negative_qc.csv"
+  suicide_reddit_hard_negative_qc_report: "data/interim/candidates/suicide_reddit_hard_negative_qc_report.json"
+  suicide_reddit_hard_negative_integration_report: "data/interim/candidates/suicide_reddit_hard_negative_integration_report.json"
 
 gold:
   candidates:          "data/gold/candidates/candidates.csv"
   annotation_sheets:   "data/gold/annotation"
+  remaining_blind_sheet: "data/gold/annotation/remaining_1837_blind.csv"
+  remaining_blind_report: "data/gold/annotation/remaining_1837_blind_report.json"
   calibration_sheet:   "data/gold/annotation/calibration_150.csv"
-  gold_final:          "data/gold/final/gold.csv"
-  splits_dir:          "data/gold/final"
+  # Frozen operational annotation dataset: 1,987 records.
+  gold_final:          "data/gold/gold.csv"
+  splits_dir:          "data/gold/splits"
 
 experiments_dir:       "experiments"

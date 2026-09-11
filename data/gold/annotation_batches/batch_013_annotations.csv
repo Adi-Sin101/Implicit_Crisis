@@ -1,0 +1,150 @@
+id,text,label,confidence,notes
+komati-9105e45a9b7b,"I got prescribed meds today and am really nervousLexapro is what I've been given. I'm scared I may have made a really bad decision or jumped into a rabbit hole.
+
+My anxiety lately has been horrible which makes me feel like this was an impulsive decision but idk. 
+
+Has anyone else tried lexapro",non_crisis,high,Discusses a friend’s recovery and personal disappointment without crisis meaning.
+sdcnl-e4141890e6b1,"Antidepressants are all placebos.
+
+I’m convinced that antidepressants don’t do shit. I’ve been on bupropion, sertraline, risperidone and citalopram. None of them feel like they do anything. From the day I started taking them, I never felt the slightest effect. No dizziness, sleepiness, wooziness, grogginess, horniness, happiness, sadness, gassiness or any other ness. Nothing to indicate that they work. They’re placebos meant to trick people into thinking they’re working.",non_crisis,high,Medication concern without crisis-level meaning.
+komati-67a292a4da9e,"I'm having homocidal and suicidal thoughtsI'm a 19 yr old university student who deals with mental issues including depression. I've attempted to kill myself 4 times in my life, the first attempt occuring at the age of 10. I now have more access to failproof methods, but haven't killed myself because I started caring about how my family would feel If I went through with it.
+
+I started wishing for my parents and my brother to die so I could kill myself without hesitation. But recently, I've gone from wishing to thinking about poisoning my family then killing myself. Therapy and medication has never done me any good. I feel like I'm gonna snap and do it.",explicit_crisis,high,Directly describes personal suicide and homicide planning.
+suicide_reddit_dataset-47410c070ef8,"Anyone been suicidal since childhood?
+
+I'm currently 29 and I have been suicidal since age 5. I remember running away in the middle of the night at age 5, hoping to find something....anything to take me away. Death, a stranger, anything. Now I am 29. Life hasn't been bad for me, and I feel guilty wanting to die whilst living a relatively comfortable life. But I can't stop thinking about the sweet release of death. I've been working 40+ hours a week since I was 14 and I haven't found anything I'm very interested in. People are the same no matter where you go or what you do. Just self-absorbed and uncaring. All these comments on this sub and all the suicide-prevention shit is just feel good rhetoric for the care-givers of the world. It's all empty gestures and fake smiles. I can't take all the fake people anymore. I can't tell who is more empty inside, me or them.More than anything, I want to be rid of money. I used to be a friendly, outgoing kid who enjoyed meeting people. Now when I meet someone I am instantly skeptical of how they are planning to rip me off.IDK why I'm posting this. Fuck it.",explicit_crisis,high,Persistent personal desire for death is directly stated.
+komati-6085498b56e9,I'm alone. I already took half the bottle of pills... I just need to finish... I can't fail again.I hate myself. Seriously hate everything about myself and I want to die. Why wait any longer. I'm not even sure why I'm posting on here. I don't want to live to see tomorrow.,explicit_crisis,high,Reports taking pills and not wanting to live.
+goemotions-874969d7c285,So kind of like the Yellow Vests.,non_crisis,low,Fragmentary casual text has no crisis meaning.
+irf-29aa311236a5,"I can't take this anymore. I've been wanting to buy a pocket pistol or similar weapon to off myself with for the past few days now, and I've been doing the research. I live in SE Michigan, drive for money (can't afford a living), and have been studying to get a certification for IT so I can maybe get a job at a geek squad. Also been looking at getting a job as a Pharmacy tech. Yes, my dad is autistic, so I may not consume the media that you do, but I assure you I will be far from a burden in your life, if you so choose to... adopt me... I'm running out of steam and ideas, and I refuse to let myself become a burnout when I had nothing but good intentions.",explicit_crisis,high,Researches a weapon to kill oneself.
+sdcnl-f98d28f6d7f5,"Harder to Wake Up in the Morning
+
+I’ve been feeling pretty lost lately, lack of motivation, all my work gets put off until the very last minute then I cram it in. And the mornings are the hardest part, because waking up means I have to deal with all the thoughts running through my head. It’s come to the point where I have to physically drag myself out of bed now. It gets harder to want to wake up every day.",implicit_crisis,medium,Increasing difficulty wanting to wake suggests escape from existence.
+goemotions-0043d7350878,It gets better! You're not alone and any progress is good progress. Always keep fighting.,hard_negative,high,Encouragement message contains no author crisis.
+komati-62330e336cf0,"When you're suicidal and also a procrastinator Yeah i really wanna kill myself. Like, i have nothing to live for and i decided that ages ago.
+BUT
+I don't feel like getting up from the couch and filling up the bathtub and bringing razors and worry what will happen if i survive.
+maybe tomorrow. Yeah. Definitely tomorrow.
+*the same thing happens tomorrow*",explicit_crisis,high,States suicide intent and preparation.
+cams-1e9863e959eb,"My husband and I just had a huge argument and he stormed out. I should be crying or stopping him or something. But I decided to take a handful of benzos instead. Now I just hope I can sleep. I wish I could sleep for the rest of 2017...
+
+Happy fucking new year.",explicit_crisis,high,Reports a personal overdose and desire to die.
+irf-d8c5cdfcd408,"if this seems like attention whoring im sorry,just want to express my thoughts. i told myself yesterday that i was not going to eat anything until one of my friends(acquatinances)tells me happy birthday. its been 17 hours and i still havent eaten a single thing. i guess its good because my fat ass shouldnt eat this much. i probably wont be eating anything today seeing how this shit is going,no one cares about me because i fucked up the ""friendships"" by being a toxic and selfish piece of shit who treats other people like shit. what should i do to alleviate the feeling of hunger,can someone give me some advice? if anyone who was affected by me sees this,i just want to say im sorry.",non_crisis,medium,Disordered eating and self-criticism without crisis finality.
+irf-47f953940b82,"So 2017 was probably the worst year of my life, I lost a lot of family members and my best friend. Recently I found out that I can't really feel anymore. No emotional pain, no excitement or happiness. Can someone tell me if this is normal or should I get help?",non_crisis,high,Emotional numbness is described without crisis intent.
+komati-27bdf3d2c9f1,"I can't deal with the sadness after breaking up with my 1st girlfirendI broke up with my girlfriend after 6 months of relationship. I'm 17 and we are in the same class. We just weren't good for each other. Too much things that made us different. I tried not to be too sad about it. Five days after breakup I found out that my best friend was kissing with her at the party. It felt like train hit me. Now looking at her, smelling her perfumes and talking to her makes me even more depressed. I miss her, I just want to kiss her again. I want to end my life.",explicit_crisis,high,Directly wants to end life after breakup distress.
+komati-da744c1acd71,"i can't stop thinking about iti don't really know what else to say. i'm sick of living and thinking about the awful things that have happened to me being held responsible for things i don't care about and constantly worrying for people who couldn't care less about me. i think all of my relationships boil down to one thing: people keep me around at their disposal. i don't think anybody actually cares about me or loves me. perhaps this is just insecurity speaking, but it's a valid point. if i don't reach out to people first, no communication will occur. the only thing that brings me comfort is the fact that i can tap out if things start to get unbearable, and things ARE starting to get unbearable. i don't really know what to do anymore except hang myself",explicit_crisis,high,Describes hanging as a personal way out.
+irf-e6472805a871,"(Disclaimer that I get suicidal ideation in a more ongoing ""casual"" form, so might not resonate with everyone.) What I would give for someone to say, ""I understand you're struggling, and I will understand if you choose to end it."" Even my friends who get suicidal ideation come from a perspective of it being something you'll get through. They talk about how meds have helped them. Or about how they've become more resilient. And they'll say they'll help and encourage you the whole way. But I don't want someone to encourage me. I want someone to sit with me and say, ""Yeah that really sucks."" To say, ""It's okay if you can't handle it."" Or even, ""I'll help you end the pain."" I wouldn't do anything, would never take them up on it. But it would be so incredibly validating. I want to be heard; I want to be understood. I'm on meds, I'm in therapy, I'm resilient. I know I'm doing all the right things. Just please stop telling me I'm going to be okay, and listen to me when I say I'm not.",explicit_crisis,medium,Ongoing personal suicidal ideation is directly discussed.
+komati-6769869828e2,"Some totally not plagerized pick up line >!cant stop thinking about the illegal dissolution of the Soviet Union against the popular will of the people, and the subsequent economic crash and the spike in alcohol abuse and suicide. gorbechev was such an ass.!<
+
+>!speaking of asses, can i see yours?!<",hard_negative,high,Historical discussion of suicide in a joke.
+sdcnl-44a0b1a97802,"Called off my work , going to end it after I eat
+
+Nice knowing you all
+
+I'm finally coming home Mara and Tara ❤️",explicit_crisis,high,Says they will end life after eating.
+cams-033e417b67ba,"I am fucking depressed. I never thought that I would ever know what depression felt like back when I was happy. I never imagined that I would ever feel so sad all the fucking time, my days become a blurry mix of stress and worrying about the next day. 
+When will I be able to look forward to something again? How do I begin to enjoy life like I did two years ago? I used to always wake up so happy to get ready for high school in junior year. I used to always look forward to the next whatever coming. Now I don't have that. I miss my old life. I don't enjoy having my own apartment, my own job, cats, and college like I thought I would. 
+
+TL;DR To those who won the battle against depression, how??? And how long did that take???",non_crisis,high,Seeks advice for depression without self-directed crisis.
+irf-1ea4b0ec80e0,"21. I have several autoimmune disorders (lupus is the main) and have a hard time keeping on weight. I‚Äôm in a lot of pain. I‚Äôm also lonely because I don‚Äôt have any friends except for my fianc√©, but family isn‚Äôt around. I work full time as a valet and go to school full time. Tonight I got hypothermia and frostbite on my left foot at work because I don‚Äôt want to admit I have inabilities in the cold because of the lupus (I have neuropathy and vascular issues). I‚Äôm in so much pain tonight and don‚Äôt know what to do. I hate being in so much pain. I just don‚Äôt have anyone to talk to about this and don‚Äôt want to introduce it to anyone. It hurts me as well as others.",non_crisis,high,Physical pain and loneliness lack crisis meaning.
+cams-08bf83498d26,I tried to hang myself today. It didn't work. I don't know where to go from here or what to do. I guess I'll try again some other way.,explicit_crisis,high,Reports a failed hanging attempt and intent to retry.
+komati-384048f93e20,If my son comes out as trans he’s not my son anymore... He’ll be the son of who ever adopts him lol,hard_negative,high,Joke about another person’s gender and suicide.
+suicide_reddit_dataset-95f8c3b3f2a0,"Hey SW, my girlfriend yesterday attempted suicide by OD with pills, what do I do and say?
+
+I've been struggling with depression for about three and a half years (I'm sixteen) and my girlfriend is fifteen and has been struggling with depression and other mental illnesses for about five years.Screenshots can be given if absolutely necessary, and please ask questions; I'm an open book and you can ask anything for the purpose of helping me and her.Thanks for reading, and I sincerely hope me and her can get over this together.",hard_negative,high,Seeks advice about a girlfriend’s attempt.
+goemotions-a0db9a4473a4,That sounds so terrible. I'm very sorry.,non_crisis,high,Sympathetic reply has no crisis meaning.
+komati-6fa03f0aec35,I dont even know where to fucking start this is so fucking stupid I paid attention I swear but it just doesn't make sense???? I dont even know where to fucking start this is so fucking stupid I'm gonna fucking kill myself bro I dont even know how to get into the actually exam? The teachers telling me to MAKE MY OWN ASSIGNMENT AND PROVE TO HER I KNOW WHAT IM DOING FOR HABIT 7 AND 8? WHAT THE FUCK,hard_negative,high,Casual academic hyperbole using self-harm language.
+sdcnl-bc034c610d6f,"Attempt failed
+
+I could've sworn it was going to work due to the already stress that was on my heart but then again taking 100 mg worth of melatonin and beer probably wasn't going to kill me. I know if i bought two bottles of something and three bottles of something and put it in a bucket and mix it and sit in my car then that would kill me instantly but I may not be ready for that. Fml.",explicit_crisis,high,Reports failed attempt and describes a lethal method.
+sdcnl-9ad1d4cf5f7f,"I want to disappear. Everybody just goes right against me. I want to just... Have finally peace. I dont even know why is that anymore. I must have forgotten. Or I dont want to remember
+
+emptypost",implicit_crisis,medium,Wants to disappear and find permanent peace.
+sdcnl-5af0835f80a0,"I don't want to live anymore.
+
+That's just it. I don't want to live my life anymore. The only stopping me is my family. I have really have nothing to live for. My life is a total and complete shit show.",explicit_crisis,high,States they do not want to live anymore.
+cams-d58ea8dab23a,"This weekend, I haven't figured out all the details, but I feel it, definitely this weekend, I will find peace.",implicit_crisis,medium,Imminent peace framing is a likely self-directed farewell.
+komati-f8d57f6dd97b,"Alright I’ll use Reddit to talk bout my shit Well today I had gym class and we did the Rasputin dance on Just Dance and I had fun with that. After class though, my friend that I vent to sometimes (who knows I’m suicidal) asked me to please come to school tomorrow so that literally broke my heart. I didn’t try to commit aliven’t today which was good. Alright today’s was shorter than my last two so I guess that’s good. Bye now and have a fucking fantastic week!",explicit_crisis,medium,Current suicidality is directly acknowledged despite temporary restraint.
+cams-7f7aab4810a3,"‚ÄúWe get into the habit of living before acquiring the habit of thinking.‚Äù
+‚Äï Albert Camus, The Myth of Sisyphus
+
+I feel like this is the only reason I'm alive right now - because its just a habit. I feel like I want to die but I'm too lazy to really do anything about it, so I just keep living and distracting myself from my reality.",explicit_crisis,high,Asks directly how to kill oneself.
+komati-4aa8b3cd04fc,how should I kill myself?I'm so sick of living,explicit_crisis,high,Self-harm and direct desire to die are described.
+komati-763bade3caeb,"I just want to end itI've been cutting myself to help ease the pain, and it did for a while, I thought I was getting better, now it's all crashed. I've done all in can think of, I've talked to people, but the most they ever do is: give a list of things your thankful for. And lazy shit like that. It just makes me wanna kill myself more because I can't even do that.
+
+I ended up laying in the bathroom at work crying ""please let me die"" 
+I don't know, I've got maybe a week at this rate...",explicit_crisis,high,Current personal wish to die is directly stated.
+irf-e9021564e321,"I've been getting progressively worse throughout this year, and I found myself having the exact same days over and over again. My social life is pretty much nonexistent at this point, and I've found myself struggling to hold onto friends that are drifting away from me. Then I started playing this game, and I'm actually excited to get back to my apartment and spend time in this world. It feels so rewarding even just to spend the whole day hunting or working on a level 10 beard. It gives me a sense of purpose I haven't really been feeling lately. I'm probably going to spend about a month in each chapter of the game because I want to prolong my time playing. Just wanted to share my experiences as this game has definitely made my life more positive in the last month.",non_crisis,high,Describes a game providing purpose and improvement.
+komati-743eec111180,"Lets hope I dont fail this timePeople suck, Im tired",implicit_crisis,low,Ambiguous failure reference suggests possible crisis but is unclear.
+komati-57a5903e08a7,"I can't KMS? it is bad don't do it why?
+
+I guess i don't got good equipment and courage to jump of a building.
+
+Well, if you have a faster way without a gun tell me
+
+If not, don't tell me
+
+Just gonna say sucide bad so i get more attention.",explicit_crisis,high,Asks for a faster suicide method.
+komati-d1951a978617,"i am not suicidal, i just love DSBM a lot.... ""The clock's hands fold, I feel pulsing in my chest all the agony of one more day, in this world of darkness.
+
+Through my nostrils, runs the smell of my own death, printed, on the grey sunday sky.
+
+In my last mourning i realize,
+i've always been the nothing
+i feared becoming...""",explicit_crisis,medium,"Despite ironic framing, requests a method and discusses jumping."
+komati-1dcb70d02ebd,"if life supposed happy, why i want kill myself :'( ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ",hard_negative,high,Lyrics are quoted and author denies suicidality.
+cams-3ba12eef7d12,"I was taking 40mg Celexa for Anxiety disorder. It wasn't working so well so my Psychiatrist put me on Effexor. Here was his tapering off plan:
+
+1st week: 30mg Celexa & 37.5 Effexor
+
+2nd & 3rd week: 20mg Celexa & 75mg effexor
+
+4th week: 10mg Celexa & 150mg Effexor
+
+5th week: Psychiatrist appointment
+
+Now, i'm on week 3 taking 20mg Celexa & 75mg Effexor and i'm starting to get very depressed. I am not having suicidal thoughts and if i did i would go straight to the ER. But i am having depression. So my question is, should i keep on pushing through ? Go back to 30mg Celexa & 37.5mg Effexor ? Start 10mg Celexa (Maybe stay on 20mg) & 150mg Effexor a couple days early to get a higher dose of Effexor in my system ? 
+
+It's strange because my anxiety hasn't been bad since starting.
+
+The reason i'm asking here is that my psychiatrist is on holidays and i dont see him until mid January.
+
+Any help would be appreciated. Thanks",explicit_crisis,high,Directly asks why they want to kill themselves.
+cams-1cd95da7109b,"Anyone gotten off this drug? I am reading the inter webs and having the crap scared out of me.
+
+Been on it about 18 months...",non_crisis,high,Explicitly denies suicidal thoughts while seeking medication advice.
+komati-dc6e0d180455,I might lose my catI think something's wrong with my cat and everything points towards a possible blockage which might kill it. I can't do anything and my family who would be driving the cat won't do anything tonight and depending on the cost if any likely won't pay for anything for a while. I want to cry,non_crisis,high,Medication question has no crisis content.
+cams-bde91f7d4710,"The tip of my nose actually looks swollen. It's like a sphere instead of being just a little curved. The center of my nose petrudes out like there's something not growing right. It looks disgusting.
+
+I am really lanky. People say being tall is attractive but I manage to make it not.
+
+My skin is like vomit brown. I hate it. It looks so gross. It's all scattered with like mini-pimple things?
+
+My hair is some God forsaken mix between a bowl cut and something that doesn't yet exist, while tiny strands stick out everywhere.
+
+I hate how I look. I'm sorry if I sound petty right now but this sub-reddit is to vent right? I just want to spew my thoughts out here. I apologize if this seems pathetic.
+
+Now I feel like shit for feeling like shit about something so small. Yay.",non_crisis,high,Concern for a pet lacks crisis meaning.
+cams-43fff959099d,I want to know if people do to snap me out of my mental state in some way. I tried to commit suicide two weeks ago..,non_crisis,high,Appearance distress lacks crisis-level finality.
+sdcnl-a3cfb95ffb68,"I feel no motivation to do anything anymore
+
+I don't feel like eating, sleeping, working, playing games, etc. All my friend's do is harass and bully me so they're no help. I just wish life would go on without me",hard_negative,high,Reports a past attempt without current crisis expression.
+suicide_reddit_dataset-50b27e325a39,"Help Me To Help Another
+
+I checked up on my ex's twitter after about ten years apart. Not the first time I've done this, but the most worrisome. She didn't mention suicide but I've never seen her like this. She has a lifelong history of severe PTSD from childhood abuse. She was maybe 26 when we broke up and I never noticed anything too concerning except some panic attacks and a psychotic screaming episode involving flaying a large knife through the air in my vague direction. She had taken Wellbutrin for depression but she never seemed paranoid aside from a few episodes and I only recently started noticing some of her tweets getting very obsessive about extreme conspiracy, tweeting for hours on end and live streaming, frequently switching dialects and accents and referring to herself in the third person, conducting journalistically styled interviews with herself. It's probably just boredom or something, but we are middle aged now and it's a bit concerning since I've never heard her so gloomy and negative, never at all dissociative, but now so very much so. I may have missed the possibility that she has some kind of severe personality disorder. I never noticed any dissociative behavior before and she just appears very lonely and desperate about the state of the world. Anyhow, I don't know if there's anything I can do to help her. I'm reluctant to contact her directly and I'm worried sending anyone of our mutual friends might trigger her or somehow screw things up. We have one good friend I know never hurt her, but she probably doesn't even remember him. Is it a bad idea to request someone a welfare check? I'm worried to even alert her that she'll guess who did it. One of her more recent relationships ended in a mysterious death, which was probably just a suicide, but still is worrisome. I just feel so bad and I feel like I could help, but it would strain my marriage, so I don't know if there's anything I can do at all.",implicit_crisis,medium,Wishes life would continue without the author.
+sdcnl-c201f3516fd6,"Looked In the mirror, and fuck man.
+
+I have run into 2 major problems in my life atm, it has been eating away at me for the better part of a month. I’ll give you some backstory:
+
+I have people pleaser all my life. I feel like I have always gone with the flow, with people’s expectations of me rather than have my own. I have done that since I was a kid and I’m now turning 20 this year, And with that being said the first problem I have run into is, I don’t know what I want and like partly due to the depression. But mostly due to the fact that I’ve never really done or said what I wanted to to outside forces shutting me down at every turn (school, parents etc.). Idk and it’s driving me up a wall.
+
+2: I thought hard about the people pleaser trait in my being a lot and I have come to this conclusion, I hate who I am. I believe that I am selfish and feel because I haven’t done what I have wanted in my life I am inauthentic. So I go and look for outside validation and love because I feel like I am incapable of it. But when I receive it, and it doesn’t hit the way I wanted it to or things are too fast or far. Like a addict I dump them and look for a new person to give me that feeling I long for. It’s fucked up, because the other people care about me and I do to to an extent, but I prioritize my own feelings and shit first. And that realization fucked me up so bad. Real bad. 
+
+Any thoughts would be great because I’m so lost rn. Thanks",hard_negative,high,Seeks help for another person’s possible risk.
+sdcnl-ce2bae6a66f7,"I have a belt around my neck. I wish I knew how to do it properly
+
+emptypost",non_crisis,high,Self-reflection and distress without crisis finality.
+komati-9f5101467f7b,"TW: suicide I failed my exam, u feel like killing myself.",explicit_crisis,high,Has a belt around neck and seeks suicide-method guidance.
+komati-11d34ce0839d,"Ok this is gonna be a very unpopular opinion I think Non-cis suicide rates are through the roof, some studies estimate its as much as 10x higher than cis people. I'm no scientist, but I have a theory why this is so: *people with underlying mental issues, born or caused by a fucked home life, will try to fix their problem by fixing an issue that was never there in the first place*. Or to clarify some more, many trans and nb people will assume they are not happy or comfortable in their current gender when the issue is not in their gender but a myriad of other factors such as depression, daddy/mommy issues, shit home life in general, just to name a few. And don't get me wrong, its obviously not all non-cis people, if you are truly happy as trans, nb, genderfluid, etc. then good for you, this post is not about you. But if you are considering identifying as non-cis, ask yourself if you would still do that if you had a more privileged life and were mentally ok in every department. Be civil in the comments I'm open to discussion so long as you don't immediately call me a transphobe cunt.",hard_negative,high,Discusses population suicide rates and policy opinion.
+sdcnl-edac4f603f89,"I wanna die
+
+I’m 9th grade and I don’t know how to socialize anymore I’m suppper shy to do anything:<<<",explicit_crisis,high,Directly says they want to die.

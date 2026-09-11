@@ -1,0 +1,59 @@
+{
+  "total_records": 1987,
+  "unique_ids": 1987,
+  "label_distribution": {
+    "explicit_crisis": {
+      "count": 825,
+      "percentage": 41.519879
+    },
+    "implicit_crisis": {
+      "count": 271,
+      "percentage": 13.638651
+    },
+    "hard_negative": {
+      "count": 249,
+      "percentage": 12.531454
+    },
+    "non_crisis": {
+      "count": 642,
+      "percentage": 32.310015
+    }
+  },
+  "confidence_distribution": {
+    "high": {
+      "count": 1191,
+      "percentage": 59.939607
+    },
+    "medium": {
+      "count": 624,
+      "percentage": 31.404127
+    },
+    "low": {
+      "count": 172,
+      "percentage": 8.656266
+    }
+  },
+  "text_length_statistics": {
+    "characters": {
+      "min": 22,
+      "max": 2205,
+      "mean": 596.224459,
+      "median": 417.0
+    },
+    "whitespace_delimited_words": {
+      "min": 5,
+      "max": 400,
+      "mean": 115.098138,
+      "median": 81.0
+    }
+  },
+  "duplicate_id_count": 0,
+  "duplicate_text_count": 0,
+  "missing_value_counts": {
+    "id": 0,
+    "text": 0,
+    "label": 0,
+    "confidence": 0,
+    "notes": 0
+  }
+}

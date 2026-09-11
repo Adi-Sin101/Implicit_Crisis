@@ -1,5 +1,11 @@
 # Dataset Status — Complete Audit
 
+> **Superseded operational status (2026-09-11):** This document is a historical
+> read-only audit dated 2026-09-01. Its former 1,837-record findings are retained
+> as provenance, not as the current operational state. The annotation phase is
+> frozen; the canonical 1,987-record dataset is `data/gold/gold.csv`. No splits
+> have been created.
+
 **Audit date:** 2026-09-01
 **Method:** Direct inspection of the working tree and direct computation over every readable CSV/TSV in `data/`. Row counts, distributions, null counts and duplicate counts in this document were calculated from the files, not copied from any README.
 **Scope of this audit:** read-only. No dataset, script, config or directory was modified.

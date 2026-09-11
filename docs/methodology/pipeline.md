@@ -21,12 +21,12 @@ SAMPLING STRATA                             src/data/pooling/strata.py
                      C_hard_negative   | D_likely_noncrisis
 STRATIFIED CANDIDATE SAMPLING               scripts/annotation/build_gold_candidates.py
         ↓
-HUMAN ANNOTATION                            annotation/guidelines/
+ANNOTATION PHASE (FROZEN)                   annotation/guidelines/
         ↓            explicit_crisis | implicit_crisis
                      hard_negative   | non_crisis
 INTER-ANNOTATOR AGREEMENT                   src/annotation/agreement.py
         ↓
-GOLD DATASET                                data/gold/final/gold.csv
+OPERATIONAL ANNOTATION DATASET (1,987)      data/gold/gold.csv
         ↓
 TRAIN / VALIDATION / TEST SPLIT             scripts/annotation/validate_gold_dataset.py --split
         ↓

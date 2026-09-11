@@ -3,8 +3,9 @@ seed: 42
 labels: [explicit_crisis, implicit_crisis, hard_negative, non_crisis]
 
 split:
-  test_size: 0.20
-  val_size: 0.15          # fraction of the train/val portion
+  train_size: 0.70
+  validation_size: 0.15
+  test_size: 0.15
   stratify_on: label
 
 tfidf:

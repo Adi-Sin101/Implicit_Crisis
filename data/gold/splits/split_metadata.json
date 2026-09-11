@@ -1,0 +1,128 @@
+{
+  "input_dataset_path": "E:/4-1/Lab/NLP/NLP project/Implicit_Crisis/data/gold/gold.csv",
+  "total_records": 1987,
+  "random_seed": 42,
+  "train_ratio": 0.7,
+  "validation_ratio": 0.15,
+  "test_ratio": 0.15,
+  "stratification_column": "label",
+  "script": "scripts/data/create_dataset_split.py",
+  "script_version": "1.0",
+  "split_assignment_sha256": "b8314aecb2677996a2fecb43d3d8036143bf6995396591b86b96411f9ab56f49",
+  "actual_split_counts": {
+    "train": 1391,
+    "validation": 298,
+    "test": 298
+  },
+  "label_distribution": {
+    "original": {
+      "explicit_crisis": {
+        "count": 825,
+        "percentage": 41.519879
+      },
+      "implicit_crisis": {
+        "count": 271,
+        "percentage": 13.638651
+      },
+      "hard_negative": {
+        "count": 249,
+        "percentage": 12.531454
+      },
+      "non_crisis": {
+        "count": 642,
+        "percentage": 32.310015
+      }
+    },
+    "train": {
+      "explicit_crisis": {
+        "count": 577,
+        "percentage": 41.480949
+      },
+      "implicit_crisis": {
+        "count": 189,
+        "percentage": 13.587347
+      },
+      "hard_negative": {
+        "count": 175,
+        "percentage": 12.580877
+      },
+      "non_crisis": {
+        "count": 450,
+        "percentage": 32.350827
+      }
+    },
+    "validation": {
+      "explicit_crisis": {
+        "count": 124,
+        "percentage": 41.610738
+      },
+      "implicit_crisis": {
+        "count": 41,
+        "percentage": 13.758389
+      },
+      "hard_negative": {
+        "count": 37,
+        "percentage": 12.416107
+      },
+      "non_crisis": {
+        "count": 96,
+        "percentage": 32.214765
+      }
+    },
+    "test": {
+      "explicit_crisis": {
+        "count": 124,
+        "percentage": 41.610738
+      },
+      "implicit_crisis": {
+        "count": 41,
+        "percentage": 13.758389
+      },
+      "hard_negative": {
+        "count": 37,
+        "percentage": 12.416107
+      },
+      "non_crisis": {
+        "count": 96,
+        "percentage": 32.214765
+      }
+    }
+  },
+  "validation": {
+    "split_counts": {
+      "train": 1391,
+      "validation": 298,
+      "test": 298
+    },
+    "total_split_records": 1987,
+    "unique_ids_across_splits": 1987,
+    "duplicate_ids_across_splits": 0,
+    "missing_ids": [],
+    "unexpected_ids": [],
+    "id_overlap": {
+      "train_validation": [],
+      "train_test": [],
+      "validation_test": []
+    },
+    "id_overlap_count": 0,
+    "text_mismatch_ids": [],
+    "text_mismatch_count": 0,
+    "source_duplicate_text_count": 0,
+    "exact_text_overlap_between_splits": {
+      "train_validation": 0,
+      "train_test": 0,
+      "validation_test": 0
+    },
+    "exact_text_overlap_count": 0,
+    "unexpected_exact_text_overlap": [],
+    "all_split_columns_exact": true,
+    "all_labels_valid": true,
+    "all_confidences_valid": true,
+    "all_labels_represented": {
+      "train": true,
+      "validation": true,
+      "test": true
+    },
+    "passed": true
+  }
+}

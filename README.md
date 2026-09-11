@@ -270,9 +270,12 @@ python scripts/annotation/calculate_agreement.py \
     --files A=data/gold/annotation/calibration_150_A.csv \
             B=data/gold/annotation/calibration_150_B.csv
 
-# 5. Full annotation, then validate and split
-python scripts/annotation/create_annotation_sheet.py --annotators A B
-python scripts/annotation/validate_gold_dataset.py --input data/gold/final/gold.csv --split
+# 5. The annotation phase is frozen. Validate the canonical 1,987-record dataset.
+python scripts/annotation/validate_gold_dataset.py --input data/gold/gold.csv
+
+# Train/validation/test splits have not yet been created.
+# Create them only when the experimental protocol is ready:
+# python scripts/annotation/validate_gold_dataset.py --input data/gold/gold.csv --split
 
 # 6. Experiments
 python scripts/experiments/run_tfidf_baseline.py

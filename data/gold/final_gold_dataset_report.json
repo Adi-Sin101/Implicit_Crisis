@@ -1,0 +1,45 @@
+{
+  "dataset_type": "Official operational integrated annotation dataset; includes retained AI-assisted main annotations and calibration integration.",
+  "operational_dataset": "data/gold/gold.csv",
+  "source_dataset": "data/gold/gold_1987.csv",
+  "backup_of_prior_operational_dataset": "data/gold/gold_1837_backup.csv",
+  "record_provenance_counts": {
+    "main_records": 1837,
+    "calibration_records": 150
+  },
+  "final_label_distribution": {
+    "explicit_crisis": 825,
+    "hard_negative": 249,
+    "implicit_crisis": 271,
+    "non_crisis": 642
+  },
+  "final_confidence_distribution": {
+    "high": 1191,
+    "low": 172,
+    "medium": 624
+  },
+  "sha256": {
+    "gold_1987_csv": "8f2fa2d5b09a0d84472536a91360ee773cab5ee0902de8216accf1760be8086c",
+    "gold_csv_after_replacement": "8f2fa2d5b09a0d84472536a91360ee773cab5ee0902de8216accf1760be8086c",
+    "gold_1837_backup_csv": "36391b506c825b9087abf12633e9d073d69dfcead4de01cdde163beddc276195"
+  },
+  "validation": {
+    "record_count": 1987,
+    "unique_ids": 1987,
+    "duplicate_ids": 0,
+    "columns_exactly_match_required": true,
+    "blank_ids": 0,
+    "blank_texts": 0,
+    "blank_labels": 0,
+    "blank_notes": 0,
+    "invalid_labels": [],
+    "invalid_confidence_values": [],
+    "gold_csv_byte_for_byte_identical_to_gold_1987": true,
+    "gold_1837_backup_byte_for_byte_identical_to_pre_replacement_gold_csv": true,
+    "passed": true,
+    "gold_1837_backup_matches_pre_replacement_gold_csv": true
+  },
+  "validation_status": "PASS",
+  "train_validation_test_splits_created": false,
+  "models_trained": false
+}

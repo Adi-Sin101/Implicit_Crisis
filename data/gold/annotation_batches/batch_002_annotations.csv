@@ -1,0 +1,200 @@
+id,text,label,confidence,notes
+cams-12d829787a77,I feel deeply in a rut. No one seems to help. I feel hopeless.,non_crisis,low,'Feel hopeless' is brief and generic; no finality/burden/closure evidence meeting crisis-level criteria.
+cams-00dbdc7a8962,"How do I get past my own body protecting me and keeping me alive? I have nobody to talk to, no job skills, and no highschool diploma. I am disabled but I cannot even get disability. 
+
+I want to commit suicide, I have wanted to for a long time. I have nobody to tlak to and the doctors here will never provide adequate help. ow do I push myself past that point?",explicit_crisis,high,"Explicit term 'commit suicide', first person, long-standing want."
+irf-3335014b95ef,"I‚Äôve lived with depression for so long that it feels weird not to be depressed sometimes. I don‚Äôt like it. It‚Äôs almost as if I need my depression because it‚Äôs what I‚Äôm comfortable with. It gets me through my ruts in life by making me feel nothing. But at the same time, it‚Äôs so pathetic. It keeps me from doing things I enjoy, and it makes me feel worthless and hopeless. It makes me think about suicide a lot too because I start to think about my future, like what the point is in living or if I can really handle anymore pain. (What is the point in life anyway? Work until you die?) But then it gets even worse when I realize I can‚Äôt end it, because of personal obligations based on relationships and religion. (Plus I‚Äôd never get to finish dark souls. But really what‚Äôs it matter when you‚Äôre so depressed that you can‚Äôt even turn your console on).",explicit_crisis,high,"Explicit term 'suicide', first person, current recurring ideation."
+irf-94eefd0b604e,"The only good thing in my life is my girlfriend, her whole family (super religious and conservative) and friends hate me and do everything to stop her from being with me, including telling her they have seen me with other girls, a lie of course (her own mother did that). I was an addict, I did cocaine, crack, benzos. Now I just smoke weed and take LSD occasionally (it actually helps me a lot), also I have tattoos so... the whole combo for them to hate. School sucks obviously, I can't concentrate, I disassociate, I feel worthless and tired all the time. I can't take anxiolytics because of addiction so my head is always full of shit that I can't control, sometimes my paranoia is almost like schizophrenia. Forgive my english and thanks for taking the time to read it.",non_crisis,medium,"Distress re: family disapproval, addiction history, paranoia; no crisis vocabulary or finality/burden/closure evidence."
+sdcnl-bee898a31d85,"Deadass crazy
+
+Yo I thought I had enough. I've always had a noose in the woods for me to yeet myself with. So like I walked there. Sat there for like 6 minutes. Tried it. Didnt fully commit. And like I threw up. So yeah now my shirt has throw up on it and now instead of the police cleaning it I have to ffs",explicit_crisis,high,First-person account of an actual attempt with method (noose); casual tone doesn't negate the crisis content.
+komati-fc95b9cd899f,"Anyone else fantasize about how you could die in the worst way possible?I keep fantasizing about being beaten and left to die on the side of the road, like I deserve to be.",implicit_crisis,medium,Morbid death fantasy framed as deserved self-punishment; no overt suicide/self-harm terminology but crisis-level self-directed harm ideation.
+sdcnl-c3c23d118cba,"I can't do this anymore
+
+emptypost",non_crisis,low,"uninterpretable (title-only, empty post body); insufficient content to assess crisis-level criteria."
+irf-b89722821d87,"I cannot do anything without screwing it up, I just got suspended from school my family, my friends, all lose their trust in me, I'm just not cut out for anything I don't think the world has a place for me",implicit_crisis,low,Thwarted belonging with finality ('the world has no place for me') after listing failures/rejection; no overt crisis terminology.
+irf-e0ce273bace7,"After quitting a good job last summer after losing touch with the friends that cared about me after shutting my parents out after quitting school I feel empty the last thing I had was my mediocre relationship with my girlfriend who revealed to me she cheated and the only thing I could muster up to say was ""who gives a fuck"". I want to feel anger, be upset something...something normal but all I can fucking do is look at memes",non_crisis,medium,Emotional numbness after relationship/job loss; no crisis vocabulary or finality/burden/closure evidence.
+sdcnl-1e974e318e54,"Is a title even needed anymore
+
+For the context, I'm 20 years old, soon to be highschool graduate. So here is what's going up in my mind right now. 
+
+No matter what i write up here it's surely happened before. What is there in being your own individual if your entire life is just a copy paste of someone else's? My decisions won't matter in the long run, because my life is to insignificant. And year by year I feel my presence getting weaker and weaker
+ Sooner or later in gonna start working in some industry i don't want to work in and I will feel happy. But I don't want to be happy from something like this. I want to accomplish something but don't have the drive to do it. I want to be special but I'd rather watch YouTube than learn or train something.
+My school will be ending in 2 months and I feel weirdly nostalgic thinking about it. Maybe I'm proud of my achievements, which I don't even remember, or maybe I'm happy I'm in a situation I have brought myself into. Maybe I feel like my movie is ending and i need to plan our Mr finishing move. 
+Like I said, I will be finishing highschool and I feel like it's an appropriate ending for me. Get a certificate, be happy from getting it, and ends it all. It will be fulfilling. All of my life has been waiting for this moment to happen, but I don't want another chapter of my story. I only want this single season of this TV show.
+
+Sorry for typos, typing with swipe",implicit_crisis,low,Extended 'ending it all'/story-ending metaphor combined with themes of insignificance and not wanting another chapter; ambiguous whether this is life-ending or just graduation.
+komati-5b7b2458dc51,".I don't know who I am. I don't have a personality. I don't know where I am. I don't know what I'm doing. I don't think I'm real. I don't want to die, but I don't know why, and nothing makes sense. I'm tired of being scared all the time. I walk past people, and their eyes bore holes into me. I feel like I'm naked all the time, and it fills me with shame. I'm not okay but it doesn't matter. I have had enough though. I can't hide anywhere. I feel really dirty. I don't recognise myself in the mirror. Nobody knows me. What is it in me reaching out? Pure instinct. Because I'm not here anymore. The harder I climb, the harder I fall. Down down down. Nothing makes sense. It's all in my head, but isn't everything? Some people claim to care about me, but how can they, when they don't even know me. Still, I don't want them to get hurt. I don't want anybody to suffer. I don't want to ever be cruel. Why would anyone care about me anyway. I'm not anybody. I'm just a thing. I want to help others, but I'll probably just make everything worse. I don't know why I'm here. I'm not good enough for what I believe is true. I feel nauseas, and dizzy, and this doesn't feel real. But I'm just gonna post this. A thing that posts something should amuse someone somewhere. I'm good amusement I think, I hear them laughing all the time.",implicit_crisis,low,"Severe depersonalization and 'I have had enough'; explicitly denies wanting to die, but overall distress carries crisis-level hopelessness."
+komati-d8eeac13be33,"I’m probably not gonna kms now My hometown just got a skate park
+
+I finally have something in my town besides racism in homophobia",explicit_crisis,medium,"First-person disclosure referencing own 'kms' ideation, framed with relief due to a positive event; still discloses own crisis history/state."
+irf-6548b73ddc61,I dont belong here on earth... I am just way too different... Society despise me...,implicit_crisis,medium,Thwarted belonging with finality ('I don't belong here on earth... society despises me'); no overt crisis terminology.
+suicide_reddit_dataset-776930f9d0e0,"Wish I could cease to exist.
+
+Here is an in depth article on my personal experience of depression and anxiety and how it came to be - tl;dr - I started with panic attacks due to phobia of vomiting, it escalated to general anxiety and OCD, then had my son which caused post-natal depression on top of the other mental health issues.I feel like recently it is one bad thing after another and I can't seem to pick myself up. I made the decision to hand over primary care of my son to my Mum come January so he could attend nursery and be a little more normal but my friends have expressed great distaste for this and think it best he remains under my care.I have had three mental break downs in as many weeks and considered suicide but have always stopped myself because I can't imagine someone having to explain to my three year old why he would never see me again. This breaks my heart to write but I just want him to be happy and I can't help but feel I will some how mess him up.I just feel like I'm not enough for him. I barely get by and because of my anxiety and depression I don't have great prospects for work. I'd like to work from home but I don't have any talents that stand out or I can afford to work on.
+Every time I speak with friends or my Mum it comes across as though I'll somehow be cured and things will go back to normal but I can't see myself ever being normal again. I can't imagine not living in fear of germs.I wasn't ready to be a Mum. I love my little boy but he deserves a good life which I can't see me being able to provide.",explicit_crisis,high,"Explicit term 'suicide', first person, recent/ongoing ('three mental breakdowns in as many weeks and considered suicide')."
+komati-4b0c19a23e4b,"How do I forgive myself I used to be a bully four years ago, and it’s eaten away at me for those years. I’ve had people tell me I’ve ruined their lives and I made them give up. This year I tried to kill myself with an overdose and it didn’t work, I said it was a mistake and everyone believed me because they don’t know this is how I really feel. Since then I’ve been worse than normal but haven’t had the strength to attempt suicide again all I do is burn myself with hot pieces of metal. Recently I’ve reached out to everyone I’ve bullied and apologized, they all forgave me. Even the person I bullied the most forgave me. I expected that to be the end of all my suffering but it wasn’t I still hate myself. How can the people I put through hell forgive me when I can’t I just want to be happy again and to stop hurting people. I feel the need to punish myself because I wasn’t punished before which is why I burn myself, and plan on cutting myself. I can’t tell my family this because we don’t have the money to get me help and my mother has an expensive surgery coming up, I wouldn’t be able to take it if they helped me. I want to die to help everyone else I’m so tired of myself. I know I shouldn’t feel this way but I don’t know how I should move on, please help.",explicit_crisis,high,Explicit term 'kill myself' describing a recent overdose attempt; ongoing self-harm and current 'want to die'.
+sdcnl-339278a78c68,"I can't do anything right and I'm too scared to follow through with this but here's how I imagine it would be
+
+Burial By the Sea
+
+I want the waves to sing me their lullaby 
+
+I want my last sight to be blue
+
+I want to wait five more minutes and see if dolphins guide me somewhere new
+
+It'll be near the cliff side
+
+It'll be near the shore
+
+It'll be so that the sand covers my body to be seen nevermore
+
+Perhaps inside of a tent
+
+To disguise the sight from the tourists' naked eyes
+
+Perhaps outside of the caves
+
+To refrain from having my spirit be alone in the dark
+
+Maybe I'll see stars
+
+Maybe I'll see the moon 
+
+But most likely it'll be when the sun sets after noon 
+
+I think it'll be peaceful 
+
+Not so much for those who find me
+
+But I won't know
+
+Because I'll be home",implicit_crisis,medium,Detailed self-death planning (burial by the sea) without overt crisis terminology; intro references being 'too scared to follow through' without naming the act.
+sdcnl-6375d79e3cc3,"How does a introvert with social snxiety get help if they want to kill them self?
+
+emptypost",explicit_crisis,low,Explicit term 'kill themself' but framed impersonally in third person ('if they want to'); likely the author asking about their own situation indirectly.
+sdcnl-33a08a9e8c05,"I can’t do this
+
+The second I can’t keep my mind occupied all I can think about is killing myself im so sad I can’t do this anymore",explicit_crisis,high,"Explicit term 'killing myself', first person, current."
+goemotions-affdc723c102,"They're there if scroll far enough back (unless, of course, he deleted old stuff)",non_crisis,high,Unrelated comment about scrolling through old posts; no crisis content.
+cams-3f6cc1460800,"Happiness seems like a myth. I never meet happy people. I see instead people who understand how empty life really is, and attempt to spread happiness and be interesting, at the most. I'm not happy, and other people do not seem happy; I see people working towards some sort of future, meanwhile spending years of their life having no real present at all, they may as well be dead.
+
+I see people with beautiful appearances not looking happier than anyone else. What I see is (MOST of) them visibly, sadistically enjoying their genetic superiority, walking around like they're broadcasting how they are better than everyone. It's repulsive. Sometimes, I even see entire families of beautiful people, collectively showing body language in this way. That's even worse.
+
+I just really don't like life. Everything disgusts me and nothing interests me. Rant over.",non_crisis,medium,Nihilistic/cynical rant about others' happiness; no crisis vocabulary or finality/burden/closure evidence.
+goemotions-cfa5cb190923,"Fun fact that I learned not too long ago, [NAME] did the voice over for [NAME] during the “indeed” era of Kaientai",non_crisis,high,Unrelated trivia comment; no crisis content.
+goemotions-71b38c797c64,.....I should have thought of this!,non_crisis,high,"Very short, unrelated exclamation; no crisis content."
+irf-3e6c740abe22,"I think back to when I was a kid and everything was so colourful and vibrant and experiences were new and fresh. Everything felt so real and so exciting and the possibilities were endless with regards to our futures and our dreams. Nowadays I don't get a buzz, I don't get a sense of excitement from anything really, I don't get it. I don't feel depressed, I don't feel down but I do feel like I'm sort of floating through life without a purpose and it's not a nice feeling to have. I'm training to be a teacher and I love working with the kids because it gives me that sense of excitement and fun again and I can see them learning and embracing every experience with both hands but for me I don't have that and it worries me. I don't want to bumble about waiting for something to excite me, I want it now, but I don't know what IT is. I have interest and hobbies but nothing that makes me want to get up early in the morning and go for it. I don't really know what I'm saying. I guess I need to change my habits and diet maybe to feel more energised and proactive but it's so easy to just curl up and forget the world whenever you get the chance.",non_crisis,medium,Existential emptiness/anhedonia; explicitly denies depression; no crisis vocabulary or finality/burden/closure evidence.
+sdcnl-fb6c245de556,"My girlfriend of 4 year cheated on me. To make it worse I went through her messages Valentine’s Day. Just ditch them is what most people.
+
+emptypost",non_crisis,low,"uninterpretable (title-only, empty post body)."
+suicide_reddit_dataset-1b6a4932bda1,"A wife and husband wanted to have kids.
+
+The wife couldn't get pregnant despite having sex countless times. So she decided to drink pills. She was pregnant with 7 babies. After giving birth, she wanted their names to meaningful. The 7 babies are connected to one another. Thus, she named them Do, Re, Mi, Fa, Sol, La, Si.The doctor thought it was ""Me"" so he wrote that on the birth certificate. The wife didn't know about this until Me was in 4th grade. The wife was furious. The husband was ok with it. They had an argument and decided to divorce. Me was depressed. She thought that it was her fault, when it reality, it was the doctor's fault.Me tried committing suicide by jumping off a building, but she was stopped was someone named Somebody. He had the same story. His mother wanted his name to be Jacob, but she said:The two fell in love at first sight.There was a steamroller that everyone on Earth loved. It's shiny yellow color could attract anyone. It was named The World for that reason. Somebody had a magical power. He could predict the future. One time he predicted that there'd be an earthquake on 4th March 2008. Everyone was safe thanks to him.One day, while he was going out with Me, he predicted that the famous steamroller would crush her.At that point, Me was crushed to death by the steamroller. Somebody was so depressed that he decided to commit suicide. He drank bleach. Me's family died in a car accident, and Somebody's family died in a plane crash.Somebody once told Me The World was gonna roll Me.",hard_negative,high,"Clearly fictional/absurdist story (magical powers, whimsical character names); crisis terms describe fictional characters, not the author."
+sdcnl-0cae97f3cf05,"Well im going to the psych ward
+
+Told my therapist iv been having alot of suicidal toughts lately.
+Im so fucking fucked.",explicit_crisis,high,"Explicit term 'suicidal thoughts', first person, current, disclosed to therapist en route to psych ward."
+komati-4847ae00b053,Yeah sex is cool But being loved by someone would be pretty fucking great...like...please can I stop getting rejected all the time?,non_crisis,high,Venting about romantic rejection/loneliness; no crisis vocabulary or evidence.
+cams-95b8a4c3e8b7,"My friend keeps talking about his depression, but I can't tell if he really is depressed or is just going through a rough patch in his life. He still gets out of bed to hang out with us and he just graduated college. 
+
+But he gets very emotional when he drinks, and is either really happy or really sad. When we all hang out, as a group of guys we all make fun of each other because that's what guys do, but are careful not to push his buttons too much. He broke up with his girlfriend who he cheated on a few times, but keeps texting her wanting to get back together with her. He always wants to talk about very sad things, and doesn't ever act happy when he comes out with us.
+
+What I don't get is if he's depressed, wouldn't it be hard for him to get out of bed? He invites us over his house to do stuff, but then just wants to talk about how sad he is and it makes me and our group of friends not want to hang out with him anymore.
+
+I've tried to help him the most, listening to him whenever he asks me for help, inviting him out, and offering advice when he asks for it. But he never listens to me, and just blames his ""depression"" all of the time, and it's really dragging my friends down (not so much me though because I don't let his feelings affect mine, but it does get exhausting having to listen to him go on about this.)
+
+He says he's going to a psychologist for help, but that he hates going there. He hasn't talked to his parents at all about it, and refuses to tell his older sisters either, which is surprising because he does have a very supportive family. Their family isn't the best shape financially, but it certainly isn't the worst.
+
+I feel like he's more so upset because he compares himself and his life to others, and granted things haven't gone his way all the time, but that's normal, is it not?
+
+Please help me, is there a way to determine if he is depressed or not? Is there a way to suggest he find help? Or is my friend just playing a game with us to get attention?",non_crisis,medium,Entirely third-party concern about a friend's possible depression; no explicit crisis vocabulary present at all.
+komati-09d1596d99bf,Omfg I am gonna commit so many war crimes I got internet taken away for 3 days because I had a wet dream and stained my boxers. I’m gonna actually kms at this point.,hard_negative,high,Explicit term 'kms' used hyperbolically over a trivial matter (internet taken away); matches guideline's casual-hyperbole example.
+komati-47bfd84cf394,"Should I tell my friends that I have social anxiety and depression? So I recently went through one of the hardest times of my life, I wanted to kill myself and I relieve stress with pain. I saw a therapist and I'm doing much better now but I still slip up sometimes and self harm. I struggle with motivation and finding a reason to get up in the morning. I also have memorized possible ways conversations could go so I will always be prepared for a sudden conversation. Should I tell my friends about this? When would I saw this, like would I just drop this bomb when were play cod together?",explicit_crisis,high,Explicit term 'wanted to kill myself' describing recent history; ongoing self-harm ('still slip up sometimes').
+komati-3eea00a09c79,"Rest In Peace to all who died from illness and suicide. 2020 was a hard one 2020 was shit. It was a real divot in peoples mental stability, and of course people didn’t make it. Some teenagers would of died of Corona and of suicide. A lot of teenagers suffer with depression and mental issues and it’s a real problem. I tell you if you have suicidal ideation. It’s not worth it, sure you may have no friends or family but there’s always someone to talk to, especially here. I’ve met a lot of people here who are really great to talk to and made a few great friends dispute there time difference. If you ever feel down feel free to message me or if you need a friend. I’m down to talk about anything. 
+R.I.P to all who have passed this year from illness and mental illness. It’s been a hard one but we made it.",hard_negative,high,"Prevention/advocacy messaging directed at others ('if you have suicidal ideation, it's not worth it'); not author's own crisis."
+irf-075b0ea13585,"I am going to keep living Tired of a lot of shit but fuck 'em, plenty of good in this world too. Nobody who tries to bully me in school, no asshole teacher, or anything else is going to fuck with me, it's my life not their's. The coach who expects me to just push harder and work through my Asthma won't. People who roast me won't. People who steal my shit won't. The bullshit standards and weight of people enforcing them won't. I went through some emotional shit before, I have fucked up before, but I won't act like this crap defines me or my worth as a human. This life is worth more than a grade, a social circle, my struggle to run with asthma. Not going to act like it's all better, stuff is hard sometimes, but this world is about finding your own way. This life won't last forever, why suffer and let people attack your happiness each day. I hope those of you who have felt the same find the feeling some day. Have a good day everyone. :D",non_crisis,high,Resilience/coping post explicitly affirming the decision to keep living; not crisis content.
+goemotions-adb7a2785588,I honestly would start at the beginning. Most things are still funny because you remember the events they make fun of.,non_crisis,high,Unrelated comment about humor/memory; no crisis content.
+suicide_reddit_dataset-ede17bc51266,"Help! My GF has considered suicide and self-harm in the past.
+
+Hey reddit, I have a problem with my girlfriend and for some context, we're both in high school.Last night, my girlfriend asked me if I have ever been suicidal. I have never, but I immediately felt concerned because I knew where the conversation was heading. She revealed to me that she has been suicidal before. I asked if she ever self-harmed and she told me she has considered it. She said that 3 years ago, she felt alone, she had a pair of scissors, and was thinking about stabbing herself in the stomach at the moment. When she told me this I just gave her a big hug and told her that she can always talk somebody and she could talk to me if she ever needed to. I honestly didn't know what else to say because we were out on a date and I didn't want to upset her by saying something she might not like. Even now as I write this, I recall her telling me that when she was in elementary, she threatened her schoolmates that were bullying her that she would kill herself. At the time when she told me this, I was shocked, but rationalized in my mind that she was probably lying so her bullies would back off. She said it in a kind of laughing tone and I assumed (stupidly) that she was all right. She exhibits some signs of depression. She asked me if my parents hated her after they met her and she has a pretty low image of her body.This is where I need some advice. I really want to help her out because I really, really like her and would never leave her because of something like this. I've been reading some of the stuff on but I'm not sure when/how to approach the subject. Do I just wait for her to bring this up again or should I offer her a chance to talk to me more about this before something serious ever happens? Thanks in advance.",hard_negative,high,Entirely about girlfriend's past suicidality/self-harm; author seeking advice on how to help her -- third-party concern.
+irf-cc675ea8b306,"It is very frustrating to have the feeling of ""today shall be the day"" and have every single little detail planned out and yet, it is suddenly so hard to execute it. So many fucking times I have held the knife over my wrist, had ropes tied to the ceiling and I just couldn't do it. I am not afraid, nor sad. Just.... a walking dead. Though I attempted many times too, but always failed. I'm not sure how many of you feel the same but I just can't do it maybe because I'm curious to find out if there will be a brand new ending. I thought I had my last home cooked meal tonight and was going to end it all now. But ended up getting high off shit again. I wish something good happens for once. They all say life gets better... I really, truly don't see it. All these dreams and fantasies of having something good in my life is always destroyed by no other culprit than myself. Can't wait for myself to be brave enough to end it",explicit_crisis,high,"Multiple past attempts described (knife, rope), explicit term 'end it all', ongoing current intent."
+sdcnl-007585855e21,"I think i have depression, Not sure but i tryna hang myself once
+
+Year ago i’ve survived from a suicide attempts and then i watching the movie Fight Club It’s motivate me, Hell its even give me a boost of confidence, Huge Confidence, But its never fix my problem which is 
+im too fckin lazy to live in this world.
+This movie its just like a Temporary Medical.
+Right now, Its all coming back.
+Happiest moment of my daily life is my bedtime
+Really wish one fckin day i’ll never wake up again.
+Just fall asleep and not knowledge any goddamn thing anymore.
+
+I’m like i’m not into anything at ALL
+I come from a great family btw, my mom and dad love
+me even spoiled a little, they are a good person.
+Still i blame them for this shit feelin everyday.
+
+Srlys im lookin for a way to die like a sickness.
+
+Cause i dont want my stupid parent to do the
+“what did we do wrong ? why our son kill himself yada yada yada blah blah blah”
+
+Maybe ricin? I really don’t know how to prepare though.
+ 
+Any idea ?",explicit_crisis,high,"Explicit terms 'suicide attempt(s)', 'hang myself'; first person, current, actively seeking a method (asks about ricin)."
+komati-552dc06836d8,"I’m lonely and feel like nobody around me understands the severity of my situation. Suicide is on my mind nearly everyday and everyone thinks it’s a joke or not a serious issue. What a joke, this is why they say, “they only care when you die” for a reason. Hate everybody and life itself, erase me from existence.",explicit_crisis,high,"Explicit term 'suicide', first person, current, daily ideation."
+komati-da24eeda67e8,"My 11 year old sister is the only thing keeping me here.4 months ago I got dumped by the girl of my dreams. We were together since we were 14/15 and now we are 20/21. 
+
+She is with someone else now and she has been talking about breaking up with him and getting back together with me for a little over a month. 
+
+Yesterday we met up to talk about it. She told me that she still wasn't sure what she wanted dispute practically promising me that she would dump him and come back to me. 
+
+I told her I needed an answer before she left. 
+
+She couldn't give me one. 
+
+So I decided for her. And told her I won't wait anymore. That it's over. 
+
+It was the hardest thing I've ever done.
+
+Now I'm just dead inside. 
+
+I've stopped crying. I'm just staring and not sleeping or eating. I want to die but I don't want to kill myself because back home I have an 11 year old sister who, due to family issues, I practically raised before I moved out. I couldn't do it to her. 
+
+I have a stronger will to keep her happy than I do to live and I don't know how much longer that is going to be true.",explicit_crisis,high,"Explicit term 'want to die', first person, current, despite a stated protective factor delaying action."
+komati-2dc6ff018caa,"Never had a job, can't find one. Haven't finished a semester of school in years. I'm a loser. Should I just kill myself?I'm sitting here debating on whether or not to jump off the nearest bridge. I really think the world, and my family, would be better off without me. I cost my mother a lot of time and money. I haven't spoken to my dad in years but I doubt he cares. I'm probably the biggest disappointment in both of their lives. It's probably better if I kill myself.",explicit_crisis,high,Explicit term 'kill myself' with planning detail (bridge) and burdensomeness framing.
+cams-e398cd4ba1f0,There‚Äôs no point in even trying anymore. It‚Äôs always the same pain.,implicit_crisis,low,Brief hopelessness ('no point in even trying anymore... always the same pain'); ambiguous but reads as total-hopelessness framing without overt crisis terminology.
+sdcnl-c31f1d203e9d,"I'm having a hard time.
+
+What do u do when you're in a dark place?
+I'm married, I have one kid, dog, cat, house to clean.
+I'm sick rn (just cold, but I have UC, so it's worse for us). Last yeah I was in hospital 5 times. This year one. All. Because of stupid UC. I hate myself, I hate how I look. I don't feel any support or love from anyone in my life except my little daughter. She's the only reason I don't commit suicide. I don't have strength anymore. There are plans to have 3 surgeries in near future. One of them is gastric sleeve - because I can't get rid of the weight because if the medicine I use, I feel ugly and fat. I miss the lovely feeling u get from first kisses, from love, excitement, happiness. It's just... My life is dark rn. I think about suicide alot, I've told my husband, mom (who doesn't belive clinical depression is a real thing), my therapist (who has a hard time with me, because I'm a stubborn little Satan). I don't know what to do... I know where I can get sleeping pills, so I'm just afraid my daughter will loose her mother soon.
+And I'm in Norway, I'm afraid of telling doctors about my suicide thoughts because here they are really happy to take away child from your family for every little shit. I don't know what to do. I'm done with this whole life and shit. I have pain in my whole body and I don't have any pain relief meds (because Norway only gives you paracetamol fuckery).",explicit_crisis,high,"Explicit term 'suicide' used repeatedly, first person, current, disclosed to husband/therapist."
+komati-fbaec46a64ba,"I wish a previous attempt had succeededI'm at that point in my life where I wish one of my three suicide attempts had succeeded.
+
+The first one would have been the most convenient to have succeeded. I jumped out of a moving car, but it wasn't going was enough. That was before college, before the suffering, the scars, the disappointment and disillusionment. It was before the two next attempts. It was before now.
+
+I'm just getting to that breaking point again.",explicit_crisis,high,"Explicit term 'suicide attempts', first person, wishing a past attempt had succeeded, current 'breaking point'."
+cams-ff49d817eb5d,"Whatsup...
+
+I'm 22. I haven't been *depressed* For my entire life... I can think of times when I have been extremely happily (mainly middle school), and very functional despite having mild depression, such as in highschool (prior state ranked athlete), but I was wondering if people with major depression (such as myself) or bipolar disorder, or even other mental illnesses are living in a constant genetic predisposition to depression, in which (when they're off medication), their mind/thoughts/senses are always in a strings length of a depressive episode.
+
+For instance, picture an Instagram filter than is dark and bleak. I have always been a dark/unlively person and I learned to find bliss and stress reduction in my seemingly cloudy lifestyle/outlook. My ""happy"" emotions are mainly nostalgia and excitement. Like i said, i have been happy at certain points in my life, but i still always have that ""filter""... And sometimes I take solace in it.
+
+But, is it safe to say that people without a genetic predisposition to depression's brains function (from birth) as a depressed person would function while on medication?",non_crisis,high,Reflective/informational question about depression and genetics/medication; no current crisis content.
+cams-af663bd3f221,"I am not fit for society. If I could pay someone to kill me I would. I'm a worthless sack of rotten withered flesh, I can feel the holes in my brain and the age in my skin and I just want to be nothing.
+
+The only thing I want is for someone normal to talk to me and tell me about their life. I haven't talked to anyone about my life in years, I haven't had a friend like that in years and I know I never will again. At least knowing I can be of use to someone else helps sometimes.
+
+Happy new year, I know this is probably a bad time for many or most of us. Hopefully in the new year I'll just die",explicit_crisis,high,"Explicit self-directed death wish ('pay someone to kill me', 'I'll just die'), first person, current."
+komati-d9db2097d303,"I'm considering suicide.I'm 13, I hate my life. Parents split up when I was 3. Never see my mom. I have been depressed for 2 years now. Nothing is getting better. Comment down below. If life really worth going through. Or do we just live to die?",explicit_crisis,high,"Explicit term 'considering suicide', first person, current (author states age 13)."
+irf-4b8b126b965f,"I'm done. I just want to go. I fucking hate that woman who calls herself my mother. I'm tired of being a fucking failure. I'm tired of choosing wrong all the time. I'm just done. I'm tired of her lack of sensibility with others and abundance of greed. Talking about money all the fucking day making me feel shit. I'm tired of always being alone and being the only asshole who is alone when all my friends have a girl. Someone please tell how is the best way to go. I can't afford a gun, i just want to sleep. I got here some painkillers. Will that do the trick? I could cut my veins off but I'm too much of a pussy to stand the pain.",explicit_crisis,high,First-person method-seeking (painkillers) and explicit intent to end life ('I'm done... best way to go').
+sdcnl-a74651cfb4b6,"wish i could disappear right this very instant. i am so so so exhausted and theres a feeling of hatred deep within my chest that i cant quite shake off. i dont know if i want to die or if i should just calm the fuck down. i really hate myself. truly
+
+i just want to disappear painlessly",implicit_crisis,medium,Strong escape/finality framing ('want to disappear painlessly') but explicitly uncertain about wanting to die ('i dont know if i want to die').
+sdcnl-9e8a10aebed0,"I don’t have the energy to keep going anymore : (
+
+Honestly it’s just constant exhaustion and pain and stress, it’s too much for me to handle. I can’t handle this drag we call life, going to school every morning, going home and studying, dealing with my father, it’s all just too much. I can’t do it on my own but I can’t ask others to save me either, well there isn’t really one that exists sadly. I guess I’ll just be alone for some more years : (.",non_crisis,low,Exhaustion from ongoing school/family stress ('don't have the energy to keep going'); borderline but reads as situational exhaustion rather than crisis-level escape framing.
+komati-c98076733129,I am worthless and I deserve to dieLosers like me are useless on this earth,explicit_crisis,high,"Explicit term 'deserve to die', first person, self-directed."
+irf-bae4391855b9,I‚Äôm depressed and I don‚Äôt want to live anymore I always feel ignored I told my ‚Äúcrush‚Äù that I liked her and I got rejected and now the person I hate likes her I already made a plan to kill myself and I‚Äôm going to do it next week my family is sick in the head and there never close to me the all spread through out Canada I‚Äôm pretty sure I have a mental illness and it seems like my friend group is getting smaller and smaller by the hour I have nothing to live for and I life seems to get crazier and crazier by the day everyone around me seems so happy and it‚Äôs seems like I‚Äôm the only one suffering I need help major help if I go to counseling they will only tell me lies that I‚Äôm good enough even though that I‚Äôm nothing no one will miss me and this is my final call for help,explicit_crisis,high,"Explicit term 'kill myself' with a specific plan and timeline ('next week'), closure language ('final call for help')."

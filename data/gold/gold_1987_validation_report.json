@@ -1,0 +1,67 @@
+{
+  "dataset_type": "Operational integrated annotation dataset; source main dataset contains AI-assisted pre-labels and is retained unchanged.",
+  "inputs": {
+    "main_dataset": "data/gold/gold.csv",
+    "calibration_A": "data/gold/annotation/calibration_150_A.csv",
+    "calibration_B": "data/gold/annotation/calibration_150_B.csv",
+    "calibration_adjudications": "data/gold/annotation/calibration_adjudication_8.csv"
+  },
+  "output_dataset": "data/gold/gold_1987.csv",
+  "schema": [
+    "id",
+    "text",
+    "label",
+    "confidence",
+    "notes"
+  ],
+  "calibration_integration": {
+    "agreement_cases": 142,
+    "adjudicated_disagreement_cases": 8,
+    "agreement_case_source_for_text_confidence_notes": "calibration_150_A.csv; labels are identical in A and B",
+    "adjudicated_case_source": "calibration_adjudication_8.csv",
+    "final_calibration_label_distribution": {
+      "explicit_crisis": 64,
+      "hard_negative": 15,
+      "implicit_crisis": 26,
+      "non_crisis": 45
+    }
+  },
+  "final_label_distribution": {
+    "explicit_crisis": 825,
+    "hard_negative": 249,
+    "implicit_crisis": 271,
+    "non_crisis": 642
+  },
+  "final_confidence_distribution": {
+    "high": 1191,
+    "low": 172,
+    "medium": 624
+  },
+  "validation": {
+    "record_count": 1987,
+    "unique_ids": 1987,
+    "duplicate_ids": 0,
+    "missing_ids": [],
+    "unexpected_ids": [],
+    "main_source_records": 1837,
+    "main_source_ids_present": 1837,
+    "calibration_source_records": 150,
+    "calibration_source_ids_present": 150,
+    "main_calibration_id_overlap": [],
+    "calibration_ids_appear_exactly_once": true,
+    "columns_exactly_match_required": true,
+    "main_text_mismatch_ids": [],
+    "calibration_text_mismatch_ids": [],
+    "blank_ids": 0,
+    "blank_texts": 0,
+    "blank_labels": 0,
+    "blank_notes": 0,
+    "invalid_labels": [],
+    "invalid_confidence_values": [],
+    "adjudicated_label_mismatch_ids": [],
+    "passed": true
+  },
+  "validation_status": "PASS",
+  "train_validation_test_splits_created": false,
+  "models_trained": false
+}

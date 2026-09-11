@@ -10,8 +10,10 @@ corpus text — source or annotated — is committed to this repository.
 | `interim/candidate_pool/` | Intermediate pooling artefacts | `src/data/pooling/` |
 | `processed/` | Model-ready derived data | experiment scripts |
 | `gold/candidates/` | Stratified candidate sample | `scripts/annotation/build_gold_candidates.py` |
-| `gold/annotation/` | Blind annotation sheets + `candidate_key.csv` | `scripts/annotation/create_annotation_sheet.py` |
-| `gold/final/` | Completed gold dataset and its train/val/test splits | `scripts/annotation/validate_gold_dataset.py --split` |
+| `gold/annotation/` | Calibration and historical annotation artifacts | Annotation phase is frozen |
+| `gold/annotation_batches/` | Preserved completed annotation batches | Historical provenance |
+| `gold/gold.csv` | Frozen, canonical operational annotation dataset (1,987 records) | Validated integration |
+| `gold/splits/` | Canonical stratified train/validation/test splits | `scripts/data/create_dataset_split.py` |
 
 `raw/` is never written to by any script in this project.
 
