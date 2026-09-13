@@ -1,0 +1,92 @@
+{
+  "experiment": "human_llm_labeled_rSuicideWatch_bert",
+  "note": "Split generated ONLY from the new human/LLM-labeled dataset. No other dataset was read, merged, or sampled. Original labels preserved exactly; no relabeling or label mapping to any other scheme.",
+  "source_dataset": "human_n_llm_labeled_rSuicidewatch_posts.csv",
+  "source_path": "data/gold/human_n_llm_labeled_rSuicidewatch_posts.csv",
+  "original_row_count": 1170,
+  "cleaned_row_count": 1170,
+  "rows_removed": {
+    "missing_or_empty_text": 0,
+    "missing_label": 0,
+    "exact_duplicate_rows": 0,
+    "duplicate_texts": 0,
+    "total": 0
+  },
+  "train_size": 819,
+  "validation_size": 175,
+  "test_size": 176,
+  "train_ratio": 0.7,
+  "validation_ratio": 0.149573,
+  "test_ratio": 0.150427,
+  "random_seed": 42,
+  "text_column": "content",
+  "label_column": "severity",
+  "label_column_note": "'severity' is the human ground-truth label (0 nulls). gpt/claude/gemini/llama/mistral_label are auxiliary LLM predictions retained in all split files but NOT used as the target.",
+  "all_original_labels": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "num_classes": 7,
+  "full_dataset_label_counts": {
+    "0": 351,
+    "1": 200,
+    "2": 302,
+    "3": 72,
+    "4": 37,
+    "5": 50,
+    "6": 158
+  },
+  "train_label_counts": {
+    "0": 246,
+    "1": 140,
+    "2": 211,
+    "3": 50,
+    "4": 26,
+    "5": 35,
+    "6": 111
+  },
+  "validation_label_counts": {
+    "0": 52,
+    "1": 30,
+    "2": 45,
+    "3": 11,
+    "4": 6,
+    "5": 8,
+    "6": 23
+  },
+  "test_label_counts": {
+    "0": 53,
+    "1": 30,
+    "2": 46,
+    "3": 11,
+    "4": 5,
+    "5": 7,
+    "6": 24
+  },
+  "label_to_id_mapping": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6
+  },
+  "columns": [
+    "url",
+    "author",
+    "content",
+    "severity",
+    "created",
+    "gpt_label",
+    "claude_label",
+    "gemini_label",
+    "llama_label",
+    "mistral_label"
+  ]
+}
