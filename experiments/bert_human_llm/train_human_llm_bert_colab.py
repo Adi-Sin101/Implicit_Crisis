@@ -135,16 +135,29 @@ except ImportError:  # pragma: no cover
 # =====================================================================
 
 class Tee:
-    """Mirror stdout into bert_training_log.txt without losing Colab output."""
+    """Mirror stdout into bert_training_log.txt without losing Colab output.
+
+    This stands in for ``sys.stdout`` while the experiment runs, so it has to
+    behave like a real text stream rather than just accepting ``write``.
+    Libraries probe the active stdout for terminal capabilities -- Transformers
+    calls ``sys.stdout.isatty()`` while finalising model loading, and progress
+    bars check ``fileno``/``encoding`` -- so every such query is delegated to
+    the wrapped stream and degrades gracefully when it cannot be answered.
+    """
 
     def __init__(self, stream, path: Path):
         self.stream = stream
         self.file = open(path, "w", encoding="utf-8")
 
+    # --- core writing -------------------------------------------------
     def write(self, data):
         self.stream.write(data)
         self.file.write(data)
         return len(data)
+
+    def writelines(self, lines):
+        for line in lines:
+            self.write(line)
 
     def flush(self):
         self.stream.flush()
@@ -152,6 +165,40 @@ class Tee:
 
     def close(self):
         self.file.close()
+
+    # --- stream introspection, delegated to the wrapped stdout --------
+    def isatty(self) -> bool:
+        """Transformers/tqdm ask this; a missing answer is 'not a terminal'."""
+        try:
+            return bool(self.stream.isatty())
+        except (AttributeError, ValueError):
+            return False
+
+    def fileno(self) -> int:
+        # Raises OSError when the wrapped stream has no descriptor, which is
+        # exactly what callers expect from a stream without one.
+        return self.stream.fileno()
+
+    def readable(self) -> bool:
+        return False
+
+    def writable(self) -> bool:
+        return True
+
+    def seekable(self) -> bool:
+        return False
+
+    @property
+    def encoding(self):
+        return getattr(self.stream, "encoding", "utf-8")
+
+    @property
+    def errors(self):
+        return getattr(self.stream, "errors", None)
+
+    @property
+    def closed(self) -> bool:
+        return self.file.closed
 
 
 def banner(title: str, char: str = "=", width: int = 50) -> None:
