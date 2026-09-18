@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Reddit Suicide Severity Risk Analyzer - compare BERT and TF-IDF model predictions." />
+  <title>Reddit Suicide Severity Risk Analyzer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'] },
+          colors: { indigo: { 600: '#4338CA', 700: '#3730A3' } }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #f8fafc; }
+    .fade-up { animation: fade-up .5s ease-out both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body class="min-h-screen text-slate-900 antialiased">
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+    <header class="mb-8 flex flex-col gap-5 border-b border-slate-200 pb-6 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <div class="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-600">
+          <span class="grid h-7 w-7 place-items-center rounded-lg bg-indigo-600 text-white shadow-sm">
+            <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"/></svg>
+          </span>
+          Model evaluation workspace
+        </div>
+        <h1 class="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Reddit Suicide Severity Risk Analyzer</h1>
+        <p class="mt-2 text-sm text-slate-500">NLP Model Comparison Dashboard <span class="mx-1 text-slate-300">/</span> BERT vs TF-IDF</p>
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs font-semibold text-slate-600">
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm"><span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Dataset: 1,230 Posts</span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm"><span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>3 severity levels</span>
+      </div>
+    </header>
+
+    <main class="space-y-6">
+      <section class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="input-heading">
+        <div class="mb-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-widest text-indigo-600">Input post</p>
+            <h2 id="input-heading" class="mt-1 text-lg font-bold text-slate-950">Analyze a Reddit post</h2>
+          </div>
+          <span class="text-xs text-slate-400">Results are simulated for research preview</span>
+        </div>
+        <textarea id="post-input" class="min-h-40 w-full resize-y rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100" placeholder="Paste Reddit post content or paragraph here to analyze..." aria-label="Reddit post content"></textarea>
+        <div class="mt-4 flex flex-col-reverse justify-between gap-3 sm:flex-row sm:items-center">
+          <p id="input-status" class="flex items-center gap-2 text-xs text-slate-500"><span class="h-2 w-2 rounded-full bg-slate-300"></span>Awaiting input</p>
+          <div class="flex justify-end">
+            <button id="analyze-btn" type="button" class="inline-flex items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-200 disabled:cursor-wait disabled:opacity-70">
+              <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3ZM19 16l.6 1.9L21.5 18l-1.9.6L19 20.5l-.6-1.9-1.9-.6 1.9-.6L19 16Z"/></svg>
+              <span id="analyze-label">Analyze with Both Models</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="results" class="grid gap-6 lg:grid-cols-2" aria-label="Model comparison results">
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="bert-title">
+          <div class="flex items-start justify-between gap-4">
+            <div><p class="text-xs font-bold uppercase tracking-widest text-indigo-600">Model 01</p><h2 id="bert-title" class="mt-1 text-lg font-bold text-slate-950">BERT <span class="font-medium text-slate-400">(Fine-Tuned Transformer)</span></h2></div>
+            <span class="shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">Contextual Deep Learning</span>
+          </div>
+          <div class="mt-6 border-b border-slate-100 pb-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Predicted severity</p><div id="bert-level" class="mt-2 inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1.5 text-sm font-bold text-emerald-700"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Level 0 · No crisis</div>
+          </div>
+          <div class="mt-6 rounded-lg border border-indigo-100 bg-indigo-50/60 p-4"><p class="text-xs font-bold uppercase tracking-widest text-indigo-700">Model stance</p><p id="bert-summary" class="mt-2 text-sm leading-6 text-slate-700">Context is coherent and does not indicate immediate self-harm intent. The model finds no-crisis language patterns in this sample.</p></div>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6" aria-labelledby="tfidf-title">
+          <div class="flex items-start justify-between gap-4">
+            <div><p class="text-xs font-bold uppercase tracking-widest text-indigo-600">Model 02</p><h2 id="tfidf-title" class="mt-1 text-lg font-bold text-slate-950">TF-IDF <span class="font-medium text-slate-400">+ Logistic Regression</span></h2></div>
+            <span class="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">Frequency &amp; N-Gram Model</span>
+          </div>
+          <div class="mt-6 border-b border-slate-100 pb-5">
+            <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Predicted severity</p><div id="tfidf-level" class="mt-2 inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1.5 text-sm font-bold text-amber-700"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Level 1 · Implicit crisis</div>
+          </div>
+          <div class="mt-5"><div class="mb-3 flex items-center justify-between"><h3 class="text-sm font-bold text-slate-800">Detected TF-IDF keywords &amp; N-Grams</h3><span class="text-xs text-slate-400">Top weighted features</span></div><div id="keyword-list" class="flex min-h-32 content-start flex-wrap gap-2 rounded-lg border border-dashed border-slate-200 bg-slate-50 p-4"></div></div>
+          <div class="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4"><p class="text-xs font-bold uppercase tracking-widest text-slate-500">Feature signal</p><p id="tfidf-summary" class="mt-2 text-sm leading-6 text-slate-700">Several concern-related phrases are present, but lexical evidence alone is less decisive without broader conversational context.</p></div>
+        </article>
+      </section>
+    </main>
+
+  </div>
+
+  <script>
+    const keywords = ['hopeless', 'can\'t take', 'no longer', 'give up', 'pills', 'exhausted', 'help'];
+    const input = document.querySelector('#post-input');
+    const analyzeBtn = document.querySelector('#analyze-btn');
+    const analyzeLabel = document.querySelector('#analyze-label');
+    const status = document.querySelector('#input-status');
+
+    function renderKeywords() {
+      document.querySelector('#keyword-list').innerHTML = keywords.map((keyword, index) => `<span class="fade-up rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700" style="animation-delay:${index * 55}ms">${keyword}</span>`).join('');
+    }
+
+    function analyze() {
+      analyzeBtn.disabled = true;
+      analyzeLabel.textContent = 'Comparing models...';
+      status.innerHTML = '<span class="h-2 w-2 animate-pulse rounded-full bg-indigo-500"></span>Running inference across both models';
+      document.querySelector('#results').classList.add('opacity-70');
+      setTimeout(() => {
+        renderKeywords();
+        document.querySelector('#results').classList.remove('opacity-70');
+        analyzeBtn.disabled = false;
+        analyzeLabel.textContent = 'Analyze with Both Models';
+        status.innerHTML = '<span class="h-2 w-2 rounded-full bg-emerald-500"></span>Analysis complete · mock result ready';
+      }, 900);
+    }
+
+    input.addEventListener('input', () => { if (input.value.trim()) status.innerHTML = '<span class="h-2 w-2 rounded-full bg-sky-500"></span>Ready to analyze'; else status.innerHTML = '<span class="h-2 w-2 rounded-full bg-slate-300"></span>Awaiting input'; });
+    analyzeBtn.addEventListener('click', analyze);
+  </script>
+</body>
+</html>
