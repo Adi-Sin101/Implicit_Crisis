@@ -1,8 +1,6 @@
 # ---------------------------------------------------------------
 # Data
 # ---------------------------------------------------------------
-# External source corpora and derived working data are NOT committed.
-# They are reconstructed locally by following docs/datasets/ + DATASETS.md.
 data/raw/
 data/interim/
 data/processed/
@@ -10,7 +8,6 @@ data/gold/candidates/
 data/gold/annotation/
 data/gold/final/
 
-# ...but keep directory structure, schemas and small metadata trackable.
 !data/**/.gitkeep
 !data/**/README.md
 !data/**/*.schema.json
@@ -19,14 +16,13 @@ data/gold/final/
 # ---------------------------------------------------------------
 # Models / large artefacts
 # ---------------------------------------------------------------
-# Anchored to the repo root so src/models/ (our code) is NOT ignored.
-/models/
+# /models/
 /checkpoints/
 /runs/
 /outputs/
 *.pt
-*.bin
-*.safetensors
+# *.bin
+# *.safetensors
 *.ckpt
 *.h5
 *.pkl
@@ -34,7 +30,7 @@ data/gold/final/
 *.npy
 *.npz
 
-# Experiment outputs (metrics tables are committed explicitly if small)
+# Experiment outputs
 experiments/**/predictions/
 experiments/**/checkpoints/
 
