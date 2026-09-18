@@ -1,0 +1,20 @@
+config_id,vectorizer_name,analyzer,ngram_range,min_df,max_df,sublinear_tf,max_features,n_features_fitted,C,class_weight,solver,max_iter,n_iter_used,converged,val_accuracy,val_macro_precision,val_macro_recall,val_macro_f1,val_implicit_precision,val_implicit_recall,val_implicit_f1,stage
+8,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,1.0,balanced,lbfgs,5000,20,True,0.8093,0.809,0.8114,0.8054,0.6833,0.8542,0.7593,A_vectorizer
+15,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,1.0,balanced,lbfgs,5000,20,True,0.8093,0.809,0.8114,0.8054,0.6833,0.8542,0.7593,B_classifier
+9,char_wb_2_5,char_wb,"(2, 5)",3,0.9,True,50000,14128,1.0,balanced,lbfgs,5000,19,True,0.8093,0.8074,0.8127,0.8037,0.6935,0.8958,0.7818,A_vectorizer
+17,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,5.0,balanced,lbfgs,5000,42,True,0.8041,0.8063,0.8031,0.7985,0.7,0.875,0.7778,B_classifier
+13,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,0.5,balanced,lbfgs,5000,19,True,0.799,0.7986,0.8049,0.7958,0.6774,0.875,0.7636,B_classifier
+19,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,10.0,balanced,lbfgs,5000,39,True,0.799,0.8016,0.7961,0.7932,0.6949,0.8542,0.7664,B_classifier
+11,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,0.1,balanced,lbfgs,5000,9,True,0.7784,0.7766,0.7878,0.7759,0.6667,0.875,0.7568,B_classifier
+16,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,5.0,None,lbfgs,5000,40,True,0.7835,0.7952,0.7638,0.7724,0.7115,0.7708,0.74,B_classifier
+2,word_1_1_mindf2,word,"(1, 1)",2,0.9,True,None,1974,1.0,balanced,lbfgs,5000,20,True,0.7732,0.7687,0.7795,0.7694,0.7167,0.8958,0.7963,A_vectorizer
+18,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,10.0,None,lbfgs,5000,56,True,0.7784,0.79,0.7602,0.7679,0.6981,0.7708,0.7327,B_classifier
+1,word_1_1_mindf1,word,"(1, 1)",1,1.0,True,None,4318,1.0,balanced,lbfgs,5000,23,True,0.7732,0.7697,0.7761,0.7679,0.7,0.875,0.7778,A_vectorizer
+3,word_1_1_mindf2_nosub,word,"(1, 1)",2,0.9,False,None,1974,1.0,balanced,lbfgs,5000,21,True,0.768,0.7613,0.7753,0.7652,0.7241,0.875,0.7925,A_vectorizer
+5,word_1_2_mindf2,word,"(1, 2)",2,0.9,True,None,7371,1.0,balanced,lbfgs,5000,23,True,0.7474,0.7447,0.7467,0.743,0.7455,0.8542,0.7961,A_vectorizer
+7,word_1_2_max20k,word,"(1, 2)",2,0.9,True,20000,7371,1.0,balanced,lbfgs,5000,23,True,0.7474,0.7447,0.7467,0.743,0.7455,0.8542,0.7961,A_vectorizer
+14,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,1.0,None,lbfgs,5000,33,True,0.7526,0.7837,0.7187,0.7364,0.7556,0.7083,0.7312,B_classifier
+4,word_1_2_mindf1,word,"(1, 2)",1,1.0,True,None,30187,1.0,balanced,lbfgs,5000,27,True,0.7423,0.7643,0.7269,0.7292,0.7321,0.8542,0.7885,A_vectorizer
+6,word_1_2_mindf3,word,"(1, 2)",3,0.9,True,None,4160,1.0,balanced,lbfgs,5000,24,True,0.7268,0.7219,0.727,0.7194,0.6949,0.8542,0.7664,A_vectorizer
+12,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,0.5,None,lbfgs,5000,25,True,0.7113,0.791,0.6522,0.675,0.8108,0.625,0.7059,B_classifier
+10,char_wb_3_5,char_wb,"(3, 5)",2,0.9,True,50000,17708,0.1,None,lbfgs,5000,9,True,0.5052,0.7482,0.3667,0.2833,0.75,0.0625,0.1154,B_classifier

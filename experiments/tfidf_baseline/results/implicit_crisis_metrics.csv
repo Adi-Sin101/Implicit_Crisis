@@ -1,0 +1,12 @@
+metric,value
+implicit_precision,0.6316
+implicit_recall,0.7347
+implicit_f1,0.6792
+implicit_support,49.0
+implicit_correctly_detected,36.0
+implicit_missed_total,13.0
+implicit_missed_as_non_crisis,4.0
+implicit_missed_as_explicit_crisis,9.0
+false_implicit_total,21.0
+false_implicit_from_non_crisis,9.0
+false_implicit_from_explicit_crisis,12.0

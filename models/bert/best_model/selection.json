@@ -1,0 +1,14 @@
+{
+  "selected_epoch": 3,
+  "selection_metric": "validation_macro_f1",
+  "validation_metrics": {
+    "accuracy": 0.7046979865771812,
+    "macro_precision": 0.6333074534161491,
+    "macro_recall": 0.5473139100942013,
+    "macro_f1": 0.53945168104207,
+    "weighted_precision": 0.6678540164241944,
+    "weighted_recall": 0.7046979865771812,
+    "weighted_f1": 0.6543570999056079,
+    "n": 298
+  }
+}

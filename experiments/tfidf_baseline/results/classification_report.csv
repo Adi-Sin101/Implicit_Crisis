@@ -1,0 +1,4 @@
+class_name,label,precision,recall,f1,support
+Non-Crisis,0,0.7045,0.5849,0.6392,53
+Implicit Crisis,1,0.6316,0.7347,0.6792,49
+Explicit Crisis,2,0.766,0.7742,0.7701,93

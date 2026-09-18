@@ -1,0 +1,2 @@
+model,accuracy,macro_precision,macro_recall,macro_f1,weighted_precision,weighted_recall,weighted_f1,implicit_precision,implicit_recall,implicit_f1
+TF-IDF + Logistic Regression,0.7128,0.7007,0.6979,0.6962,0.7155,0.7128,0.7117,0.6316,0.7347,0.6792

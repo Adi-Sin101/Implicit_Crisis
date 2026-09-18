@@ -1,0 +1,61 @@
+class_label,class_name,rank,feature,coefficient
+0,Non-Crisis,1,you,0.81483
+0,Non-Crisis,2, you,0.79138
+0,Non-Crisis,3, yo,0.78725
+0,Non-Crisis,4,you ,0.67433
+0,Non-Crisis,5,ou ,0.67433
+0,Non-Crisis,6, you ,0.65593
+0,Non-Crisis,7,talk,0.61319
+0,Non-Crisis,8, talk,0.61319
+0,Non-Crisis,9, tal,0.60134
+0,Non-Crisis,10,alk,0.57424
+0,Non-Crisis,11,talk ,0.54946
+0,Non-Crisis,12,alk ,0.52796
+0,Non-Crisis,13,lk ,0.51301
+0,Non-Crisis,14,tal,0.50497
+0,Non-Crisis,15, are,0.43162
+0,Non-Crisis,16, ta,0.41695
+0,Non-Crisis,17,your,0.41659
+0,Non-Crisis,18, your,0.40066
+0,Non-Crisis,19,ple,0.37066
+0,Non-Crisis,20,eci,0.36369
+1,Implicit Crisis,1,not,0.83189
+1,Implicit Crisis,2, am ,0.76482
+1,Implicit Crisis,3,not ,0.76019
+1,Implicit Crisis,4, not,0.73968
+1,Implicit Crisis,5, am,0.69094
+1,Implicit Crisis,6,am ,0.66975
+1,Implicit Crisis,7, wa,0.65759
+1,Implicit Crisis,8,ot ,0.64464
+1,Implicit Crisis,9, tir,0.63631
+1,Implicit Crisis,10, tire,0.63011
+1,Implicit Crisis,11,tired,0.63011
+1,Implicit Crisis,12, not ,0.62022
+1,Implicit Crisis,13, wak,0.61556
+1,Implicit Crisis,14,ired,0.61297
+1,Implicit Crisis,15,wak,0.60028
+1,Implicit Crisis,16,tir,0.59317
+1,Implicit Crisis,17,ired ,0.59295
+1,Implicit Crisis,18,tire,0.58966
+1,Implicit Crisis,19,ant ,0.57192
+1,Implicit Crisis,20,ire,0.55174
+2,Explicit Crisis,1, kil,0.78822
+2,Explicit Crisis,2, kill,0.78822
+2,Explicit Crisis,3,kil,0.73991
+2,Explicit Crisis,4,kill,0.73991
+2,Explicit Crisis,5,kill ,0.7328
+2,Explicit Crisis,6,ill ,0.732
+2,Explicit Crisis,7,ill,0.7304
+2,Explicit Crisis,8, ki,0.71092
+2,Explicit Crisis,9,mysel,0.68377
+2,Explicit Crisis,10,myse,0.68377
+2,Explicit Crisis,11,yself,0.68377
+2,Explicit Crisis,12,mys,0.68377
+2,Explicit Crisis,13,ysel,0.68377
+2,Explicit Crisis,14,yse,0.68377
+2,Explicit Crisis,15, mys,0.67921
+2,Explicit Crisis,16, myse,0.67921
+2,Explicit Crisis,17,self,0.64094
+2,Explicit Crisis,18,elf,0.61931
+2,Explicit Crisis,19,uic,0.6076
+2,Explicit Crisis,20,ici,0.58382
