@@ -1,0 +1,96 @@
+{
+  "status": "FROZEN",
+  "model": "TF-IDF + Logistic Regression",
+  "frozen_on": "2026-09-19",
+  "statement": "char_wb with ngram_range (3,5) is the FINAL TF-IDF model configuration. It is frozen. No further n-gram search or TF-IDF model-selection experiment should be performed unless explicitly requested by the project owner.",
+
+  "dataset": "data/final_datasets/merged_severity_dataset_not_keyword_keyword.csv",
+  "text_column": "content",
+  "target_column": "severity",
+  "label_mapping": {
+    "severity_0": "0 = Non-Crisis",
+    "severity_1": "1 = Implicit Crisis",
+    "severity_2_to_6": "2 = Explicit Crisis"
+  },
+  "label_names": ["Non-Crisis", "Implicit Crisis", "Explicit Crisis"],
+
+  "split": {
+    "source": "experiments/tfidf_baseline/results/data_split.csv",
+    "exported_copies": [
+      "data/final_datasets/splits/train.csv",
+      "data/final_datasets/splits/validation.csv",
+      "data/final_datasets/splits/test.csv"
+    ],
+    "n_train": 905,
+    "n_validation": 194,
+    "n_test": 195,
+    "total": 1294,
+    "seed": 42,
+    "stratified": true,
+    "status": "FROZEN",
+    "note": "The source `split` column uses the value `val`, not `validation`. The file data/final_datasets/splits/validation.csv holds exactly those rows."
+  },
+
+  "tfidf": {
+    "analyzer": "char_wb",
+    "ngram_range": [3, 5],
+    "min_df": 2,
+    "max_df": 0.9,
+    "sublinear_tf": true,
+    "max_features": 50000,
+    "lowercase": true,
+    "strip_accents": "unicode",
+    "n_features_fitted": 17708,
+    "fitted_on": "training split only"
+  },
+
+  "logistic_regression": {
+    "C": 1.0,
+    "class_weight": "balanced",
+    "solver": "lbfgs",
+    "max_iter": 5000,
+    "random_state": 42
+  },
+
+  "selection_metric": "validation macro F1",
+
+  "results": {
+    "validation_macro_f1": 0.8054,
+    "test_accuracy": 0.7128,
+    "test_macro_precision": 0.7007,
+    "test_macro_recall": 0.6979,
+    "test_macro_f1": 0.6962,
+    "test_weighted_f1": 0.7117
+  },
+
+  "evidence": {
+    "ngram_ablation": "results/ngram_ablation/",
+    "ablation_results_table": "results/ngram_ablation/results.csv",
+    "ablation_report": "results/ngram_ablation/RESULTS.md",
+    "ablation_final_test": "results/ngram_ablation/FINAL_TEST.md",
+    "baseline_experiment": "experiments/tfidf_baseline/",
+    "baseline_write_up": "docs/TFIDF_BASELINE.md",
+    "split_audit": "docs/FINAL_SPLIT_AUDIT.md",
+    "saved_vectorizer": "models/tfidf_logistic_regression/tfidf_vectorizer.joblib",
+    "saved_model": "models/tfidf_logistic_regression/logistic_regression.joblib",
+    "ngram_ranges_tested": [[2, 4], [3, 5], [3, 6], [4, 6], [4, 7], [5, 7]],
+    "selection_basis": "(3,5) had the highest validation macro F1 (0.8054) of the six ranges tested; no alternative beat it."
+  },
+
+  "do_not_change": [
+    "analyzer",
+    "ngram_range",
+    "min_df",
+    "max_df",
+    "sublinear_tf",
+    "max_features",
+    "lowercase",
+    "strip_accents",
+    "C",
+    "class_weight",
+    "solver",
+    "max_iter",
+    "random_state",
+    "the train/validation/test split membership"
+  ]
+}

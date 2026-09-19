@@ -1,0 +1,134 @@
+{
+  "experiment": "character n-gram ablation",
+  "objective": "Determine whether changing the character n-gram range improves validation macro F1 over the (3,5) baseline, with ngram_range as the only variable.",
+  "timestamp_utc": "2026-09-18T20:43:46.513484+00:00",
+  "git": {
+    "commit": "23e97044752bb1b71a68820b94e00ba1865a7705",
+    "commit_short": "23e9704",
+    "branch": "main",
+    "working_tree_dirty": true
+  },
+  "script": "experiments/ngram_ablation.py",
+  "split_source": "experiments/tfidf_baseline/results/data_split.csv",
+  "split_sizes": {
+    "train": 905,
+    "val": 194,
+    "test": 195
+  },
+  "interpretation": [
+    "No tested configuration beat the `(3,5)` baseline on validation macro F1; the baseline remains the best.",
+    "Configurations starting at n>=4 (`(4,6)`, `(4,7)`, `(5,7)`) scored between 0.7862 and 0.7981 validation macro F1, versus 0.8054 for the baseline.",
+    "Feature counts ranged from 11,015 to 25,894; the correlation between feature count and validation macro F1 across the six points is -0.430.",
+    "Implicit Crisis F1 ranged 0.7593 to 0.7890 and Implicit Crisis recall 0.8542 to 0.8958 across the six configurations.",
+    "Total fit time ranged 0.83s to 1.52s."
+  ],
+  "versions": {
+    "python": "3.13.7",
+    "scikit_learn": "1.9.0",
+    "pandas": "3.0.0",
+    "numpy": "2.3.5",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "dataset": "data/final_datasets/merged_severity_dataset_not_keyword_keyword.csv",
+  "text_column": "content",
+  "target_column": "severity",
+  "label_mapping": {
+    "severity_0": "0 = Non-Crisis",
+    "severity_1": "1 = Implicit Crisis",
+    "severity_2_to_6": "2 = Explicit Crisis"
+  },
+  "label_names": [
+    "Non-Crisis",
+    "Implicit Crisis",
+    "Explicit Crisis"
+  ],
+  "seed": 42,
+  "split": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15,
+    "stratified": true,
+    "random_state": 42,
+    "n_train": 905,
+    "n_val": 194,
+    "n_test": 195,
+    "source": "experiments/tfidf_baseline/results/data_split.csv",
+    "recomputed": false
+  },
+  "analyzer": "char_wb",
+  "ngram_ranges_tested": [
+    [
+      2,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      3,
+      6
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      4,
+      7
+    ],
+    [
+      5,
+      7
+    ]
+  ],
+  "baseline_ngram_range": [
+    3,
+    5
+  ],
+  "tfidf_fixed_parameters": {
+    "analyzer": "char_wb",
+    "min_df": 2,
+    "max_df": 0.9,
+    "sublinear_tf": true,
+    "max_features": 50000,
+    "lowercase": true,
+    "strip_accents": "unicode"
+  },
+  "logistic_regression_parameters": {
+    "C": 1.0,
+    "class_weight": "balanced",
+    "solver": "lbfgs",
+    "max_iter": 5000,
+    "random_state": 42,
+    "n_iter_used": 20
+  },
+  "selection_metric": "validation macro F1",
+  "test_set_used_for_selection": false,
+  "test_evaluations_performed": 1,
+  "hard_negative_metrics": {
+    "available": false,
+    "status": "class_not_in_dataset",
+    "reason": "The final dataset (merged_severity_dataset_not_keyword_keyword.csv) carries only the `severity` column, which maps to the three classes Non-Crisis / Implicit Crisis / Explicit Crisis. It contains no `hard_negative` annotation. `hard_negative` is a class in the project's older four-class scheme (annotation/guidelines/annotation_guidelines.md: crisis vocabulary present but not the author's own crisis), which the current three-class scheme does not carry. Hard-negative metrics are therefore NOT COMPUTABLE on this dataset and are recorded as NA. Non-Crisis metrics are reported in full and are the closest available quantity, but Non-Crisis is NOT the same class as hard_negative and must not be read as a substitute."
+  },
+  "selected_configuration": {
+    "ngram_range": [
+      3,
+      5
+    ],
+    "validation_macro_f1": 0.8054,
+    "num_features": 17708
+  },
+  "baseline_validation_macro_f1": 0.8054,
+  "delta_vs_baseline": 0.0,
+  "outputs": [
+    "config.json",
+    "results.csv",
+    "RESULTS.md",
+    "run.log",
+    "final_test_results.csv",
+    "final_test_per_class.csv",
+    "final_test_confusion_matrix.csv",
+    "FINAL_TEST.md"
+  ]
+}

@@ -1,5 +1,13 @@
 # TF-IDF + Logistic Regression Baseline
 
+> **STATUS: FROZEN.** `analyzer=char_wb` with `ngram_range=(3,5)` is the **final
+> TF-IDF model configuration** and must not be changed. The n-gram ablation in
+> `results/ngram_ablation/` is the evidence: `(3,5)` had the highest validation
+> macro F1 (0.8054) of the six ranges tested. No further n-gram search or TF-IDF
+> model-selection experiment should be run unless the project owner asks.
+> Machine-readable record: [`configs/tfidf_final_frozen.json`](../configs/tfidf_final_frozen.json).
+> Split audit: [`docs/FINAL_SPLIT_AUDIT.md`](FINAL_SPLIT_AUDIT.md).
+
 A sparse-feature baseline for three-class crisis severity classification, built
 to be directly comparable with the BERT experiment in
 `ipnyb/bert_crisis_classifier (1).ipynb`. Every choice that could affect

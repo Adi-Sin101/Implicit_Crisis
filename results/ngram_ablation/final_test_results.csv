@@ -1,0 +1,2 @@
+selected_ngram_range,analyzer,num_features,n_test,test_accuracy,test_macro_precision,test_macro_recall,test_macro_f1,test_weighted_precision,test_weighted_recall,test_weighted_f1,non_crisis_precision,non_crisis_recall,non_crisis_f1,non_crisis_support,implicit_crisis_precision,implicit_crisis_recall,implicit_crisis_f1,implicit_crisis_support,explicit_crisis_precision,explicit_crisis_recall,explicit_crisis_f1,explicit_crisis_support
+"(3,5)",char_wb,17708,195,0.7128,0.7007,0.6979,0.6962,0.7155,0.7128,0.7117,0.7045,0.5849,0.6392,53,0.6316,0.7347,0.6792,49,0.766,0.7742,0.7701,93
