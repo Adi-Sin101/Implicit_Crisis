@@ -1,0 +1,20 @@
+sequenceDiagram
+  actor User
+  participant UI as index.html
+  participant API as POST /predict
+  participant FM as FrozenModels
+  participant TF as TF-IDF + LR
+  participant B as BERT
+  User->>UI: Enter non-blank text and analyze
+  UI->>API: {"text": "..."}
+  API->>FM: validate and access loaded artifacts
+  par Independent TF-IDF path
+    FM->>TF: transform, predict, predict_proba
+    TF-->>FM: class and probability map
+  and Independent BERT path
+    FM->>B: tokenize, inference_mode, softmax
+    B-->>FM: class and probability map
+  end
+  FM-->>API: tfidf and bert result objects
+  API-->>UI: 200 JSON response
+  UI-->>User: classes, confidences, agreement

@@ -1,0 +1,13 @@
+flowchart TB
+  Source[Final dataset source] --> Split[Authoritative split<br/>data_split.csv]
+  Split --> Copies[Current frozen copies<br/>train 905 • validation 194 • test 195]
+  Copies --> TrainTF[TF-IDF/LR training record<br/>frozen config]
+  Copies --> TrainB[Current BERT artifact<br/>already frozen]
+  TrainTF --> TFA[tfidf_vectorizer.joblib<br/>logistic_regression.joblib]
+  TrainB --> BA[models/bert_no_severity/]
+  Copies --> Eval[scripts/evaluate_current_models.py<br/>same 195-row test set]
+  TFA --> Eval
+  BA --> Eval
+  Eval --> Results[results/model_comparison/]
+  TFA --> Live[FastAPI live inference]
+  BA --> Live

@@ -1,0 +1,11 @@
+flowchart LR
+  DS[Current frozen split copies] --> TR[train.csv<br/>905]
+  DS --> VA[validation.csv<br/>194]
+  DS --> TE[test.csv<br/>195]
+  TE --> TF[TF-IDF + LR]
+  TE --> B[BERT]
+  TF --> Pred[predictions.csv]
+  B --> Pred
+  Pred --> Metrics[metrics.csv<br/>per_class_metrics.csv<br/>evaluation_summary.md]
+  Pred --> Charts[overall, per-class F1,<br/>confidence, agreement,<br/>calibration, confusion matrices]
+  Charts --> UI[Frontend Information view<br/>uses three vetted PNGs]

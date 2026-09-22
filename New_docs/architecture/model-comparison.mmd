@@ -1,0 +1,10 @@
+flowchart TB
+  Text[Submitted text] --> TFV[Saved TfidfVectorizer<br/>char_wb, 3-5 grams]
+  TFV --> LR[Saved Logistic Regression]
+  LR --> TFP[3-class probabilities<br/>selected class]
+  Text --> TOK[Local AutoTokenizer<br/>truncate max_length 256]
+  TOK --> BERT[Local AutoModelForSequenceClassification]
+  BERT --> BP[softmax logits<br/>3-class probabilities]
+  TFP --> Display[Independent side-by-side display]
+  BP --> Display
+  Note[No Word2Vec<br/>No ensemble] -.-> Display

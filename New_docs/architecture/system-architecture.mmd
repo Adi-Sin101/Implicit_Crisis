@@ -1,0 +1,12 @@
+flowchart LR
+  User[User] --> UI[index.html<br/>CrisisSense frontend]
+  UI -->|POST /predict<br/>{"text": "..."}| API[FastAPI<br/>backend/app.py]
+  UI -->|GET /project-info| API
+  API --> Models[FrozenModels]
+  Models --> TF[TF-IDF vectorizer +<br/>Logistic Regression]
+  Models --> BT[Local BERT tokenizer +<br/>BertForSequenceClassification]
+  TF --> API
+  BT --> API
+  API -->|text, tfidf, bert<br/>class + probabilities| UI
+  API -->|serves| Graphs[3 vetted evaluation PNGs]
+  Graphs --> UI
