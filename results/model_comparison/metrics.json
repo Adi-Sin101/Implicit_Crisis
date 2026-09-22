@@ -1,0 +1,75 @@
+{
+  "overall": {
+    "tfidf": {
+      "accuracy": 0.7128205128205128,
+      "precision_macro": 0.7006939495741288,
+      "recall_macro": 0.6979310287718251,
+      "f1_macro": 0.6961580055622184
+    },
+    "bert": {
+      "accuracy": 0.7692307692307693,
+      "precision_macro": 0.751045644662666,
+      "recall_macro": 0.7444459626009056,
+      "f1_macro": 0.7466093910978399
+    }
+  },
+  "per_class": [
+    {
+      "model": "tfidf",
+      "class_name": "no_crisis",
+      "precision": 0.7045454545,
+      "recall": 0.5849056604,
+      "f1": 0.6391752577,
+      "support": 53
+    },
+    {
+      "model": "tfidf",
+      "class_name": "implicit_crisis",
+      "precision": 0.6315789474,
+      "recall": 0.7346938776,
+      "f1": 0.679245283,
+      "support": 49
+    },
+    {
+      "model": "tfidf",
+      "class_name": "explicit_crisis",
+      "precision": 0.7659574468,
+      "recall": 0.7741935484,
+      "f1": 0.7700534759,
+      "support": 93
+    },
+    {
+      "model": "bert",
+      "class_name": "no_crisis",
+      "precision": 0.7659574468,
+      "recall": 0.679245283,
+      "f1": 0.72,
+      "support": 53
+    },
+    {
+      "model": "bert",
+      "class_name": "implicit_crisis",
+      "precision": 0.6538461538,
+      "recall": 0.693877551,
+      "f1": 0.6732673267,
+      "support": 49
+    },
+    {
+      "model": "bert",
+      "class_name": "explicit_crisis",
+      "precision": 0.8333333333,
+      "recall": 0.8602150538,
+      "f1": 0.8465608466,
+      "support": 93
+    }
+  ],
+  "agreement_percentage": 0.7589743589743589,
+  "calibration": {
+    "tfidf": {
+      "expected_calibration_error": 0.15538683664768882
+    },
+    "bert": {
+      "expected_calibration_error": 0.1767244265629695
+    }
+  }
+}
