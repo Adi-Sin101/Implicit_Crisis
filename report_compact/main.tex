@@ -16,7 +16,17 @@
 \usepackage{microtype}
 \usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
 \usepackage{setspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 \onehalfspacing
+
+\tikzstyle{block} = [rectangle, rounded corners, draw=black!65, fill=blue!5,
+  text width=7.6cm, align=center, minimum height=0.85cm, inner sep=4pt, font=\scriptsize]
+\tikzstyle{decision} = [rectangle, rounded corners, draw=black!65, fill=orange!8,
+  text width=7.6cm, align=center, minimum height=0.85cm, inner sep=4pt, font=\scriptsize]
+\tikzstyle{frozen} = [rectangle, rounded corners, draw=black!65, fill=green!8,
+  text width=7.6cm, align=center, minimum height=0.85cm, inner sep=4pt, font=\scriptsize]
+\tikzstyle{arch-arrow} = [thick,-{Stealth[length=2mm]}]
 
 \setlength{\parskip}{5pt}
 \captionsetup{font=small,labelfont=bf}
@@ -134,19 +144,19 @@ CrisisSense is a single FastAPI process that both serves a static frontend and e
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{system-architecture.png}
+\includegraphics[width=0.92\textwidth]{system-architecture.png}
 \caption{Overall system architecture: independent TF-IDF and BERT paths behind a single FastAPI \texttt{/predict} endpoint.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{model-comparison.png}
+\includegraphics[width=0.92\textwidth]{model-comparison.png}
 \caption{Independent model paths. Submitted text is processed separately by the TF-IDF + Logistic Regression pipeline and the BERT pipeline; both are displayed together without being combined.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{artifact-lifecycle.png}
+\includegraphics[width=0.92\textwidth]{artifact-lifecycle.png}
 \caption{Frozen artifact lifecycle: the same TF-IDF/LR and BERT artifacts feed both offline evaluation and live inference; neither path fits, refits, or overwrites the artifacts.}
 \end{figure}
 
@@ -164,6 +174,34 @@ P(y=k\mid x) = \frac{\exp(w_k^\top x + b_k)}{\sum_{j=1}^{3}\exp(w_j^\top x + b_j
 \end{equation}
 The balanced class-weight setting reweights the training loss inversely to class frequency, compensating for the moderate imbalance in Table~2.
 
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=0.16cm]
+\node (n1) [block] {Raw dataset --- \texttt{merged\_severity\_dataset\_not\_keyword\_keyword.csv} (1{,}294 rows) $\rightarrow$ \texttt{dropna(content, severity)}};
+\node (n2) [block, below=of n1] {Label mapping: severity 0 $\rightarrow$ No Crisis; 1 $\rightarrow$ Implicit Crisis; 2--6 $\rightarrow$ Explicit Crisis};
+\node (n3) [decision, below=of n2] {Duplicate check on \texttt{content} (before split) --- 0 duplicate-content rows found, 0 removed (verified)};
+\node (n4) [block, below=of n3] {Stratified 70/15/15 split, seed=42 $\rightarrow$ Train 905 / Val 194 / Test 195 --- zero row/text overlap};
+\node (n5) [decision, below=of n4] {Validation-only hyperparameter search: 9 vectorizer configs (Stage A) + LR $C$/class-weight grid (Stage B), selected by validation macro-F1};
+\node (n6) [frozen, below=of n5] {\textbf{Frozen config}: \texttt{char\_wb}, n-gram (3,5), min\_df=2, max\_df=0.9, sublinear\_tf, max\_features=50{,}000};
+\node (n7) [block, below=of n6] {\texttt{fit\_transform(train)} $\rightarrow$ 17{,}708 features; \texttt{transform(val)}, \texttt{transform(test)} --- no refit};
+\node (n8) [block, below=of n7] {LogisticRegression($C{=}1.0$, balanced, lbfgs, max\_iter=5000) \texttt{.fit(X\_train, train\_labels)}};
+\node (n9) [decision, below=of n8] {\texttt{predict\_proba(X\_test)} $\rightarrow$ argmax $\rightarrow$ predicted class --- test set touched exactly once};
+\node (n10) [block, below=of n9] {Metrics, confusion matrix, top features; artifacts saved (\texttt{.joblib}) and reload-verified};
+\node (n11) [frozen, below=of n10] {\textbf{Deployment}: \texttt{backend/app.py} loads \texttt{.joblib} once at startup $\rightarrow$ \texttt{transform} + \texttt{predict\_proba} per request --- no training};
+\draw[arch-arrow] (n1) -- (n2);
+\draw[arch-arrow] (n2) -- (n3);
+\draw[arch-arrow] (n3) -- (n4);
+\draw[arch-arrow] (n4) -- (n5);
+\draw[arch-arrow] (n5) -- (n6);
+\draw[arch-arrow] (n6) -- (n7);
+\draw[arch-arrow] (n7) -- (n8);
+\draw[arch-arrow] (n8) -- (n9);
+\draw[arch-arrow] (n9) -- (n10);
+\draw[arch-arrow] (n10) -- (n11);
+\end{tikzpicture}
+\caption{TF-IDF + Logistic Regression: complete lifecycle from raw dataset to deployed inference, traced from \texttt{experiments/tfidf\_baseline/run\_tfidf\_baseline.py} and \texttt{backend/app.py}. Full detail in \texttt{New\_docs/architecture/tfidf\_architecture.md}.}
+\end{figure}
+
 \subsection{BERT}
 
 The frozen BERT artifact is a standard \texttt{BertForSequenceClassification} (12 layers, hidden size 768, 12 attention heads, vocabulary 30{,}522, 3 output labels), loaded locally with \texttt{local\_files\_only=True} so no network call to a model hub occurs. Text is tokenized, truncated to 256 tokens, and passed through the encoder under \texttt{torch.inference\_mode()}. Each layer computes scaled dot-product self-attention,
@@ -175,6 +213,34 @@ letting every token's representation update using information from every other t
 P(y=k\mid x) = \frac{\exp(z_k)}{\sum_{j=1}^{3}\exp(z_j)}.
 \end{equation}
 This report evaluates the already-trained, saved BERT artifact as deployed; its original fine-tuning process is not re-executed or re-verified here.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=0.16cm]
+\node (b1) [block] {Pre-made \texttt{train/validation/test.csv} (content, label) $\rightarrow$ \texttt{dropna} + label sanity check ($\in\{0,1,2\}$)};
+\node (b2) [block, below=of b1] {\texttt{BertTokenizerFast.from\_pretrained('bert-base-uncased')} --- truncation=True, padding='max\_length', max\_length=256};
+\node (b3) [block, below=of b2] {Class weights (\texttt{compute\_class\_weight('balanced')}) from train labels only};
+\node (b4) [block, below=of b3] {\texttt{BertForSequenceClassification.from\_pretrained('bert-base-uncased', num\_labels=3)}};
+\node (b5) [decision, below=of b4] {\texttt{WeightedTrainer}: CrossEntropyLoss(weight=class\_weights); 8 epochs, lr=2e-5, batch 16/32, warmup$\approx$10\%, seed=42};
+\node (b6) [block, below=of b5] {\texttt{trainer.train()}: forward $\rightarrow$ loss $\rightarrow$ backprop $\rightarrow$ AdamW step; best checkpoint by validation macro-F1; early stopping (patience=3)};
+\node (b7) [decision, below=of b6] {\texttt{trainer.predict(test\_dataset)} $\rightarrow$ logits $\rightarrow$ argmax --- test set touched once};
+\node (b8) [frozen, below=of b7] {\texttt{model.half()} (fp16) $\rightarrow$ \texttt{save\_pretrained()} $\rightarrow$ frozen artifact \texttt{models/bert\_no\_severity/}};
+\node (b9) [frozen, below=of b8] {\textbf{Deployment}: \texttt{AutoTokenizer} / \texttt{AutoModelForSequenceClassification.from\_pretrained(local\_files\_only=True)}, loaded once at startup};
+\node (b10) [block, below=of b9] {\texttt{predict\_bert(text)}: tokenizer(truncation=True, max\_length=256) $\rightarrow$ \texttt{model(**encoded).logits} under \texttt{torch.inference\_mode()}};
+\node (b11) [block, below=of b10] {\texttt{softmax(logits, dim=-1)} $\rightarrow$ argmax $\rightarrow$ predicted class + confidence --- no training at inference};
+\draw[arch-arrow] (b1) -- (b2);
+\draw[arch-arrow] (b2) -- (b3);
+\draw[arch-arrow] (b3) -- (b4);
+\draw[arch-arrow] (b4) -- (b5);
+\draw[arch-arrow] (b5) -- (b6);
+\draw[arch-arrow] (b6) -- (b7);
+\draw[arch-arrow] (b7) -- (b8);
+\draw[arch-arrow] (b8) -- (b9);
+\draw[arch-arrow] (b9) -- (b10);
+\draw[arch-arrow] (b10) -- (b11);
+\end{tikzpicture}
+\caption{BERT: training path (top, \texttt{ipnyb/bert\_no\_severity.ipynb}) and frozen inference path (bottom, \texttt{backend/app.py}), explicitly distinguished. Full detail in \texttt{New\_docs/architecture/bert\_architecture.md}.}
+\end{figure}
 
 \subsection{Model Comparison}
 
@@ -272,13 +338,13 @@ Agreement is the fraction of test rows where $\hat{y}_{\text{tfidf}}=\hat{y}_{\t
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{dataset-evaluation.png}
+\includegraphics[width=0.88\textwidth]{dataset-evaluation.png}
 \caption{Dataset-to-evaluation flow: the shared frozen test set feeds both frozen models identically; predictions are aggregated into metrics, confusion matrices, and presentation figures.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{live-prediction-sequence.png}
+\includegraphics[width=0.88\textwidth]{live-prediction-sequence.png}
 \caption{Live prediction sequence: a non-blank text submission triggers independent TF-IDF and BERT paths, whose results are returned together.}
 \end{figure}
 
@@ -320,13 +386,13 @@ BERT        & Explicit   & 83.33\% & 86.02\% & 84.66\% \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{overall_metrics.png}
+\includegraphics[width=0.88\textwidth]{overall_metrics.png}
 \caption{Overall accuracy, macro precision, macro recall, and macro F1, TF-IDF + LR vs.\ BERT.}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.75\textwidth]{per_class_f1.png}
+\includegraphics[width=0.88\textwidth]{per_class_f1.png}
 \caption{Per-class F1 score for no-crisis, implicit-crisis, and explicit-crisis, by model.}
 \end{figure}
 
@@ -336,13 +402,13 @@ BERT leads on every overall metric by 5--6 points and on explicit-crisis and no-
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}[b]{0.48\textwidth}
+\begin{subfigure}[b]{0.49\textwidth}
 \centering
 \includegraphics[width=\textwidth]{confusion_matrix_tfidf.png}
 \caption{TF-IDF + LR}
 \end{subfigure}
 \hfill
-\begin{subfigure}[b]{0.48\textwidth}
+\begin{subfigure}[b]{0.49\textwidth}
 \centering
 \includegraphics[width=\textwidth]{confusion_matrix_bert.png}
 \caption{BERT}
@@ -378,12 +444,12 @@ Expected Calibration Error & 0.1554 & 0.1767 \\
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}[b]{0.48\textwidth}
+\begin{subfigure}[b]{0.49\textwidth}
 \centering
 \includegraphics[width=\textwidth]{confidence_distribution.png}
 \end{subfigure}
 \hfill
-\begin{subfigure}[b]{0.48\textwidth}
+\begin{subfigure}[b]{0.49\textwidth}
 \centering
 \includegraphics[width=\textwidth]{calibration.png}
 \end{subfigure}
@@ -394,7 +460,7 @@ Despite far higher average confidence, BERT's ECE (0.1767) is \emph{higher}, not
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.7\textwidth]{confidence_vs_correctness.png}
+\includegraphics[width=0.82\textwidth]{confidence_vs_correctness.png}
 \caption{Selected-class confidence, grouped by model and by prediction correctness.}
 \end{figure}
 
@@ -417,12 +483,12 @@ Disagreement & 47  & 24.1\% \\
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}[b]{0.48\textwidth}
+\begin{subfigure}[b]{0.49\textwidth}
 \centering
 \includegraphics[width=\textwidth]{model_agreement.png}
 \end{subfigure}
 \hfill
-\begin{subfigure}[b]{0.48\textwidth}
+\begin{subfigure}[b]{0.49\textwidth}
 \centering
 \includegraphics[width=\textwidth]{agreement_by_class.png}
 \end{subfigure}
@@ -431,7 +497,7 @@ Disagreement & 47  & 24.1\% \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.65\textwidth]{implicit_crisis_metrics.png}
+\includegraphics[width=0.78\textwidth]{implicit_crisis_metrics.png}
 \caption{Implicit-crisis-specific metric comparison between TF-IDF + Logistic Regression and BERT.}
 \end{figure}
 
