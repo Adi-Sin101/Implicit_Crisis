@@ -27,6 +27,8 @@ data/gold/final/
 *.h5
 *.pkl
 *.joblib
+!models/tfidf_logistic_regression/tfidf_vectorizer.joblib
+!models/tfidf_logistic_regression/logistic_regression.joblib
 *.npy
 *.npz
 
