@@ -1,0 +1,244 @@
+\chapter{Results}
+\label{ch:results}
+
+\section{Overall Model Comparison}
+
+Table~\ref{tab:overall-metrics} gives the overall test-set metrics for both models, and Figure~\ref{fig:overall-metrics} presents the same comparison graphically.
+
+\begin{table}[H]
+\centering
+\caption{Overall test-set metrics (195 test rows).}
+\label{tab:overall-metrics}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{TF-IDF + LR} & \textbf{BERT} \\
+\midrule
+Accuracy         & 71.28\% & 76.92\% \\
+Macro Precision  & 70.07\% & 75.10\% \\
+Macro Recall     & 69.79\% & 74.44\% \\
+Macro F1         & 69.62\% & 74.66\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{overall_metrics.png}
+\caption{Overall accuracy, macro precision, macro recall, and macro F1 for TF-IDF + Logistic Regression versus BERT on the shared 195-row test set.}
+\label{fig:overall-metrics}
+\end{figure}
+
+BERT achieves higher accuracy and macro F1 than TF-IDF + Logistic Regression on every overall metric in Table~\ref{tab:overall-metrics}, by a margin of roughly 5--6 percentage points. This aggregate advantage, however, does not automatically extend to every individual class, as Section~\ref{sec:per-class-results} shows.
+
+\section{Per-Class Results}
+\label{sec:per-class-results}
+
+Table~\ref{tab:per-class} gives precision, recall, F1, and support for each class and model, drawn directly from \texttt{results/\pbrk model\_\pbrk comparison/\pbrk per\_\pbrk class\_\pbrk metrics.csv}. Figure~\ref{fig:per-class-f1} plots the F1 comparison.
+
+\begin{table}[H]
+\centering
+\caption{Per-class precision, recall, F1, and support on the 195-row test set.}
+\label{tab:per-class}
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Model} & \textbf{Class} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{Support} \\
+\midrule
+TF-IDF + LR & No Crisis       & 70.45\% & 58.49\% & 63.92\% & 53 \\
+TF-IDF + LR & Implicit Crisis & 63.16\% & 73.47\% & 67.92\% & 49 \\
+TF-IDF + LR & Explicit Crisis & 76.60\% & 77.42\% & 77.01\% & 93 \\
+\midrule
+BERT & No Crisis       & 76.60\% & 67.92\% & 72.00\% & 53 \\
+BERT & Implicit Crisis & 65.38\% & 69.39\% & 67.33\% & 49 \\
+BERT & Explicit Crisis & 83.33\% & 86.02\% & 84.66\% & 93 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{per_class_f1.png}
+\caption{Per-class F1 score for no-crisis, implicit-crisis, and explicit-crisis, by model.}
+\label{fig:per-class-f1}
+\end{figure}
+
+BERT outperforms TF-IDF + Logistic Regression on the no-crisis class (72.00\% vs. 63.92\% F1) and, more substantially, on the explicit-crisis class (84.66\% vs. 77.01\% F1). On the implicit-crisis class, however, the two models are essentially tied, with TF-IDF marginally ahead: 67.92\% vs. 67.33\% F1, a difference of 0.59 percentage points on 49 test examples. This is the one result in this report that runs against the otherwise uniform pattern of BERT outperforming TF-IDF, and Section~\ref{sec:implicit-perf} discusses it in more detail.
+
+\section{Confusion Matrix Analysis}
+
+Figures~\ref{fig:cm-tfidf} and~\ref{fig:cm-bert} show the confusion matrices for TF-IDF + Logistic Regression and BERT, respectively; rows are true labels and columns are predicted labels, ordered no-crisis, implicit-crisis, explicit-crisis. Table~\ref{tab:cm-both} reproduces both matrices as a single table for direct side-by-side comparison.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[b]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{confusion_matrix_tfidf.png}
+\caption{TF-IDF + Logistic Regression}
+\label{fig:cm-tfidf}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{confusion_matrix_bert.png}
+\caption{BERT}
+\label{fig:cm-bert}
+\end{subfigure}
+\caption{Confusion matrices on the shared 195-row test set. Rows: true label. Columns: predicted label.}
+\label{fig:confusion-matrices}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Confusion matrix counts for both models (rows = actual, columns = predicted).}
+\label{tab:cm-both}
+\begin{tabular}{llrrr}
+\toprule
+\textbf{Model} & \textbf{Actual} & \textbf{Pred.\ No Crisis} & \textbf{Pred.\ Implicit} & \textbf{Pred.\ Explicit} \\
+\midrule
+\multirow{3}{*}{TF-IDF + LR}
+ & No Crisis        & 31 & 9  & 13 \\
+ & Implicit Crisis  & 4  & 36 & 9  \\
+ & Explicit Crisis  & 9  & 12 & 72 \\
+\midrule
+\multirow{3}{*}{BERT}
+ & No Crisis        & 36 & 12 & 5  \\
+ & Implicit Crisis  & 4  & 34 & 11 \\
+ & Explicit Crisis  & 7  & 6  & 80 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Both models show the largest diagonal mass on explicit-crisis (TF-IDF: 72/93 correct; BERT: 80/93 correct), consistent with explicit-crisis being both the largest class and the class with the least ambiguity in its surface form. For the implicit-crisis row, both models make the same number of implicit$\rightarrow$no-crisis errors (4 each) but differ on implicit$\rightarrow$explicit errors (TF-IDF: 9; BERT: 11), meaning BERT is slightly more likely than TF-IDF to over-read implicit crisis language as explicit. For the no-crisis row, TF-IDF misclassifies 13 of 53 no-crisis examples as explicit-crisis, versus only 5 of 53 for BERT --- BERT is markedly less prone to this specific error, which is consistent with its higher no-crisis precision in Table~\ref{tab:per-class}.
+
+\section{Implicit-Crisis Performance}
+\label{sec:implicit-perf}
+
+Implicit-crisis is the class this project is most concerned with, and it is also the class on which the two models are closest in performance. TF-IDF's implicit-crisis F1 (67.92\%) is driven by higher recall (73.47\% vs. BERT's 69.39\%) but lower precision (63.16\% vs. BERT's 65.38\%) than BERT; that is, TF-IDF recovers a slightly larger share of true implicit-crisis examples, at the cost of slightly more false positives from the other two classes. Given that this comparison is computed on only 49 test examples, the practical difference between the two models on this class should be read as \emph{approximately tied} rather than as a meaningful advantage for either model.
+
+\section{Explicit-Crisis Performance}
+
+Explicit-crisis is the class on which BERT shows its largest advantage: 84.66\% F1 versus TF-IDF's 77.01\%, a gap of 7.65 percentage points, driven by improvements in both precision (83.33\% vs. 76.60\%) and recall (86.02\% vs. 77.42\%). This is consistent with explicit-crisis language containing more directly interpretable lexical and contextual signal, which both a character-level lexical model and a contextual transformer can exploit, but which the transformer appears to exploit more effectively at this sample size.
+
+\section{No-Crisis Performance}
+
+BERT also outperforms TF-IDF on the no-crisis class (72.00\% vs. 63.92\% F1), driven primarily by higher recall (67.92\% vs. 58.49\%): TF-IDF misclassifies a larger share of genuinely non-crisis text as crisis-related (13 of 53 no-crisis examples predicted explicit-crisis, per Table~\ref{tab:cm-both}) than BERT does (5 of 53).
+
+\section{Confidence Distribution}
+
+Table~\ref{tab:confidence} and Figure~\ref{fig:confidence-dist} report confidence statistics computed over all 195 test predictions for each model.
+
+\begin{table}[H]
+\centering
+\caption{Selected-class confidence statistics.}
+\label{tab:confidence}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Statistic} & \textbf{TF-IDF + LR} & \textbf{BERT} \\
+\midrule
+Mean confidence   & 55.74\% & 94.60\% \\
+Median confidence & 52.27\% & 99.28\% \\
+Std.\ deviation   & 13.63\% & 10.14\% \\
+Minimum           & 34.36\% & 53.55\% \\
+Maximum           & 95.93\% & 99.75\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{confidence_distribution.png}
+\caption{Distribution of selected-class confidence for TF-IDF + Logistic Regression and BERT.}
+\label{fig:confidence-dist}
+\end{figure}
+
+BERT's confidence distribution is heavily concentrated near 1.0 (median 99.28\%), while TF-IDF's confidence is spread more broadly around its median of 52.27\%, reflecting the flatter probability distributions typically produced by a linear softmax classifier over sparse lexical features compared to a fine-tuned transformer. As established in Section~\ref{ch:methodology}, confidence is not accuracy: BERT's mean confidence of 94.60\% does not imply a 94.60\% accuracy rate, and its actual accuracy on this test set is 76.92\% (Table~\ref{tab:overall-metrics}).
+
+\section{Calibration}
+
+Table~\ref{tab:calibration} reports Expected Calibration Error for both models, and Figure~\ref{fig:calibration} shows the reliability diagram (observed accuracy versus mean confidence, per bin) alongside the diagonal line representing perfect calibration.
+
+\begin{table}[H]
+\centering
+\caption{Expected Calibration Error (10 bins).}
+\label{tab:calibration}
+\begin{tabular}{lr}
+\toprule
+\textbf{Model} & \textbf{ECE} \\
+\midrule
+TF-IDF + LR & 0.1554 \\
+BERT        & 0.1767 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{calibration.png}
+\caption{Reliability diagram: observed accuracy versus mean predicted confidence, per confidence bin, against the perfect-calibration diagonal.}
+\label{fig:calibration}
+\end{figure}
+
+Despite having far higher average confidence, BERT has a \emph{higher} ECE than TF-IDF (0.1767 vs.\ 0.1554), meaning BERT's confidence values track its actual accuracy somewhat less faithfully than TF-IDF's do, on this test set. Given that BERT's mean confidence (94.60\%) sits well above its actual accuracy (76.92\%), the pattern in Figure~\ref{fig:calibration} is consistent with systematic overconfidence: BERT's predicted confidence exceeds its observed accuracy in its high-confidence bins. TF-IDF's confidence values are lower in absolute terms but sit closer to its own accuracy (71.28\%), which is reflected in its smaller ECE. Both models' calibration errors should be interpreted cautiously given the 195-row test size, which limits how many examples fall into each of the 10 calibration bins.
+
+\section{Agreement and Disagreement}
+
+Table~\ref{tab:agreement} and Figures~\ref{fig:agreement} and~\ref{fig:agreement-class} summarize where the two independent models select the same predicted class and where they diverge.
+
+\begin{table}[H]
+\centering
+\caption{Model agreement on the 195-row test set.}
+\label{tab:agreement}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Outcome} & \textbf{Count} & \textbf{Share} \\
+\midrule
+Agreement    & 148 & 75.9\% \\
+Disagreement & 47  & 24.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.65\textwidth]{model_agreement.png}
+\caption{Overall count of test examples on which the two models' predicted labels agree versus disagree.}
+\label{fig:agreement}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{agreement_by_class.png}
+\caption{Class distribution among the shared (agreeing) predictions.}
+\label{fig:agreement-class}
+\end{figure}
+
+Agreement means the two independently trained models selected the same numeric label; it says nothing about whether that shared label is correct. Of the 195 test rows, both models are correct on 124 (63.6\%), both are wrong on 30 (15.4\%), TF-IDF alone is correct on 15 (7.7\%), and BERT alone is correct on 26 (13.3\%). BERT is uniquely correct on roughly 1.7$\times$ as many examples as TF-IDF is uniquely correct on, which is broadly consistent with BERT's higher overall accuracy, but the existence of 15 examples that only TF-IDF gets right shows that the lexical model is not strictly subsumed by the transformer model on this test set.
+
+\section{Confidence versus Correctness}
+
+Figure~\ref{fig:conf-correct} groups confidence by model and by whether the prediction was correct, making it possible to see whether either model's confidence is a useful signal for distinguishing its own correct predictions from its own incorrect ones.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{confidence_vs_correctness.png}
+\caption{Selected-class confidence, grouped by model and by prediction correctness.}
+\label{fig:conf-correct}
+\end{figure}
+
+For both models, correct predictions tend to carry higher confidence than incorrect ones, which is the expected direction for a usable confidence signal. However, because BERT's confidence distribution is compressed near 1.0 even for many of its incorrect predictions (consistent with its higher ECE in Table~\ref{tab:calibration}), a fixed high-confidence threshold on BERT's output would still pass through a non-trivial share of wrong answers; TF-IDF's more spread confidence distribution makes its confidence value comparatively more informative as a per-example correctness signal, even though its overall accuracy is lower.
+
+\section{Detailed Error Analysis}
+
+An aggregate error analysis was performed directly on \texttt{results/\pbrk model\_\pbrk comparison/\pbrk predictions.csv} (195 rows) to characterize where and how the two models' errors overlap or diverge, without reproducing individual crisis-related message text.
+
+\begin{itemize}[nosep]
+  \item \textbf{Both models correct}: 124 of 195 (63.6\%).
+  \item \textbf{Both models wrong}: 30 of 195 (15.4\%) --- cases neither representation handles correctly on this test set.
+  \item \textbf{TF-IDF correct, BERT wrong}: 15 of 195 (7.7\%).
+  \item \textbf{BERT correct, TF-IDF wrong}: 26 of 195 (13.3\%).
+  \item \textbf{Model disagreement}: 47 of 195 (24.1\%), matching Table~\ref{tab:agreement}.
+  \item \textbf{No-crisis $\rightarrow$ explicit-crisis errors}: TF-IDF makes this error on 13 of 53 no-crisis examples; BERT makes it on 5 of 53. This is the single largest source of TF-IDF's no-crisis precision gap relative to BERT.
+  \item \textbf{Explicit-crisis $\rightarrow$ no-crisis errors}: TF-IDF makes this error on 9 of 93 explicit-crisis examples; BERT makes it on 7 of 93 --- both models occasionally miss clearly-worded crisis language entirely, at broadly similar rates.
+  \item \textbf{Implicit-crisis confusion}: both models confuse implicit-crisis with no-crisis at the same rate (4 of 49 each); TF-IDF confuses implicit-crisis with explicit-crisis slightly less often than BERT does (9 of 49 vs.\ 11 of 49).
+\end{itemize}
+
+The pattern that emerges is not that one model is strictly superior: BERT more effectively separates no-crisis from explicit-crisis text, but the two models are essentially interchangeable on the implicit-crisis class, and each model correctly classifies a non-overlapping subset of examples that the other model gets wrong (15 TF-IDF-only-correct vs.\ 26 BERT-only-correct), which is consistent with the two models drawing on structurally different signal (character-level lexical patterns vs.\ contextual meaning) rather than one model simply being a strictly better version of the other.

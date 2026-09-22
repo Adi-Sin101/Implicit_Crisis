@@ -1,0 +1,23 @@
+\chapter{Future Work}
+
+The following directions are grounded in the current system's documented limitations (Chapter~\ref{ch:limitations}) and are distinguished explicitly from the work already completed and reported in Chapter~\ref{ch:results}.
+
+\begin{itemize}[nosep,leftmargin=*]
+  \item \textbf{Larger evaluation sets.} Expanding the frozen test set, or constructing an additional held-out evaluation set, would narrow the statistical uncertainty around the per-class metrics reported here, particularly for the 49-example implicit-crisis class.
+
+  \item \textbf{Broader domain coverage.} Evaluating both frozen models on text drawn from additional platforms, writing styles, or time periods than those represented in the current dataset would test whether the results in Chapter~\ref{ch:results} generalize beyond the current fixed distribution.
+
+  \item \textbf{Improved implicit-crisis data.} Given that implicit-crisis is both the smallest class and the class on which neither model shows a clear advantage, targeted collection or annotation of additional implicit-crisis examples is a direct way to both improve statistical confidence in this class's metrics and give future model training more signal on the harder, more indirect end of the label scheme.
+
+  \item \textbf{Additional validation.} Independent re-annotation or inter-annotator agreement studies on a sample of the dataset would strengthen claims about label quality that the current runtime artifacts alone cannot verify.
+
+  \item \textbf{Calibration methods.} Post-hoc calibration techniques (for example, temperature scaling or isotonic regression) applied to BERT's output probabilities could be explored to reduce its Expected Calibration Error without altering its underlying predictions, making its confidence scores more directly usable as a correctness signal.
+
+  \item \textbf{Error-focused data collection.} The aggregate error analysis in Section~\ref{sec:per-class-results} and Chapter~\ref{ch:results} identified specific, recurring error patterns (notably no-crisis $\rightarrow$ explicit-crisis for TF-IDF, and implicit-crisis $\rightarrow$ explicit-crisis for both models); collecting or annotating additional examples that specifically probe these confusion patterns is a more targeted alternative to indiscriminate dataset expansion.
+
+  \item \textbf{External and generalization testing.} Testing both models against text from a genuinely external source, not derived from the current dataset's collection process, would be needed before drawing any conclusion about real-world deployment performance.
+
+  \item \textbf{Model fine-tuning improvements.} Future work could explore re-fine-tuning the BERT model with calibration-aware training objectives or class-balanced sampling, to test whether its implicit-crisis performance and calibration can be improved without sacrificing its current explicit-crisis and no-crisis advantages.
+\end{itemize}
+
+None of the directions above have been implemented in the current frozen system; they are proposed next steps, not claims about work already completed.

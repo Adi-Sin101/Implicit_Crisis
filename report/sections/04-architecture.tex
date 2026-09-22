@@ -1,0 +1,67 @@
+\chapter{System Architecture}
+\label{ch:architecture}
+
+\section{Overall Architecture}
+
+CrisisSense is a single-process web application: a FastAPI process both serves the static frontend and exposes the prediction API. Figure~\ref{fig:system-architecture} shows the overall request path from the user's browser to the two frozen models and back.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{system-architecture.png}
+\caption{Overall CrisisSense system architecture. The frontend sends submitted text to \texttt{POST /\pbrk predict}; the FastAPI backend forwards it independently to the frozen TF-IDF/Logistic Regression pipeline and the frozen BERT pipeline, and returns both results to the frontend.}
+\label{fig:system-architecture}
+\end{figure}
+
+\section{Frontend}
+
+The frontend is a single static file, \texttt{index.html}, served directly by the FastAPI backend at \texttt{GET /\pbrk }. It loads Tailwind CSS from a CDN and requires no separate build step, local stylesheet, or JavaScript bundle. The interface has two views: a live-prediction view, which accepts free text and calls \texttt{POST /\pbrk predict}, displaying both models' predicted class, selected-class confidence, and whether the two models' numeric labels agree; and an "About CrisisSense" information view, which presents the class definitions, split counts, model comparison, confidence/agreement caveats, and three vetted evaluation figures served by the backend. Switching between the two views does not reload the page or trigger any retraining or refitting of the underlying models.
+
+\section{FastAPI Backend}
+
+The backend, \texttt{backend/\pbrk app.py}, is a single FastAPI application. It loads both frozen model artifacts once, at application startup, inside a \texttt{lifespan} context manager; if loading fails, the failure is recorded and \texttt{/\pbrk health} and \texttt{/\pbrk predict} respond with HTTP 503 rather than returning a fabricated prediction. This load-once pattern means that every request served during the application's lifetime uses the same in-memory model objects --- there is no per-request model loading and no per-request fitting.
+
+\section{Frozen Model Artifacts}
+
+Two artifact sets are loaded at startup:
+
+\begin{itemize}[nosep]
+  \item \textbf{TF-IDF + Logistic Regression}:\newline
+  \texttt{models/tfidf\_\pbrk logistic\_\pbrk regression/tfidf\_\pbrk vectorizer.joblib} and\newline
+  \texttt{models/tfidf\_\pbrk logistic\_\pbrk regression/logistic\_\pbrk regression.joblib}, both loaded with \texttt{joblib.load}.
+  \item \textbf{BERT}: \texttt{models/\pbrk bert\_\pbrk no\_\pbrk severity/\pbrk }, loaded with Hugging Face's \texttt{AutoTokenizer} and \texttt{AutoModelForSequenceClassification}, using \texttt{local\_\pbrk files\_\pbrk only=True} so that no network call to a model hub occurs at runtime.
+\end{itemize}
+
+Figure~\ref{fig:artifact-lifecycle} traces these artifacts from the frozen dataset split, through the (separately recorded) training/freezing step for each model, to their two current uses: the offline evaluation script that produces the results in Chapter~\ref{ch:results}, and the live FastAPI inference path.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{artifact-lifecycle.png}
+\caption{Frozen artifact lifecycle. The same TF-IDF/Logistic Regression and BERT artifacts feed both \texttt{scripts/\pbrk evaluate\_\pbrk current\_\pbrk models.py} (offline evaluation) and the live FastAPI \texttt{/\pbrk predict} endpoint (online inference); neither path fits, refits, or overwrites the artifacts.}
+\label{fig:artifact-lifecycle}
+\end{figure}
+
+\section{Independent Model Paths}
+
+The two models are structurally independent at every stage: separate representations (character-level TF-IDF vectors vs. BERT's contextual token representations), separate classifiers (Logistic Regression vs. a BERT sequence-classification head), and separate probability outputs. Figure~\ref{fig:model-comparison} shows the two paths side by side. Their outputs are never averaged, voted, stacked, or otherwise combined into a single ensemble prediction; the frontend and backend both treat them as two separate answers to the same question, and this report evaluates and discusses them as such throughout.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{model-comparison.png}
+\caption{Independent model paths. Submitted text is processed separately by the TF-IDF + Logistic Regression pipeline and the BERT pipeline; each produces its own three-class probability distribution, and both are displayed together without being combined.}
+\label{fig:model-comparison}
+\end{figure}
+
+\section{Prediction Flow}
+
+Figure~\ref{fig:live-sequence} shows the sequence of calls triggered by a single live prediction request, from the user's text entry through both independent model paths to the JSON response returned to the frontend.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{live-prediction-sequence.png}
+\caption{Live prediction sequence. A non-blank text submission is sent as JSON to \texttt{POST /\pbrk predict}; the backend runs the TF-IDF and BERT paths independently (conceptually in parallel) and returns both results together.}
+\label{fig:live-sequence}
+\end{figure}
+
+\section{Runtime Architecture}
+
+At runtime, TF-IDF inference runs entirely on CPU through scikit-learn sparse-matrix operations. BERT inference runs on CUDA if a GPU is available on the host machine, and falls back to CPU otherwise; when running on CPU, model weights are cast back to 32-bit floating point (\texttt{self.bert.float()}) to avoid precision issues associated with running half-precision weights without GPU support. Both models are placed in evaluation mode (\texttt{eval()}), and BERT inference additionally executes inside \texttt{torch.inference\_\pbrk mode()}, which disables gradient tracking and reduces memory overhead relative to ordinary forward-pass execution. No training, fitting, or artifact modification occurs anywhere in this runtime path.

@@ -1,0 +1,92 @@
+\documentclass[12pt,a4paper]{report}
+
+% ---------- Packages ----------
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{placeins}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+
+% Zero-width break point (no inserted hyphen), used inside \texttt paths.
+\newcommand{\pbrk}{\discretionary{}{}{}}
+\usepackage{setspace}
+\onehalfspacing
+
+\captionsetup{font=small,labelfont=bf}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  columns=fullflexible,
+  backgroundcolor=\color{gray!8}
+}
+
+\title{
+  \vspace{-2cm}
+  \Huge\textbf{CrisisSense} \\[0.4cm]
+  \Large Crisis Language Detection Using NLP \\[0.2cm]
+  \large A Comparative Study of Character-Level TF-IDF and Transformer-Based\\
+  Text Classification for Three-Class Crisis-Language Detection
+}
+\author{CrisisSense Project}
+\date{September 2026}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+{\Huge\textbf{CrisisSense}}\\[0.5cm]
+{\Large Crisis Language Detection Using NLP}\\[1.5cm]
+{\large\textbf{A Comparative Study of Character-Level TF-IDF and Transformer-Based}}\\
+{\large\textbf{Text Classification for Three-Class Crisis-Language Detection}}\\[3cm]
+{\large Final Academic Project Report}\\[1cm]
+{\large Natural Language Processing Laboratory}\\[3cm]
+{\large September 2026}\\
+\vfill
+\textit{This system performs text classification only. It is not a clinical diagnostic tool and does not assess suicide risk.}
+\end{titlepage}
+
+\pagenumbering{roman}
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\input{sections/00-abstract}
+\input{sections/01-introduction}
+\input{sections/02-related-work}
+\input{sections/03-dataset}
+\input{sections/04-architecture}
+\input{sections/05-methodology}
+\input{sections/06-implementation}
+\input{sections/07-experimental-setup}
+\input{sections/08-results}
+\input{sections/09-discussion}
+\input{sections/10-limitations}
+\input{sections/11-conclusion}
+\input{sections/12-future-work}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\appendix
+\input{sections/13-appendix}
+
+\end{document}

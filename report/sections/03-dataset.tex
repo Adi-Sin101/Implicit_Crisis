@@ -1,0 +1,85 @@
+\chapter{Dataset}
+\label{ch:dataset}
+
+\section{Current Dataset}
+
+CrisisSense's frozen split copies live under \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk } (\texttt{train.csv}, \texttt{validation.csv}, \texttt{test.csv}). Each row provides a \texttt{content} field (the input text) and a \texttt{label} field (the three-class target, 0/1/2), alongside \texttt{row\_index}, \texttt{url}, \texttt{class\_name}, and \texttt{split} columns. These three files are explicit, byte-preserved copies of the authoritative split file \texttt{experiments/\pbrk tfidf\_\pbrk baseline/\pbrk results/\pbrk data\_\pbrk split.csv}, filtered by its existing \texttt{split} column; no resampling, shuffling, or re-partitioning was performed in producing the copies, and row order, text, and labels are unchanged from the source. The split-provenance record (\texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk README.md}) documents this chain and states that if the copies ever disagree with the source file, the source file is authoritative.
+
+\section{Label Definitions}
+
+Table~\ref{tab:class-defs} gives the current three-class label scheme, including the mapping from the dataset's original ordinal \texttt{severity} field (0--6) into the collapsed three-class \texttt{label} field used by both models.
+
+\begin{table}[H]
+\centering
+\caption{Current class definitions and their construction from the original severity scale.}
+\label{tab:class-defs}
+\begin{tabular}{clp{7.2cm}}
+\toprule
+\textbf{ID} & \textbf{Class} & \textbf{Meaning} \\
+\midrule
+0 & \texttt{no\_crisis} & Text that does not indicate crisis-related language under the current scheme. Constructed from original \texttt{severity} = 0. \\
+1 & \texttt{implicit\_crisis} & Crisis-related meaning expressed indirectly rather than as a direct statement. Constructed from original \texttt{severity} = 1. \\
+2 & \texttt{explicit\_crisis} & Crisis-related language expressed directly. Constructed from original \texttt{severity} $\in \{2,\dots,6\}$. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Detailed provenance of the original annotation process that produced the \texttt{severity} values is not verifiable from the current runtime implementation alone; the repository's historical documentation describes a separate four-class annotation design, which is not the label definition used by the currently deployed models and must not be read as such.
+
+\section{Dataset Split}
+
+The dataset is partitioned into training, validation, and test splits using a stratified 70/15/15 split (seed 42), as recorded in \texttt{models/\pbrk tfidf\_\pbrk logistic\_\pbrk regression/\pbrk config.json}. Table~\ref{tab:split-sizes} gives the resulting row counts.
+
+\begin{table}[H]
+\centering
+\caption{Frozen dataset split sizes.}
+\label{tab:split-sizes}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Split} & \textbf{Path} & \textbf{Rows} \\
+\midrule
+Train      & \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk train.csv}      & 905 \\
+Validation & \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk validation.csv} & 194 \\
+Test       & \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk test.csv}       & 195 \\
+\midrule
+\textbf{Total} & & \textbf{1{,}294} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Both the TF-IDF/Logistic Regression model and the BERT model are evaluated on exactly the same 195-row \texttt{test.csv}; the results in Chapter~\ref{ch:results} are directly comparable because they share this identical evaluation set.
+
+\section{Class Distribution}
+
+Table~\ref{tab:class-dist} reports the per-class row counts within each split.
+
+\begin{table}[H]
+\centering
+\caption{Class distribution across the frozen splits.}
+\label{tab:class-dist}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Split} & \textbf{No Crisis (0)} & \textbf{Implicit Crisis (1)} & \textbf{Explicit Crisis (2)} & \textbf{Total} \\
+\midrule
+Train      & 245 & 227 & 433 & 905 \\
+Validation & 53  & 48  & 93  & 194 \\
+Test       & 53  & 49  & 93  & 195 \\
+\midrule
+\textbf{Total} & \textbf{351} & \textbf{324} & \textbf{619} & \textbf{1{,}294} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Explicit-crisis is the plurality class in every split (approximately 48\% of rows), while no-crisis and implicit-crisis are more evenly balanced with each other (approximately 27\% and 25\% respectively). Because the split is stratified, this proportion is essentially preserved from the training set through to the test set.
+
+\section{Data Preparation and Audit}
+
+The split-provenance audit recorded in \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk README.md} reports zero duplicate rows, zero duplicate \texttt{content} values, and zero overlap between splits across the full 1{,}294-row dataset. No blank \texttt{content} or \texttt{label} values were found in any of the three split files. The \texttt{content} field is copied verbatim from the source and is never cleaned or normalized prior to being written to the split files; any text normalization occurs downstream, inside each model's own representation stage (Chapter~\ref{ch:methodology}), not during dataset preparation.
+
+\section{Evaluation Set}
+
+The 195-row test split is the sole basis for every quantitative result reported in Chapter~\ref{ch:results}: overall accuracy, macro-averaged precision/recall/F1, per-class metrics, confusion matrices, confidence statistics, calibration error, and model agreement are all computed by running both frozen models over this same test set through \texttt{scripts/\pbrk evaluate\_\pbrk current\_\pbrk models.py}.
+
+\section{Dataset Limitations}
+
+The test split contains only 195 rows, of which 49 (25.1\%) belong to the implicit-crisis class --- the class most central to this project's motivation and also the smallest of the three. Metrics computed on 49 implicit-crisis test examples carry a wider margin of statistical uncertainty than the corresponding explicit-crisis metrics, which are computed on 93 examples. The dataset's original annotation methodology (how \texttt{severity} values were assigned to source text) is not independently re-verifiable from the current runtime artifacts alone, and the dataset's source domain and collection process are not re-derived in this report beyond what the frozen split files and their provenance documentation state.

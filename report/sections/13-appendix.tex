@@ -1,0 +1,101 @@
+\chapter{Current Project Structure}
+
+\begin{lstlisting}
+.
+|-- backend/                         # FastAPI inference
+|-- data/final_datasets/splits/      # current frozen copies
+|-- models/{bert_no_severity,tfidf_logistic_regression}/
+|-- results/model_comparison/        # current metrics and figures
+|-- scripts/{data,evaluate_current_models.py}
+|-- tests/test_inference_api.py
+|-- New_docs/
+|   |-- CRISISSENSE_CURRENT_PROJECT.md
+|   `-- architecture/                # Mermaid and PNG diagrams
+|-- index.html
+|-- requirements.txt
+|-- requirements-ml.txt
+`-- README.md
+\end{lstlisting}
+
+\chapter{API Response Format}
+
+Example \texttt{POST /\pbrk predict} request body:
+\begin{lstlisting}
+{
+  "text": "I feel exhausted and cannot see a way forward."
+}
+\end{lstlisting}
+
+Example response body (illustrative structure; probability values are per-request):
+\begin{lstlisting}
+{
+  "text": "I feel exhausted and cannot see a way forward.",
+  "tfidf": {
+    "label": 1,
+    "class_name": "implicit_crisis",
+    "probabilities": {
+      "no_crisis": 0.21,
+      "implicit_crisis": 0.52,
+      "explicit_crisis": 0.27
+    }
+  },
+  "bert": {
+    "label": 1,
+    "class_name": "implicit_crisis",
+    "probabilities": {
+      "no_crisis": 0.05,
+      "implicit_crisis": 0.88,
+      "explicit_crisis": 0.07
+    }
+  }
+}
+\end{lstlisting}
+
+\chapter{Additional Metrics}
+
+\begin{table}[H]
+\centering
+\caption{Confidence-versus-correctness summary (derived from \texttt{predictions.csv}).}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Outcome} & \textbf{Count} & \textbf{Share of 195} \\
+\midrule
+Both models correct       & 124 & 63.6\% \\
+Both models wrong         & 30  & 15.4\% \\
+TF-IDF correct, BERT wrong & 15 & 7.7\%  \\
+BERT correct, TF-IDF wrong & 26 & 13.3\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{Additional Figures}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{implicit_crisis_metrics.png}
+\caption{Implicit-crisis-specific metric comparison between TF-IDF + Logistic Regression and BERT.}
+\end{figure}
+
+\chapter{Example Prediction Outputs}
+
+To avoid reproducing sensitive crisis-related message content, this appendix summarizes prediction outcomes only in aggregate form (see Appendix~C and Section~8.11) rather than quoting individual test-set examples. Readers requiring row-level inspection can consult \texttt{results/\pbrk model\_\pbrk comparison/\pbrk predictions.csv} directly within the repository, which contains the full 195-row prediction table with ground truth, both models' predictions and confidences, correctness flags, and an agreement flag per row.
+
+\chapter{Reproducibility Information}
+
+\begin{itemize}[nosep]
+  \item \textbf{Python}: 3.10 or newer.
+  \item \textbf{Core requirements}: \texttt{requirements.txt} (pandas, NumPy, PyYAML, scikit-learn, joblib, FastAPI, Uvicorn).
+  \item \textbf{ML requirements}: \texttt{requirements-ml.txt} (adds PyTorch, Transformers, Accelerate), installed on top of the core requirements.
+  \item \textbf{Artifact retrieval}: \texttt{git lfs pull}, required after cloning to fetch the TF-IDF/LR \texttt{.joblib} files and the BERT weight file.
+  \item \textbf{Dataset split paths}: \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk \{train,validation,test\}.csv}.
+  \item \textbf{Evaluation script}: \texttt{scripts/\pbrk evaluate\_\pbrk current\_\pbrk models.py}, writing to \texttt{results/\pbrk model\_\pbrk comparison/\pbrk }.
+  \item \textbf{Application startup}:\newline
+  \texttt{python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000}\newline
+  after which the API and frontend are both served at \texttt{http://127.0.0.1:8000/}.
+  \item \textbf{Test set}: \texttt{data/final\_\pbrk datasets/splits/test.csv}, 195 rows, shared identically by both models.
+  \item \textbf{Frozen artifacts}:\newline
+  \texttt{models/tfidf\_\pbrk logistic\_\pbrk regression/\{tfidf\_\pbrk vectorizer,\newline logistic\_\pbrk regression\}.joblib};\newline
+  \texttt{models/bert\_\pbrk no\_\pbrk severity/} (weights, tokenizer, config).
+\end{itemize}
+
+This reproducibility information covers inference using the already-frozen artifacts and offline evaluation via the evaluation script; it does not claim that BERT's original fine-tuning run is reproduced from the current repository state.

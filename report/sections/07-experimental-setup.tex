@@ -1,0 +1,98 @@
+\chapter{Experimental Setup}
+\label{ch:experimental-setup}
+
+\section{Test Protocol}
+
+Both frozen models are evaluated by \texttt{scripts/\pbrk evaluate\_\pbrk current\_\pbrk models.py}, which loads the same \texttt{FrozenModels} class used by the live FastAPI backend and applies its \texttt{predict\_tfidf} and \texttt{predict\_bert} methods to every row of \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk test.csv} (195 rows). Using the identical inference path as the deployed API ensures that the reported evaluation numbers describe the system as it is actually served, rather than a separately reimplemented evaluation pipeline that could silently diverge from production behavior. The script writes its outputs to \texttt{results/\pbrk model\_\pbrk comparison/\pbrk }: \texttt{metrics.csv}, \texttt{metrics.json}, \texttt{per\_\pbrk class\_\pbrk metrics.csv}, \texttt{predictions.csv} (per-row ground truth, both predictions, both confidences, correctness flags, and an agreement flag), \texttt{evaluation\_\pbrk summary.md}, and the figures discussed in Chapter~\ref{ch:results}. Figure~\ref{fig:dataset-evaluation} summarizes this evaluation flow end to end.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{dataset-evaluation.png}
+\caption{Dataset-to-evaluation flow. The frozen split feeds both frozen models identically; predictions on the shared 195-row test set are aggregated into metrics, confusion matrices, and the presentation figures used throughout Chapter~\ref{ch:results}.}
+\label{fig:dataset-evaluation}
+\end{figure}
+
+\section{Evaluation Metrics}
+
+The metrics below are computed once per model over all 195 test rows and, where noted, per class.
+
+\subsection{Accuracy}
+
+\begin{equation}
+\mathrm{Accuracy} = \frac{\text{number of correct predictions}}{\text{total predictions}}.
+\end{equation}
+
+\subsection{Precision}
+
+For a given class $k$, with $TP_k$, $FP_k$ true/false positives for that class,
+
+\begin{equation}
+\mathrm{Precision}_k = \frac{TP_k}{TP_k + FP_k}.
+\end{equation}
+
+\subsection{Recall}
+
+\begin{equation}
+\mathrm{Recall}_k = \frac{TP_k}{TP_k + FN_k}.
+\end{equation}
+
+\subsection{F1 Score}
+
+\begin{equation}
+F1_k = \frac{2 \cdot \mathrm{Precision}_k \cdot \mathrm{Recall}_k}{\mathrm{Precision}_k + \mathrm{Recall}_k}.
+\end{equation}
+
+\subsection{Macro-F1}
+
+Macro-averaging computes each metric independently per class and takes the unweighted mean across classes, so that the smaller implicit-crisis class contributes equally to the aggregate score despite having fewer test examples than explicit-crisis:
+
+\begin{equation}
+\mathrm{Macro\text{-}F1} = \frac{F1_{\text{no\_crisis}} + F1_{\text{implicit\_crisis}} + F1_{\text{explicit\_crisis}}}{3}.
+\end{equation}
+
+Macro-averaged precision and recall are computed analogously.
+
+\subsection{Confusion Matrix}
+
+A $3\times3$ confusion matrix $C$ is computed per model, where $C_{i,j}$ is the number of test examples with true label $i$ predicted as label $j$, ordered no-crisis, implicit-crisis, explicit-crisis. Diagonal entries are correct predictions; off-diagonal entries are misclassifications, and their pattern reveals \emph{which} classes a model confuses, information that overall accuracy alone does not provide.
+
+\subsection{Confidence}
+
+As defined in Section~\ref{ch:methodology}, confidence for a given prediction is $p_{\hat{y}} = \max_k P(y=k\mid x)$, the probability mass on the selected class. Mean and median confidence are reported per model over all 195 test predictions.
+
+\subsection{Expected Calibration Error}
+
+Expected Calibration Error (ECE) measures how far a model's confidence tracks its actual accuracy. Predictions are partitioned into $B$ confidence bins; within each bin $b$, the observed accuracy $\mathrm{acc}(b)$ is compared to the mean predicted confidence $\mathrm{conf}(b)$, and the discrepancies are averaged, weighted by bin size:
+
+\begin{equation}
+\mathrm{ECE} = \sum_{b=1}^{B} \frac{n_b}{N} \left| \mathrm{acc}(b) - \mathrm{conf}(b) \right|,
+\end{equation}
+
+where $n_b$ is the number of predictions in bin $b$ and $N = 195$ is the total number of test predictions. A perfectly calibrated model has $\mathrm{ECE} = 0$; a model that is systematically overconfident produces $\mathrm{conf}(b) > \mathrm{acc}(b)$ in most bins.
+
+\subsection{Model Agreement}
+
+Agreement is the fraction of test examples on which $\hat{y}_{\mathrm{tfidf}} = \hat{y}_{\mathrm{bert}}$, reported both in aggregate and (Chapter~\ref{ch:results}) broken down by predicted class.
+
+\section{Summary of Setup}
+
+Table~\ref{tab:eval-setup} summarizes the fixed evaluation configuration used to produce every result in Chapter~\ref{ch:results}.
+
+\begin{table}[H]
+\centering
+\caption{Evaluation configuration summary.}
+\label{tab:eval-setup}
+\begin{tabular}{lp{9.5cm}}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+Evaluation script & \texttt{scripts/evaluate\_current\_models.py} \\
+Inference path & Identical to \texttt{backend.app.FrozenModels} (live API path) \\
+Test set & \texttt{data/final\_datasets/splits/test.csv}, 195 rows \\
+No.\ of classes & 3 \\
+Input field / target field & \texttt{content} / \texttt{label} \\
+Calibration bins & 10 \\
+Output artifacts & metrics.csv, metrics.json, per\_class\_metrics.csv, predictions.csv, figures \\
+\bottomrule
+\end{tabular}
+\end{table}

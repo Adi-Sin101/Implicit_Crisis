@@ -1,0 +1,49 @@
+\chapter{Introduction}
+
+\section{Background}
+
+Text-based platforms increasingly serve as spaces where individuals express psychological distress, and crisis-related language on these platforms rarely takes a single, uniform shape. Some statements name crisis intent directly; others communicate the same underlying meaning indirectly, through metaphor, understatement, or contextual cues that require inference rather than lexical matching. A detection system built only on keyword or lexicon matching will reliably catch the former and largely miss the latter, while a system with no lexical grounding at all may over-generalize from superficial similarity. This tension between direct and indirect expression motivates CrisisSense, which treats crisis-language detection as a three-class text-classification problem and studies how two structurally different models --- a sparse, character-level lexical model and a contextual transformer --- perform on the same task and the same data.
+
+\section{Problem Statement}
+
+Given a short piece of submitted text, the task addressed by CrisisSense is to assign one of three labels:
+
+\begin{itemize}[nosep]
+  \item \textbf{Class 0 --- \texttt{no\_crisis}}: text that does not indicate crisis-related language under the current classification scheme.
+  \item \textbf{Class 1 --- \texttt{implicit\_crisis}}: crisis-related meaning expressed indirectly rather than as a direct statement.
+  \item \textbf{Class 2 --- \texttt{explicit\_crisis}}: crisis-related language expressed directly.
+\end{itemize}
+
+This is a single-label, three-class classification problem over free text. It is explicitly \emph{not} a four-class or severity-graded problem, not a clinical risk-assessment task, and not a generative or conversational task: the system produces a class label and a probability distribution over the three classes, nothing more.
+
+\section{Motivation}
+
+Implicit crisis language is the harder and arguably more consequential case: it is the category most likely to be missed by naive keyword filters, yet it is also the category with the fewest unambiguous lexical cues to exploit. Comparing a lexical, character-level model against a contextual transformer model on the same frozen test set makes it possible to ask a concrete empirical question --- does additional contextual modeling capacity actually help on the implicit-crisis class specifically, or only on the classification task in aggregate --- rather than relying on the intuition that "bigger models are strictly better."
+
+\section{Objectives}
+
+The objectives of this project, as reflected in the current frozen system, are to:
+
+\begin{enumerate}[nosep]
+  \item Build a reproducible, frozen three-class dataset split (train/validation/test) with verified class balance and no duplicate or overlapping rows.
+  \item Train and freeze a character-level TF-IDF plus Logistic Regression baseline as a lexical, computationally lightweight classifier.
+  \item Load and evaluate a BERT sequence-classification model as a contextual counterpart, without retraining it as part of the deployed system.
+  \item Evaluate both frozen models on an identical held-out test set and report accuracy, macro-averaged precision/recall/F1, per-class F1, confidence statistics, calibration error, and inter-model agreement.
+  \item Serve both models independently, side by side, through a single FastAPI backend and a static frontend, without combining their outputs into an ensemble.
+\end{enumerate}
+
+\section{Contributions}
+
+This report's contributions are:
+
+\begin{enumerate}[nosep]
+  \item A documented, reproducible three-class crisis-language dataset split (905/194/195 rows) with a verified provenance chain and zero cross-split duplication.
+  \item A fully specified TF-IDF + Logistic Regression pipeline (character n-grams, \texttt{char\_wb} analyzer, frozen hyperparameters) evaluated end to end on the shared test set.
+  \item A fully specified BERT sequence-classification pipeline (12-layer, 768-hidden, 12-head, 3-label \texttt{BertForSequenceClassification}) evaluated as a frozen inference-only artifact on the same test set.
+  \item A side-by-side comparison of the two models covering overall metrics, per-class metrics, confusion matrices, confidence distributions, Expected Calibration Error, and model agreement/disagreement.
+  \item An explicit boundary statement distinguishing the currently deployed three-class system from historical four-class, severity-graded, and Word2Vec-based research material retained elsewhere in the repository but not used at runtime.
+\end{enumerate}
+
+\section{Scope}
+
+The scope of this report is limited to the currently deployed CrisisSense system: the static frontend (\texttt{index.html}), the FastAPI backend (\texttt{backend/\pbrk app.py}), the frozen dataset splits under \texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk }, the frozen TF-IDF/Logistic Regression and BERT artifacts, and the evaluation outputs under \texttt{results/\pbrk model\_\pbrk comparison/\pbrk }. The repository additionally contains historical four-class research material (alternate annotation schemes, an unused Word2Vec path, and earlier BERT training modules) that predates the current system; this material is explicitly out of scope and is not used by any component described in this report. CrisisSense is a research and coursework artifact for crisis-related text classification; it is not a medical device, does not diagnose individuals, and does not assess suicide risk.

@@ -1,0 +1,158 @@
+\chapter{Methodology}
+\label{ch:methodology}
+
+\section{Overall Pipeline}
+
+Both models consume the same raw \texttt{content} text and produce the same output shape: an integer label $\hat{y} \in \{0,1,2\}$ and a probability vector $(p_0, p_1, p_2)$ with $\sum_i p_i = 1$. They differ entirely in how text is represented and how the probability vector is computed. This chapter presents both pipelines in turn, followed by the metrics used to interpret confidence and agreement between the two.
+
+\section{TF-IDF Representation}
+
+Term Frequency--Inverse Document Frequency (TF-IDF) weights a term $t$ in a document $d$ by combining how often $t$ occurs in $d$ with how rare $t$ is across the whole corpus. Term frequency is
+
+\begin{equation}
+\mathrm{TF}(t,d) = \frac{\text{count of } t \text{ in } d}{\text{total terms in } d},
+\end{equation}
+
+and inverse document frequency, which down-weights terms that occur in most documents, is
+
+\begin{equation}
+\mathrm{IDF}(t) = \ln\!\left(\frac{N}{n_t}\right),
+\end{equation}
+
+where $N$ is the number of documents in the corpus and $n_t$ is the number of documents containing $t$. The combined weight is
+
+\begin{equation}
+\mathrm{TFIDF}(t,d) = \mathrm{TF}(t,d) \times \mathrm{IDF}(t).
+\end{equation}
+
+The frozen CrisisSense vectorizer additionally applies \emph{sublinear term-frequency scaling}, replacing raw term frequency with $1 + \ln(\mathrm{TF}(t,d))$ where $\mathrm{TF}(t,d) > 0$, which compresses the contribution of very frequently repeated terms within a single document.
+
+\section{Character N-Grams}
+
+Rather than treating whole words as terms, the frozen vectorizer uses the \texttt{char\_wb} analyzer, which extracts \emph{character n-grams within word boundaries}: contiguous sequences of 3 to 5 characters, taken from inside each whitespace-delimited word (padded at word edges), rather than sequences of whole words. This choice makes the representation robust to misspellings, informal punctuation, and morphological variation, since two differently spelled but visually similar tokens still share many overlapping character n-grams, whereas a word-level vectorizer would treat them as entirely unrelated vocabulary items. Table~\ref{tab:tfidf-config} gives the exact frozen configuration.
+
+\begin{table}[H]
+\centering
+\caption{Frozen TF-IDF vectorizer configuration.}
+\label{tab:tfidf-config}
+\begin{tabular}{ll}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+Analyzer & \texttt{char\_wb} (character n-grams within word boundaries) \\
+N-gram range & (3, 5) \\
+\texttt{min\_df} & 2 \\
+\texttt{max\_df} & 0.9 \\
+\texttt{sublinear\_tf} & true \\
+\texttt{max\_features} & 50{,}000 \\
+Lowercase & true \\
+Accent stripping & Unicode \\
+Fitted features & 17{,}708 \\
+Fitted on & training split only \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At inference time, the backend calls \texttt{vectorizer.transform([text])} directly on the raw submitted text. The verified live pipeline performs no separate stop-word removal, stemming, lemmatization, URL stripping, or manual punctuation removal beyond what the vectorizer itself performs (lowercasing and Unicode accent stripping); the \texttt{char\_wb} analyzer is responsible for deriving all downstream features.
+
+\section{Logistic Regression}
+
+The sparse TF-IDF feature vector is passed to a multinomial Logistic Regression classifier, which models the probability of each class $k$ given input features $x$ as a softmax over linear scores:
+
+\begin{equation}
+P(y = k \mid x) = \frac{\exp(w_k^\top x + b_k)}{\sum_{j=1}^{3} \exp(w_j^\top x + b_j)},
+\end{equation}
+
+where $w_k$ and $b_k$ are the learned weight vector and bias for class $k$. The frozen classifier configuration is given in Table~\ref{tab:lr-config}.
+
+\begin{table}[H]
+\centering
+\caption{Frozen Logistic Regression configuration.}
+\label{tab:lr-config}
+\begin{tabular}{ll}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+$C$ (inverse regularization strength) & 1.0 \\
+\texttt{class\_weight} & balanced \\
+Solver & \texttt{lbfgs} \\
+\texttt{max\_iter} & 5{,}000 \\
+Random state & 42 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The balanced class-weight setting reweights the training loss inversely proportional to class frequency, compensating for the moderate class imbalance shown in Table~\ref{tab:class-dist} (explicit-crisis is roughly 1.8$\times$ as frequent as implicit-crisis in the training split). At inference time, \texttt{predict\_proba} returns the full three-class probability vector and \texttt{predict} selects the arg-max label.
+
+\section{BERT}
+
+The BERT path replaces the sparse lexical representation entirely with a contextual transformer encoder. Given tokenized input $X = (x_1, \dots, x_n)$, each layer of the encoder computes scaled dot-product self-attention over the full sequence:
+
+\begin{equation}
+\mathrm{Attention}(Q, K, V) = \mathrm{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V,
+\end{equation}
+
+where $Q$, $K$, and $V$ are learned linear projections of the layer's input and $d_k$ is the key dimension, allowing every token's representation to be updated using information drawn from every other token in the sequence rather than only from a fixed local window. Twelve such layers are stacked, each followed by a position-wise feed-forward network, producing a final contextual representation for every input token.
+
+\section{Tokenization}
+
+Raw text is tokenized locally with \texttt{AutoTokenizer} (\texttt{local\_\pbrk files\_\pbrk only=True}), which maps the input string to a sequence of subword token IDs plus an attention mask, using the vocabulary saved alongside the frozen model (\texttt{vocab\_size} = 30{,}522). Input is truncated to a maximum length of 256 tokens; text shorter than 256 tokens is not truncated, and no explicit padding strategy is set for a single-request inference call, since a batch of size one requires no padding.
+
+\section{Transformer Encoder}
+
+The saved BERT configuration (Table~\ref{tab:bert-config}) specifies a standard \texttt{BertForSequenceClassification} architecture: 12 transformer encoder layers, a hidden size of 768, and 12 attention heads per layer. The final contextual representation of the special classification token is taken as a fixed-size pooled representation of the entire input sequence.
+
+\begin{table}[H]
+\centering
+\caption{Frozen BERT architecture configuration (from \texttt{models/\pbrk bert\_\pbrk no\_\pbrk severity/\pbrk config.json}).}
+\label{tab:bert-config}
+\begin{tabular}{ll}
+\toprule
+\textbf{Setting} & \textbf{Value} \\
+\midrule
+Architecture & \texttt{BertForSequenceClassification} \\
+Hidden layers & 12 \\
+Hidden size & 768 \\
+Attention heads & 12 \\
+Vocabulary size & 30{,}522 \\
+Max position embeddings & 512 \\
+Output labels & 3 \\
+Max input length used at inference & 256 tokens \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Classification Head}
+
+A linear classification head maps the pooled 768-dimensional representation to three raw scores (logits), one per class, mirroring the linear-then-softmax structure of the Logistic Regression path but operating on a learned contextual representation rather than a sparse lexical one.
+
+\section{Softmax Probabilities}
+
+The three logits $z = (z_0, z_1, z_2)$ are converted into a probability distribution with the standard softmax function,
+
+\begin{equation}
+P(y = k \mid x) = \frac{\exp(z_k)}{\sum_{j=1}^{3} \exp(z_j)},
+\end{equation}
+
+and the predicted class is $\hat{y} = \arg\max_k P(y=k \mid x)$. This computation is performed under \texttt{torch.inference\_\pbrk mode()}, which disables autograd bookkeeping since no training occurs at this stage.
+
+\begin{quote}
+\raggedright\small
+\begin{verbatim}
+Raw text -> local BERT tokenizer (truncate to 256)
+         -> token IDs + attention mask
+         -> BERT transformer encoder (12 layers)
+         -> pooled contextual representation
+         -> linear classification head -> logits
+         -> softmax -> three class probabilities
+         -> predicted class
+\end{verbatim}
+\end{quote}
+
+\section{Confidence}
+
+For both models, \emph{confidence} is defined as the probability mass assigned to the predicted (selected) class, $p_{\hat{y}} = \max_k P(y=k \mid x)$. Confidence is a property of the model's own output distribution, not a measurement of correctness; a model can be simultaneously highly confident and wrong, or cautious and correct. Chapter~\ref{ch:results} reports confidence statistics and calibration error precisely because these two models exhibit very different confidence behavior that is not explained by their accuracy difference alone.
+
+\section{Model Agreement}
+
+Because TF-IDF/Logistic Regression and BERT are evaluated independently on the same input, it is possible to ask, for each test example, whether their predicted labels $\hat{y}_{\mathrm{tfidf}}$ and $\hat{y}_{\mathrm{bert}}$ coincide. \emph{Agreement} is defined simply as $\hat{y}_{\mathrm{tfidf}} = \hat{y}_{\mathrm{bert}}$, without reference to the true label; it is a measure of consistency between two independent classifiers, not a measure of correctness, and Chapter~\ref{ch:results} reports agreement and per-model correctness as separate quantities.

@@ -1,0 +1,24 @@
+\chapter{Limitations}
+\label{ch:limitations}
+
+The following limitations are directly supported by the current project documentation and the evaluation artifacts examined in this report.
+
+\begin{itemize}[nosep,leftmargin=*]
+  \item \textbf{Small test set.} All results in Chapter~\ref{ch:results} are computed on a single 195-sample frozen test set. Metrics computed at this scale, particularly per-class metrics, carry meaningful statistical uncertainty, and small differences (such as the 0.59-point implicit-crisis F1 gap) should not be over-interpreted as robust, generalizable effects.
+
+  \item \textbf{Small implicit-crisis subclass.} The implicit-crisis class --- the class most central to this project's motivation --- has only 49 test examples, the smallest of the three classes. Conclusions about implicit-crisis performance rest on the narrowest evidentiary base in this report.
+
+  \item \textbf{Model disagreement.} The two models disagree on 24.1\% of test examples. This report does not resolve which model is correct in a disagreement case without reference to the ground-truth label, and no automated arbitration mechanism between the two models exists in the deployed system.
+
+  \item \textbf{Calibration limitations.} Both models exhibit non-trivial Expected Calibration Error (TF-IDF: 0.155; BERT: 0.177), and BERT in particular shows a pattern consistent with overconfidence. Neither model's raw softmax probability should be treated as a calibrated estimate of the true probability of correctness.
+
+  \item \textbf{Confidence interpretation.} Confidence values are not directly comparable across the two models: BERT's confidence distribution is compressed near 1.0 regardless of correctness to a greater degree than TF-IDF's, so the same numeric confidence threshold does not carry equivalent meaning for both models.
+
+  \item \textbf{Frozen artifacts.} Both models are frozen inference-only artifacts in the current deployed system. The BERT model's original fine-tuning process is not re-executed or re-verified as part of this report; the evaluation in Chapter~\ref{ch:results} describes the behavior of the already-trained, saved artifact, not a reproduction of its training procedure.
+
+  \item \textbf{Dataset scope.} The dataset underlying the frozen splits (1{,}294 rows total) is fixed and was not expanded or re-annotated for this report. Its source domain, collection process, and original annotation methodology are documented only to the extent recorded in the frozen split provenance files; deeper annotation-quality claims are outside the scope of what the current runtime artifacts can verify.
+
+  \item \textbf{Not a clinical tool.} CrisisSense performs text classification. It does not diagnose individuals, does not clinically assess suicide risk, does not determine whether a person will attempt self-harm, and does not replace professional assessment or provide medical advice. No claim in this report should be read as a clinical-effectiveness claim.
+
+  \item \textbf{Generalization.} Both models were trained and evaluated on the same fixed dataset distribution. Their performance on text drawn from different platforms, writing styles, languages, or time periods than those represented in the current dataset is untested and should not be assumed to match the results reported here.
+\end{itemize}

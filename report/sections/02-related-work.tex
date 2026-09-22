@@ -1,0 +1,29 @@
+\chapter{Related Work}
+
+\section{Crisis- and Suicide-Related Language Detection}
+
+Automatic detection of crisis- and suicide-related language is a recognized application area within applied NLP, typically framed as a text-classification or risk-stratification problem over social-media posts, forum text, or clinical notes. A recurring difficulty in this literature is that crisis intent is often not stated in an unambiguous, keyword-matchable form; language can convey the same underlying state through indirection, metaphor, or understatement. This motivates treating implicit and explicit expression as distinct classes rather than collapsing them into a single binary crisis/no-crisis label, which is the design choice CrisisSense makes with its three-class scheme.
+
+\section{Traditional NLP Classification}
+
+Before the widespread adoption of pretrained transformer encoders, text classification was dominated by sparse, feature-based pipelines: a document is mapped to a high-dimensional numeric vector (bag-of-words, n-gram counts, or TF-IDF weights), and a linear or shallow classifier is fit on top of that vector. These pipelines remain competitive baselines because they are inexpensive to train, fast at inference time, and behave predictably on out-of-distribution or noisy text, which is a relevant property for short, informally written crisis-related messages.
+
+\section{TF-IDF and Linear Models}
+
+Term Frequency--Inverse Document Frequency (TF-IDF) weighting~\cite{sparckjones1972statistical} scores a term within a document in proportion to how often it appears in that document and in inverse proportion to how common it is across the whole corpus, so that terms that are frequent everywhere contribute little discriminative signal. Logistic Regression~\cite{cox1958regression} is the standard linear classifier paired with TF-IDF features, mapping the resulting sparse feature vector to class probabilities through a softmax over a linear score. Character-level n-gram variants of TF-IDF (as opposed to word-level n-grams) are particularly relevant for informal, misspelled, or non-standard text, since they degrade gracefully under spelling variation and do not require a fixed vocabulary of whole words.
+
+\section{Transformer-Based Text Classification}
+
+The Transformer architecture~\cite{vaswani2017attention} replaced recurrence with self-attention, allowing every token in a sequence to attend directly to every other token. This architecture underlies the current generation of pretrained language models used for text classification, in which a large encoder is pretrained on unlabeled text and then fine-tuned (or, as in the present system, previously fine-tuned and subsequently frozen) for a downstream classification task by attaching a linear classification head to a pooled sequence representation.
+
+\section{BERT}
+
+BERT~\cite{devlin2019bert} is a bidirectional Transformer encoder pretrained with a masked-language-modeling objective, producing contextual token representations that condition on both left and right context simultaneously. \texttt{BertForSequenceClassification}, the architecture used by the CrisisSense BERT artifact, attaches a linear classification head to BERT's pooled output and is a standard configuration for sequence-level classification tasks such as sentiment analysis, topic classification, and --- as in this report --- crisis-language classification. The publicly available implementation used here is provided through the Hugging Face Transformers library~\cite{wolf2020transformers} and runs on PyTorch~\cite{paszke2019pytorch}.
+
+\section{Comparison of Traditional and Transformer Approaches}
+
+Contextual transformer models are generally expected to outperform sparse lexical baselines on tasks that require disambiguating meaning from context, since self-attention can, in principle, capture the kind of indirection and dependency structure that a bag-of-character-n-grams representation cannot. However, this expected advantage is not guaranteed to be uniform across all classes of a task: a model can improve overall accuracy while leaving a specific, harder subclass unchanged or only marginally improved, particularly when that subclass is defined by pragmatic or contextual indirection (as implicit crisis language is) rather than by surface lexical variation alone. Neural classifiers, including fine-tuned transformers, have also been repeatedly shown to be poorly calibrated: their softmax confidence does not reliably track the true probability of correctness~\cite{guo2017calibration,naeini2015obtaining}. This is directly relevant to interpreting CrisisSense's results, since the BERT model in this system produces markedly higher confidence scores than the TF-IDF model without a proportional improvement in calibration.
+
+\section{Research Gap and Motivation}
+
+Much of the applied literature on crisis-language detection reports a single model's aggregate accuracy without separating overall performance from class-specific performance, and without jointly reporting confidence, calibration, and inter-model agreement as distinct axes of evaluation. CrisisSense is positioned to address this gap directly for its own dataset: it evaluates two independently trained models of different representational character (sparse lexical vs. contextual transformer) on an identical frozen test set, and reports overall metrics, per-class metrics, confidence, calibration, and agreement as separate, non-interchangeable quantities, consistent with the general finding that high confidence does not imply high accuracy and that overall accuracy does not imply uniform per-class advantage.

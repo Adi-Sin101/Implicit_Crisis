@@ -1,0 +1,110 @@
+\chapter{Implementation}
+
+\section{Software Stack}
+
+CrisisSense's current runtime stack is summarized in Table~\ref{tab:software-stack}.
+
+\begin{table}[H]
+\centering
+\caption{Current software and environment stack.}
+\label{tab:software-stack}
+\begin{tabular}{ll}
+\toprule
+\textbf{Component} & \textbf{Library / Requirement} \\
+\midrule
+Language & Python 3.10+ \\
+Web framework & FastAPI ($\geq$0.116), Uvicorn ($\geq$0.35) \\
+Classical ML & scikit-learn ($\geq$1.3), joblib ($\geq$1.3) \\
+Data handling & pandas ($\geq$2.0), NumPy ($\geq$1.24) \\
+Deep learning & PyTorch ($\geq$2.0), Transformers ($\geq$4.35), Accelerate ($\geq$0.24) \\
+Frontend & Static HTML (\texttt{index.html}) with Tailwind CSS via CDN \\
+Artifact versioning & Git LFS (tracks \texttt{.joblib} and BERT weight files) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Core dependencies are declared in \texttt{requirements.txt}; the BERT-specific dependencies (PyTorch~\cite{paszke2019pytorch}, Transformers~\cite{wolf2020transformers}, Accelerate) are declared separately in \texttt{requirements-ml.txt}, which installs on top of the core requirements. The TF-IDF and Logistic Regression artifacts are produced with scikit-learn~\cite{pedregosa2011scikit}.
+
+\section{Repository Structure}
+
+Table~\ref{tab:repo-structure} lists the repository paths that constitute the current deployed system, as distinguished from historical research material retained elsewhere in the repository (Section~\ref{sec:runtime-boundary}).
+
+\begin{table}[H]
+\centering
+\small
+\caption{Current-system file map.}
+\label{tab:repo-structure}
+\begin{tabular}{p{4.3cm}p{8.7cm}}
+\toprule
+\textbf{Path} & \textbf{Purpose} \\
+\midrule
+\texttt{index.html} & CrisisSense frontend. \\
+\texttt{backend/\pbrk app.py} & FastAPI application: model loading, endpoints, prediction. \\
+\texttt{data/\pbrk final\_\pbrk datasets/\pbrk splits/\pbrk } & Frozen train/validation/test CSV copies. \\
+\texttt{models/\pbrk tfidf\_\pbrk logistic\_\pbrk regression/\pbrk } & Frozen TF-IDF vectorizer and Logistic Regression artifacts. \\
+\texttt{models/\pbrk bert\_\pbrk no\_\pbrk severity/\pbrk } & Frozen BERT weights, tokenizer, and configuration. \\
+\texttt{configs/\pbrk tfidf\_\pbrk final\_\pbrk frozen.json} & Freeze record declaring the final TF-IDF/LR settings. \\
+\texttt{scripts/\pbrk evaluate\_\pbrk current\_\pbrk models.py} & Offline evaluation of both frozen models on \texttt{test.csv}. \\
+\texttt{results/\pbrk model\_\pbrk comparison/\pbrk } & Current metrics, prediction table, summary, and figures. \\
+\texttt{tests/\pbrk test\_\pbrk inference\_\pbrk api.py} & Smoke tests for \texttt{/\pbrk health} and \texttt{/\pbrk predict}. \\
+\texttt{New\_docs/\pbrk } & Current-project documentation and architecture diagrams. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Model Artifacts}
+
+The TF-IDF and Logistic Regression artifacts are serialized with \texttt{joblib} as two separate \texttt{.joblib} files, loaded with \texttt{joblib.load} at application startup. The BERT artifact is stored as a standard Hugging Face model directory (\texttt{model.safetensors}, \texttt{config.json}, \texttt{tokenizer.json}, \texttt{tokenizer\_\pbrk config.json}) and loaded with \texttt{AutoTokenizer.from\_\pbrk pretrained} and \texttt{AutoModelForSequenceClassification.from\_\pbrk pretrained}, both called with \texttt{local\_\pbrk files\_\pbrk only=True} to guarantee that no network request to a remote model hub occurs during application startup or at inference time. All of these artifact files are tracked with Git LFS, as declared in \texttt{.gitattributes}.
+
+\section{Backend Implementation}
+
+The backend centers on a single \texttt{FrozenModels} class, instantiated once inside the FastAPI \texttt{lifespan} context manager and stored on \texttt{app.state.models}. It exposes two prediction methods, \texttt{predict\_tfidf} and \texttt{predict\_bert}, each of which is a pure inference call against the already-loaded artifacts: neither method fits, refits, retrains, or writes to any model artifact. If artifact loading fails at startup, \texttt{app.state.models} is set to \texttt{None} and the error message is recorded on \texttt{app.state.load\_\pbrk error}; \texttt{/\pbrk health} and \texttt{/\pbrk predict} then respond with HTTP 503 rather than silently returning an incorrect or placeholder prediction.
+
+\section{API Endpoints}
+
+Table~\ref{tab:api-endpoints} documents the backend's five endpoints.
+
+\begin{table}[H]
+\centering
+\caption{Current backend API endpoints.}
+\label{tab:api-endpoints}
+\begin{tabular}{lp{9.5cm}}
+\toprule
+\textbf{Endpoint} & \textbf{Purpose} \\
+\midrule
+\texttt{GET /\pbrk } & Serves \texttt{index.html}. \\
+\texttt{GET /\pbrk health} & Reports model load status; HTTP 503 if artifacts failed to load. \\
+\texttt{GET /\pbrk project-info} & Reads current split row counts; returns totals, input/target field names, and class count. \\
+\texttt{GET /\pbrk evaluation/\pbrk \{filename\}} & Serves only the three frontend-approved evaluation graphs (overall metrics, per-class F1, confidence distribution); any other filename returns HTTP 404. \\
+\texttt{POST /\pbrk predict} & Accepts \texttt{\{"text": "..."\}}; returns independent TF-IDF and BERT predictions. Blank text is rejected with HTTP 422. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each model object in a \texttt{/\pbrk predict} response contains a \texttt{label} (integer), a \texttt{class\_name} (string), and a \texttt{probabilities} object keyed by the three class names, so that the frontend can render both the predicted class and the full probability distribution for each model.
+
+\section{Frontend}
+
+As described in Section~\ref{ch:architecture}, the frontend is a single static HTML page with no separate build pipeline. It performs two kinds of network calls: \texttt{POST /\pbrk predict} for live classification requests, and \texttt{GET /\pbrk project-info} plus \texttt{GET /\pbrk evaluation/\pbrk \{filename\}} for populating the information view with dataset counts and the three vetted evaluation figures.
+
+\section{Runtime Inference}
+
+A single \texttt{POST /\pbrk predict} request triggers, in sequence within the request handler: a Pydantic validation check that the submitted text is non-blank; a call to \texttt{FrozenModels.predict\_\pbrk tfidf}, which transforms the text with the frozen vectorizer and calls \texttt{predict\_proba} and \texttt{predict} on the frozen Logistic Regression classifier; and a call to \texttt{FrozenModels.predict\_\pbrk bert}, which tokenizes the text, truncates to 256 tokens, runs a forward pass under \texttt{torch.inference\_\pbrk mode()}, and applies softmax to the resulting logits. Both results are assembled into a single JSON response and returned to the frontend. No step in this path performs gradient computation, parameter updates, or artifact writes.
+
+\section{Reproducibility}
+\label{sec:reproducibility}
+
+The documented current launch sequence is:
+
+\begin{lstlisting}[language=bash]
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements-ml.txt
+git lfs pull
+python -m uvicorn backend.app:app --host 127.0.0.1 --port 8000
+\end{lstlisting}
+
+After these steps, the application is available at \texttt{http:/\pbrk /\pbrk 127.0.0.1:8000/\pbrk }; the FastAPI process serves both the API and the static frontend, so no separate frontend build or server is required. \texttt{git lfs pull} must be run after cloning, before starting the API, because the vectorizer, classifier, and BERT weight files are stored through Git LFS rather than committed as ordinary blobs. This report's reproducibility claim is scoped to \emph{inference} using the already-frozen artifacts and to \emph{offline evaluation} via \texttt{scripts/\pbrk evaluate\_\pbrk current\_\pbrk models.py}; it does not claim that the BERT artifact's original fine-tuning process is reproduced from this repository state, since that training script belongs to a separate, historical part of the repository (Section~\ref{sec:runtime-boundary}).
+
+\label{sec:runtime-boundary}
+\paragraph{Current-system boundary.} The repository additionally retains earlier four-class gold-data, annotation, notebook, and BERT training modules under paths such as \texttt{src/\pbrk models/\pbrk bert/\pbrk }, \texttt{scripts/\pbrk models/\pbrk }, and \texttt{annotation/\pbrk }. These use different label schemes (including a \texttt{hard\_negative} label), different split sizes, and different artifact paths, and are historical research material. They are not used by the current frontend, backend, frozen split, or frozen models, and are excluded from this report's technical content and results.

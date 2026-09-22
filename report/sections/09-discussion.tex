@@ -1,0 +1,37 @@
+\chapter{Discussion}
+
+\section{Overall Comparison}
+
+On the frozen 195-sample evaluation set, BERT achieved higher overall accuracy and macro-F1 than TF-IDF + Logistic Regression, while TF-IDF + Logistic Regression produced a slightly higher F1 score for the implicit-crisis class specifically. Neither model is uniformly superior across every axis reported in Chapter~\ref{ch:results}: BERT leads on aggregate accuracy, macro metrics, no-crisis F1, and explicit-crisis F1; TF-IDF leads (marginally) on implicit-crisis F1 and is better calibrated relative to its own confidence. The correct framing of this project's central result is therefore comparative and class-conditional, not a single "which model wins" verdict.
+
+\section{TF-IDF Strengths}
+
+TF-IDF + Logistic Regression is markedly cheaper to run (sparse linear operations on CPU vs.\ a 12-layer transformer forward pass), produces a confidence distribution that is more spread out and, by ECE, somewhat closer to its own accuracy, and is not meaningfully behind BERT on the implicit-crisis class specifically. Its character-level representation also means it degrades gracefully on misspelled or non-standard text without any separate spelling-correction stage, since character n-grams remain partially matchable even under spelling variation.
+
+\section{BERT Strengths}
+
+BERT's advantage is concentrated in the classes with more explicit surface signal: it substantially outperforms TF-IDF on explicit-crisis F1 (84.66\% vs.\ 77.01\%) and reduces the specific error of misclassifying non-crisis text as explicit-crisis (5 of 53 vs.\ TF-IDF's 13 of 53). Its contextual representation appears to help most where the classification decision benefits from understanding the sentence as a whole, rather than from matching sub-word lexical patterns.
+
+\section{Implicit-Crisis Detection}
+
+Implicit-crisis is, by construction, the class where crisis intent is not stated directly, and it is the class both models handle worst relative to their own explicit-crisis performance (TF-IDF: 67.92\% vs.\ 77.01\%; BERT: 67.33\% vs.\ 84.66\%). That BERT's additional contextual modeling capacity does not translate into a clear implicit-crisis advantage over the much simpler TF-IDF baseline is the most notable finding of this comparison: it suggests that, at least on this 49-example test slice, the gap between implicit and explicit crisis language is not primarily a gap that more contextual representational power alone closes. This is consistent with implicit expression depending on pragmatic or situational inference that neither model's training signal may sufficiently capture, rather than a limitation specific to one representation.
+
+\section{Explicit-Crisis Detection}
+
+The explicit-crisis result is the cleanest evidence in this report that BERT's contextual representation provides a genuine advantage on this dataset: the gap (7.65 F1 points) is the largest of the three per-class gaps, is driven by improvements in both precision and recall, and appears on the largest of the three test classes (93 examples), giving it more statistical weight than the implicit-crisis comparison.
+
+\section{Confidence and Calibration}
+
+BERT's much higher mean confidence (94.60\% vs.\ 55.74\%) together with its higher ECE (0.1767 vs.\ 0.1554) is a specific and important combination: it means BERT is not simply "more confident because it is more accurate" — its confidence outpaces its accuracy by a wider margin than TF-IDF's confidence outpaces its accuracy. Any downstream use of these models' confidence scores (for example, to flag low-confidence predictions for human review) would need model-specific confidence thresholds, since a fixed threshold interpreted the same way for both models would not carry the same reliability guarantee for each.
+
+\section{Model Disagreement}
+
+The two models disagree on 24.1\% of test examples (47 of 195), and disagreement is not evenly distributed across correctness outcomes: BERT is uniquely correct on 26 examples where TF-IDF is wrong, while TF-IDF is uniquely correct on 15 examples where BERT is wrong. This asymmetry, combined with the existence of 30 examples both models get wrong, indicates that model disagreement, on its own, is not a reliable proxy for "the more sophisticated model must be right" --- in roughly a third of disagreement cases, the simpler lexical model is the one that gets the example correct.
+
+\section{Practical Interpretation}
+
+Taken together, these results support presenting both models' predictions side by side, as CrisisSense's frontend does, rather than treating either model in isolation as a ground-truth signal, and rather than combining them into a single ensemble score that would obscure exactly the class-conditional and confidence-conditional differences documented in Chapter~\ref{ch:results}. A practitioner interested specifically in implicit-crisis recall should not assume that deploying only the larger, higher-accuracy model is sufficient; the evidence here suggests the two models are close to interchangeable on that specific class.
+
+\section{What the Results Do and Do Not Show}
+
+These results show: (1) BERT's higher accuracy and macro-F1 on this specific 195-row test set; (2) an approximate tie between the two models on implicit-crisis F1 on this test set; (3) that BERT's much higher confidence is accompanied by somewhat worse calibration, not better; and (4) that model agreement does not imply correctness for either model. These results do \emph{not} show that BERT is unconditionally better than TF-IDF at implicit-crisis detection, that either model generalizes to different text domains or platforms beyond this dataset, that either model's confidence score can be used directly as a calibrated probability of correctness without further calibration work, or that either model is suitable for any form of individual-level clinical or risk assessment. Every quantitative claim in this report is scoped to the 195-sample frozen test set on which it was measured.
